@@ -164,7 +164,7 @@ class _LoginViewState extends State<LoginView> {
                         if (emailController.text != "" &&
                             passwordController.text != "") {
                           // Jika valid, arahkan ke halaman home
-                          Navigator.pushNamed(context, "/home");
+                          Navigator.pushNamed(context, "homePage");
                         } else {
                           // Jika tidak valid, tampilkan snackbar
                           ScaffoldMessenger.of(context).showSnackBar(
