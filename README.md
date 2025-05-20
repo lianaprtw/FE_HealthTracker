@@ -1,5 +1,16 @@
-Nama Kelompok 
-Enno Elisabeth Eklesia Lerebulan (42230004)
-Ni Kadek Liana Pratiwi (42230010)
-Ni Putu Likayuni Viona (42230025)
-I Gusti Nathan Agung Tanaka (42230038)
+# health_tracker
+
+A new Flutter project.
+
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
