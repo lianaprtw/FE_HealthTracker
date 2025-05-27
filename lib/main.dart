@@ -12,6 +12,7 @@ import 'package:health_tracker/views/home.dart';
 
 // Import package untuk native splash screen (layar pembuka saat aplikasi loading)
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:health_tracker/views/which_screen.dart';
 
 
 // Fungsi utama yang dijalankan pertama kali saat aplikasi dimulai
@@ -33,11 +34,10 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: whiteColor),
         useMaterial3: true, // Mengaktifkan fitur desain Material 3
       ),
-      home: const OnboardingView(), // Menentukan tampilan awal aplikasi saat dibuka
+      home: HealthTracker(), // Menentukan tampilan awal aplikasi saat dibuka
       routes: {
         'homePage': (context) => const HomePage(), // Menentukan rute untuk halaman utama
       },
     );
   }
 }
- 

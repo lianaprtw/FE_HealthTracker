@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:health_trecker/homepage_trainner.dart';
+import 'package:health_tracker/views/onboarding.dart';
+import 'package:health_tracker/views/onboarding_trainer.dart';
 
 void main() => runApp(HealthTracker());
 
@@ -15,7 +16,7 @@ class HealthTracker extends StatelessWidget {
 }
 
 class RoleSelectionScreen extends StatelessWidget {
-  final Color blueColor = Color(0xFF3742FA);
+  final Color blueColor = Color.fromARGB(15, 47, 93, 243);
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +25,6 @@ class RoleSelectionScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.home, color: blueColor),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            },
-          ),
-        ],
       ),
       body: SafeArea(
         child: Column(
@@ -68,7 +58,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomePage(),
+                            builder: (context) => OnboardingScreen(),
                           ),
                         );
                       },
@@ -89,7 +79,14 @@ class RoleSelectionScreen extends StatelessWidget {
                   SizedBox(width: 16),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OnboardingView(),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         padding: EdgeInsets.symmetric(vertical: 16),
