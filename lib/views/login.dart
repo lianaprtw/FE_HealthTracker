@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart'; // Mengimpor pustaka UI Flutter
 import 'package:health_tracker/utils/colors.dart'; // Mengimpor warna-warna kustom
+import 'package:health_tracker/views/home.dart';
+import 'package:health_tracker/views/homepage_trainner.dart';
 import 'package:health_tracker/views/register.dart'; // Mengimpor halaman Register
 
 // Widget login yang bersifat Stateful karena akan ada perubahan pada UI (misal toggle password)
@@ -164,7 +166,8 @@ class _LoginViewState extends State<LoginView> {
                         if (emailController.text != "" &&
                             passwordController.text != "") {
                           // Jika valid, arahkan ke halaman home
-                          Navigator.pushNamed(context, "homePage");
+                          Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => HomePage()));
                         } else {
                           // Jika tidak valid, tampilkan snackbar
                           ScaffoldMessenger.of(context).showSnackBar(

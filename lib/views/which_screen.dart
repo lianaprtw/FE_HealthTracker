@@ -16,7 +16,7 @@ class HealthTracker extends StatelessWidget {
 }
 
 class RoleSelectionScreen extends StatelessWidget {
-  final Color blueColor = Color.fromARGB(15, 47, 93, 243);
+  final Color blueColor = Color(0xFF3742FA);
 
   @override
   Widget build(BuildContext context) {

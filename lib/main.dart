@@ -35,9 +35,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true, // Mengaktifkan fitur desain Material 3
       ),
       home: HealthTracker(), // Menentukan tampilan awal aplikasi saat dibuka
-      routes: {
-        'homePage': (context) => const HomePage(), // Menentukan rute untuk halaman utama
-      },
+      // routes: {
+      //   'homePage': (context) => const HomePage(), // Menentukan rute untuk halaman utama
+      // },
     );
   }
 }

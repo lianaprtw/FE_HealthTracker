@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomepageTrainner extends StatelessWidget {
   final Color blueColor = Color(0xFF3742FA);
 
   @override
