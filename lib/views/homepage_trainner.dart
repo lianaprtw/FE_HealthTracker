@@ -1,24 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker/views/Profile_Trainner.dart';
 
 class HomepageTrainner extends StatelessWidget {
-  final Color blueColor = Color(0xFF3742FA);
+  final Color blueColor = const Color(0xFF3742FA);
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 0,
         selectedItemColor: blueColor,
         unselectedItemColor: Colors.grey,
-        items: [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            );
+          }
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -34,10 +45,11 @@ class HomepageTrainner extends StatelessWidget {
                       color: blueColor,
                     ),
                   ),
-                  Icon(Icons.notifications_none_rounded, size: 28),
+                  const Icon(Icons.notifications_none_rounded, size: 28),
                 ],
               ),
               const SizedBox(height: 20),
+
               // Blue card
               Container(
                 width: double.infinity,
@@ -48,13 +60,19 @@ class HomepageTrainner extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    // Ilustrasi gambar
-                    Image.asset(
-                      'assets/calendar_illustration.png', // Pastikan kamu punya file ini
-                      height: 80,
+                    SizedBox(
+                      width: screenWidth * 0.2,
+                      child: Image.asset(
+                        'images/callender.jpg',
+                        fit: BoxFit.contain,
+                        errorBuilder:
+                            (context, error, stackTrace) => const Icon(
+                              Icons.image_not_supported,
+                              color: Colors.white,
+                            ),
+                      ),
                     ),
-                    const SizedBox(width: 12),
-                    // Text
+                    const SizedBox(width: 16),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,20 +97,22 @@ class HomepageTrainner extends StatelessWidget {
                                   fontWeight: FontWeight.w400,
                                 ),
                               ),
-                              Container(
+                              const SizedBox(
                                 width: 40,
                                 height: 2,
-                                color: Colors.white,
-                              )
+                                child: ColoredBox(color: Colors.white),
+                              ),
                             ],
                           ),
                         ],
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
-              // Kamu bisa tambahkan konten lain di bawahnya
+
+              const SizedBox(height: 20),
+              // Add more content here
             ],
           ),
         ),
