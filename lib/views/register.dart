@@ -199,9 +199,9 @@ class _RegisterViewState extends State<RegisterView> {
           Text(
             label,
             style: TextStyle(
-              fontFamily: "PoppinsRegular",
+              fontFamily: "PoppinsMedium",
               fontSize: 14,
-              color: grayColor,
+              color: darkGrayColor,
             ),
           ),
           const SizedBox(height: 5),
