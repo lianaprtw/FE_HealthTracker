@@ -1,6 +1,7 @@
 // Import library Flutter dan file warna kustom
 import 'package:flutter/material.dart';
 import 'package:health_tracker/utils/colors.dart';
+import 'package:health_tracker/views/login.dart';
 
 // Widget utama untuk halaman registrasi
 class RegisterView extends StatefulWidget {
@@ -117,7 +118,10 @@ class _RegisterViewState extends State<RegisterView> {
                       onTap: () {
                         if (_validateFields()) {
                           // Jika valid, navigasi ke halaman beranda
-                          Navigator.pushNamed(context, "/home");
+                          Navigator.push(
+                            context,
+                             MaterialPageRoute(builder: (context) => LoginView()),
+                             );
                         } else {
                           // Jika tidak valid, tampilkan pesan kesalahan
                           ScaffoldMessenger.of(context).showSnackBar(
