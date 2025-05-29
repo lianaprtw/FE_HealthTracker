@@ -9,15 +9,15 @@ import 'package:health_tracker/views/onboarding.dart';
 
 import 'package:health_tracker/views/home.dart';
 
-
 // Import package untuk native splash screen (layar pembuka saat aplikasi loading)
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:health_tracker/views/which_screen.dart';
 
-
 // Fungsi utama yang dijalankan pertama kali saat aplikasi dimulai
 void main() {
-  runApp(const MyApp()); // Menjalankan aplikasi dengan widget MyApp sebagai root
+  runApp(
+    const MyApp(),
+  ); // Menjalankan aplikasi dengan widget MyApp sebagai root
 }
 
 // Widget utama aplikasi (root widget)
@@ -27,17 +27,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Menghilangkan banner 'debug' di pojok kanan atas
+      debugShowCheckedModeBanner:
+          false, // Menghilangkan banner 'debug' di pojok kanan atas
       title: 'Health Tracker', // Judul aplikasi
       theme: ThemeData(
         // Menetapkan skema warna aplikasi berdasarkan warna utama (seedColor)
         colorScheme: ColorScheme.fromSeed(seedColor: whiteColor),
         useMaterial3: true, // Mengaktifkan fitur desain Material 3
       ),
-      home: HealthTracker(), // Menentukan tampilan awal aplikasi saat dibuka
-      // routes: {
-      //   'homePage': (context) => const HomePage(), // Menentukan rute untuk halaman utama
-      // },
+      home: WhichScreen(), // Menentukan tampilan awal aplikasi saat dibuka
+      routes: {
+        'homePage':
+            (context) =>
+                const HomePage(), // Menentukan rute untuk halaman utama
+      },
     );
   }
 }

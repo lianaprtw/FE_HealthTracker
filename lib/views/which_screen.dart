@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:health_tracker/views/onboarding.dart';
 import 'package:health_tracker/views/onboarding_trainer.dart';
 
-void main() => runApp(HealthTracker());
+void main() => runApp(WhichScreen());
 
-class HealthTracker extends StatelessWidget {
+class WhichScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -22,10 +22,7 @@ class RoleSelectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
+      appBar: AppBar(backgroundColor: Colors.white, elevation: 0),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,10 +37,7 @@ class RoleSelectionScreen extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Image.asset(
-              'assets/which_one.png',
-              height: 250,
-            ),
+            Image.asset('images/which_one.png', height: 500),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 32.0,
