@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker/views/Profile_Trainner.dart';
 
 class HomepageTrainner extends StatelessWidget {
   final Color blueColor = const Color(0xFF3742FA);
@@ -13,9 +14,17 @@ class HomepageTrainner extends StatelessWidget {
         currentIndex: 0,
         selectedItemColor: blueColor,
         unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          if (index == 1) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ProfilePage()),
+            );
+          }
+        },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
       ),
       body: SafeArea(
@@ -41,7 +50,7 @@ class HomepageTrainner extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              // Blue card with image & text
+              // Blue card
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(16),
@@ -51,11 +60,10 @@ class HomepageTrainner extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    // Illustration (wrap with Flexible or SizedBox)
                     SizedBox(
                       width: screenWidth * 0.2,
                       child: Image.asset(
-                        'assets/calendar_illustration.png',
+                        'images/callender.jpg',
                         fit: BoxFit.contain,
                         errorBuilder:
                             (context, error, stackTrace) => const Icon(
@@ -65,8 +73,6 @@ class HomepageTrainner extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 16),
-
-                    // Text Column
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +112,7 @@ class HomepageTrainner extends StatelessWidget {
               ),
 
               const SizedBox(height: 20),
-              // Tambah konten lain di sini
+              // Add more content here
             ],
           ),
         ),
