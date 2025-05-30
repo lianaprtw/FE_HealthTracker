@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker/utils/colors.dart';
 import 'package:health_tracker/views/onboarding.dart';
 import 'package:health_tracker/views/onboarding_trainer.dart';
 
@@ -21,8 +22,8 @@ class RoleSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(backgroundColor: Colors.white, elevation: 0),
+      backgroundColor: whiteColor,
+      appBar: AppBar(backgroundColor: whiteColor, elevation: 0),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -33,8 +34,9 @@ class RoleSelectionScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: blueColor,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
+                fontFamily: 'PoppinsBold',
+                fontSize: 40,
+                // fontWeight: FontWeight.bold,
               ),
             ),
             Image.asset('images/which_one.png', height: 500),
@@ -66,7 +68,10 @@ class RoleSelectionScreen extends StatelessWidget {
                       ),
                       child: Text(
                         'Trainer',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        style: TextStyle(
+                          color: whiteColor,
+                          fontFamily: 'PoppinsSemiBold', 
+                          fontSize: 20),
                       ),
                     ),
                   ),
@@ -92,7 +97,10 @@ class RoleSelectionScreen extends StatelessWidget {
                       ),
                       child: Text(
                         'Trainee',
-                        style: TextStyle(color: blueColor, fontSize: 16),
+                        style: TextStyle(
+                          color: blueColor,
+                          fontFamily: 'PoppinsSemiBold', 
+                          fontSize: 20),
                       ),
                     ),
                   ),

@@ -61,9 +61,9 @@ class _LoginViewState extends State<LoginView> {
                         Text(
                           "Email",
                           style: TextStyle(
-                            fontFamily: "PoppinsRegular",
+                            fontFamily: "PoppinsMedium",
                             fontSize: 14,
-                            color: grayColor,
+                            color: darkGrayColor,
                           ),
                         ),
                         const SizedBox(height: 5),
@@ -115,9 +115,9 @@ class _LoginViewState extends State<LoginView> {
                         Text(
                           "Password",
                           style: TextStyle(
-                            fontFamily: "PoppinsRegular",
+                            fontFamily: "PoppinsMedium",
                             fontSize: 14,
-                            color: grayColor,
+                            color: darkGrayColor,
                           ),
                         ),
                         const SizedBox(height: 5),

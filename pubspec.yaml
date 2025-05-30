@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   flutter_native_splash: ^2.4.6
   table_calendar: ^3.2.0
+  fl_chart: ^1.0.0
+  intl: ^0.18.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -82,6 +84,9 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: PoppinsBold
+      fonts:
+        - asset: assets/fonts/Poppins-Bold.ttf
     - family: PoppinsSemiBold
       fonts:
         - asset: assets/fonts/Poppins-SemiBold.ttf

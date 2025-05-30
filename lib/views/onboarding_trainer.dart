@@ -76,7 +76,7 @@ class OnboardingScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Tombol Login
+                        // Tombol Login (dengan ButtonStyle)
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
@@ -87,14 +87,24 @@ class OnboardingScreen extends StatelessWidget {
                                 ),
                               );
                             },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white,
-                              foregroundColor: Colors.black87,
-                              shadowColor: Colors.grey.shade400,
-                              elevation: 4,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                                side: const BorderSide(color: Colors.black12),
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.white),
+                              foregroundColor: MaterialStateProperty.all(Colors.black87),
+                              shadowColor: MaterialStateProperty.all(Colors.grey.shade400),
+                              elevation: MaterialStateProperty.all(4),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12),
+                                  side: const BorderSide(color: Colors.black12),
+                                ),
+                              ),
+                              overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                                (states) {
+                                  if (states.contains(MaterialState.pressed)) {
+                                    return Colors.grey[300];
+                                  }
+                                  return null;
+                                },
                               ),
                             ),
                             child: const Padding(
@@ -112,7 +122,7 @@ class OnboardingScreen extends StatelessWidget {
 
                         const SizedBox(width: 20),
 
-                        // Tombol Sign Up
+                        // Tombol Sign Up (tetap pakai styleFrom, sudah aman)
                         Expanded(
                           child: ElevatedButton(
                             onPressed: () {
