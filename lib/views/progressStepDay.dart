@@ -183,7 +183,7 @@ class _ProgressStepDayPageState extends State<ProgressStepDayPage> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.chevron_left),
+                    icon: Icon(Icons.arrow_back, color: Colors.black),
                     onPressed: () {
                       Navigator.pop(context, MaterialPageRoute(builder: (context) => HomePage()));
                     },
@@ -229,7 +229,7 @@ class _ProgressStepDayPageState extends State<ProgressStepDayPage> {
                                 Text(
                                   option,
                                   style: TextStyle(
-                                    color: isSelected ? Colors.white : Colors.black,
+                                    color: isSelected ? Colors.white : Colors.black, fontFamily: "PoppinsMedium",
                                     fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                                   ),
                                 ),
