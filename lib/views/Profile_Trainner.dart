@@ -3,7 +3,11 @@ import 'package:health_tracker/views/homepage_trainner.dart';
 import 'package:health_tracker/views/logintrainer.dart';
 
 class ProfilePage extends StatelessWidget {
-  final Color primaryColor = Color(0xFF3742FA);
+  final Color primaryColor = const Color(0xFF3742FA);
+
+  // Tambahkan variabel username dan age
+  final String username = 'bambang_fit';
+  final int age = 28;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class ProfilePage extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 24),
-            Text(
+            const Text(
               "Profile",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
@@ -39,7 +43,7 @@ class ProfilePage extends StatelessWidget {
             CircleAvatar(
               radius: 50,
               backgroundColor: primaryColor,
-              child: CircleAvatar(
+              child: const CircleAvatar(
                 radius: 47,
                 backgroundImage: AssetImage(
                   'images/avatar.jpg',
@@ -47,10 +51,33 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 12),
-            Text(
+            const Text(
               "Bambang",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
             ),
+
+            // Username
+            const SizedBox(height: 8),
+            Text(
+              '@$username',
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: Colors.black54,
+              ),
+            ),
+
+            // Age
+            const SizedBox(height: 4),
+            Text(
+              'Age: $age',
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: Colors.black54,
+              ),
+            ),
+
             const SizedBox(height: 32),
 
             // Language
@@ -78,7 +105,7 @@ class ProfilePage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => LoginPage()),
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
                   ); // Aksi logout
                 },
                 icon: const Icon(Icons.logout, color: Colors.white),
@@ -87,8 +114,7 @@ class ProfilePage extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:
-                      primaryColor, // pastikan primaryColor = Color(0xFF3742FA)
+                  backgroundColor: primaryColor,
                   minimumSize: const Size(double.infinity, 50),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
@@ -127,10 +153,13 @@ class ProfilePage extends StatelessWidget {
               Expanded(
                 child: Text(
                   text,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
-              Icon(
+              const Icon(
                 Icons.arrow_forward_ios_rounded,
                 size: 16,
                 color: Colors.black,

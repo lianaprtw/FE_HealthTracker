@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:health_tracker/views/Profile_Trainner.dart';
+import 'package:health_tracker/views/calender.dart'; // Import calendar page
 
 class HomepageTrainner extends StatelessWidget {
   final Color blueColor = const Color(0xFF3742FA);
+
+  // Tambahkan variabel username dan age
+  final String username = 'bambang';
+  final int age = 28;
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +43,38 @@ class HomepageTrainner extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "WHAT’S UP MAN !",
+                    "WHAT’S UP $username !",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
                       color: blueColor,
                     ),
                   ),
-                  const Icon(Icons.notifications_none_rounded, size: 28),
+                  InkWell(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text('Notifications'),
+                            content: const Text(
+                              'You have no new notifications.',
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    child: const Icon(
+                      Icons.notifications_none_rounded,
+                      size: 28,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 20),
@@ -60,10 +89,11 @@ class HomepageTrainner extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
+                    // Gambar di sebelah kiri
                     SizedBox(
-                      width: screenWidth * 0.2,
+                      width: screenWidth * 0.5,
                       child: Image.asset(
-                        'images/callender.jpg',
+                        'images/callender.png',
                         fit: BoxFit.contain,
                         errorBuilder:
                             (context, error, stackTrace) => const Icon(
@@ -73,36 +103,47 @@ class HomepageTrainner extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 16),
+                    // Teks di sebelah kanan (rata kanan)
                     Expanded(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          Text(
+                          const Text(
                             'Your schedule\nfor today',
+                            textAlign: TextAlign.right,
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 14,
+                              fontSize: 18,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
-                          const SizedBox(height: 8),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Show More',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
+                          const SizedBox(height: 12),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder:
+                                      (context) => CalendarPage(
+                                        username: username,
+                                        age: age,
+                                      ),
                                 ),
-                              ),
-                              const SizedBox(
-                                width: 40,
-                                height: 2,
-                                child: ColoredBox(color: Colors.white),
-                              ),
-                            ],
+                              );
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                const Text(
+                                  'Show More\n _________',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -112,7 +153,7 @@ class HomepageTrainner extends StatelessWidget {
               ),
 
               const SizedBox(height: 20),
-              // Add more content here
+              // Tambahkan konten lainnya di sini
             ],
           ),
         ),

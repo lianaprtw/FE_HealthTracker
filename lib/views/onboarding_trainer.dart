@@ -96,14 +96,6 @@ class OnboardingScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(12),
                                 side: const BorderSide(color: Colors.black12),
                               ),
-                              overlayColor: MaterialStateProperty.resolveWith<
-                                Color?
-                              >((Set<MaterialState> states) {
-                                if (states.contains(MaterialState.pressed)) {
-                                  return Colors.grey[300]; // Saat ditekan
-                                }
-                                return null;
-                              }),
                             ),
                             child: const Padding(
                               padding: EdgeInsets.symmetric(vertical: 14),
