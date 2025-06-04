@@ -26,7 +26,6 @@ class OnboardingScreen extends StatelessWidget {
                     width: 371,
                     height: 428,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 1),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: ClipRRect(
@@ -67,7 +66,6 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 48),
 
                   // Tombol Login dan Sign Up dalam satu baris
@@ -88,24 +86,31 @@ class OnboardingScreen extends StatelessWidget {
                               );
                             },
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(Colors.white),
-                              foregroundColor: MaterialStateProperty.all(Colors.black87),
-                              shadowColor: MaterialStateProperty.all(Colors.grey.shade400),
-                              elevation: MaterialStateProperty.all(4),
-                              shape: MaterialStateProperty.all(
+                              backgroundColor: WidgetStateProperty.all(
+                                Color(0xFF3742FA),
+                              ),
+                              foregroundColor: WidgetStateProperty.all(
+                                Colors.white,
+                              ),
+                              shadowColor: WidgetStateProperty.all(
+                                Colors.grey.shade400,
+                              ),
+                              elevation: WidgetStateProperty.all(4),
+                              shape: WidgetStateProperty.all(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
                                   side: const BorderSide(color: Colors.black12),
                                 ),
                               ),
-                              overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                                (states) {
-                                  if (states.contains(MaterialState.pressed)) {
-                                    return Colors.grey[300];
-                                  }
-                                  return null;
-                                },
-                              ),
+                              overlayColor:
+                                  WidgetStateProperty.resolveWith<Color?>((
+                                    states,
+                                  ) {
+                                    if (states.contains(WidgetState.pressed)) {
+                                      return Colors.grey[300];
+                                    }
+                                    return null;
+                                  }),
                             ),
                             child: const Padding(
                               padding: EdgeInsets.symmetric(vertical: 14),
