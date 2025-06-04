@@ -190,7 +190,7 @@ class HomepageTrainner extends StatelessWidget {
                                 vertical: 8,
                               ),
                               decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: Color(0xFF152B78),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Row(
@@ -206,11 +206,17 @@ class HomepageTrainner extends StatelessWidget {
                                   Expanded(
                                     child: Text(
                                       name,
-                                      style: const TextStyle(fontSize: 16),
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        color: Color(0xFFF1F4FF),
+                                      ),
                                     ),
                                   ),
                                   IconButton(
-                                    icon: const Icon(Icons.chat_bubble_outline),
+                                    icon: const Icon(
+                                      Icons.chat_bubble_outline,
+                                      color: Color(0xFFF1F4FF),
+                                    ),
                                     onPressed: () {
                                       // Handle chat
                                     },
