@@ -1,38 +1,39 @@
 // Import pustaka Flutter utama untuk membangun UI
 import 'package:flutter/material.dart';
-
 // Import file warna kustom dari proyek
 import 'package:health_tracker/utils/colors.dart';
+// Import halaman kalender
+import 'package:health_tracker/views/calender.dart';
+// Import tampilan home page
+import 'package:health_tracker/views/home.dart';
+// Import tampilan yang menentukan screen mana yang dibuka pertama kali
+import 'package:health_tracker/views/which_screen.dart';
 
-// Import tampilan onboarding (halaman pertama yang ditampilkan saat app dibuka)
-import 'package:health_tracker/views/onboarding.dart';
-
-// Import package untuk native splash screen (layar pembuka saat aplikasi loading)
-import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:health_tracker/views/profile.dart';
-
-
-// Fungsi utama yang dijalankan pertama kali saat aplikasi dimulai
 void main() {
-  runApp(const MyApp()); // Menjalankan aplikasi dengan widget MyApp sebagai root
+  runApp(const MyApp());
 }
 
-// Widget utama aplikasi (root widget)
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Menghilangkan banner 'debug' di pojok kanan atas
+      debugShowCheckedModeBanner: false, // Hilangkan banner 'debug'
       title: 'Health Tracker', // Judul aplikasi
       theme: ThemeData(
-        // Menetapkan skema warna aplikasi berdasarkan warna utama (seedColor)
         colorScheme: ColorScheme.fromSeed(seedColor: whiteColor),
-        useMaterial3: true, // Mengaktifkan fitur desain Material 3
+        useMaterial3: true,
       ),
-      home:  ProfilePage(), // Menentukan tampilan awal aplikasi saat dibuka
+      home: WhichScreen(), // Halaman pertama yang ditampilkan
+      routes: {
+        'homePage': (context) => const HomePage(),
+        'calendarPage':
+            (context) => const CalendarPage(
+              username: 'guest', // Placeholder data (nanti bisa diubah dinamis)
+              age: 0, // Placeholder data
+            ),
+      },
     );
   }
 }
- 

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:health_tracker/views/homepage_trainner.dart';
+import 'package:health_tracker/views/registertrainer.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -129,7 +131,12 @@ class _LoginPageState extends State<LoginPage> {
                     height: 60,
                     child: ElevatedButton(
                       onPressed: () {
-                        // TODO: Login action
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HomepageTrainner(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF3366FF),
@@ -152,6 +159,39 @@ class _LoginPageState extends State<LoginPage> {
                   ),
 
                   const SizedBox(height: 30),
+
+                  // Tombol Sign Up untuk navigasi ke RegisterPage
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Don't have an account? ",
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          color: Color(0xFF8C8C8C),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterPage(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "Sign Up",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            color: Color(0xFF4A4AFF),
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
