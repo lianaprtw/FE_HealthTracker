@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:health_trecker/homepage_trainner.dart';
+import 'package:health_tracker/utils/colors.dart';
+import 'package:health_tracker/views/onboarding.dart';
+import 'package:health_tracker/views/onboarding_trainer.dart';
 
-void main() => runApp(HealthTracker());
+void main() => runApp(WhichScreen());
 
-class HealthTracker extends StatelessWidget {
+class WhichScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,22 +22,8 @@ class RoleSelectionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.home, color: blueColor),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomePage()),
-              );
-            },
-          ),
-        ],
-      ),
+      backgroundColor: whiteColor,
+      appBar: AppBar(backgroundColor: whiteColor, elevation: 0),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,14 +34,12 @@ class RoleSelectionScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: blueColor,
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
+                fontFamily: 'PoppinsBold',
+                fontSize: 40,
+                // fontWeight: FontWeight.bold,
               ),
             ),
-            Image.asset(
-              'assets/which_one.png',
-              height: 250,
-            ),
+            Image.asset('images/which_one.png', height: 500),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 32.0,
@@ -68,7 +54,7 @@ class RoleSelectionScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomePage(),
+                            builder: (context) => OnboardingScreen(),
                           ),
                         );
                       },
@@ -82,14 +68,24 @@ class RoleSelectionScreen extends StatelessWidget {
                       ),
                       child: Text(
                         'Trainer',
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+                        style: TextStyle(
+                          color: whiteColor,
+                          fontFamily: 'PoppinsSemiBold', 
+                          fontSize: 20),
                       ),
                     ),
                   ),
                   SizedBox(width: 16),
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => OnboardingView(),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         padding: EdgeInsets.symmetric(vertical: 16),
@@ -101,7 +97,10 @@ class RoleSelectionScreen extends StatelessWidget {
                       ),
                       child: Text(
                         'Trainee',
-                        style: TextStyle(color: blueColor, fontSize: 16),
+                        style: TextStyle(
+                          color: blueColor,
+                          fontFamily: 'PoppinsSemiBold', 
+                          fontSize: 20),
                       ),
                     ),
                   ),

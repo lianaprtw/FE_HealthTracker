@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker/views/logintrainer.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -54,7 +55,7 @@ class RegisterPage extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: 'Enter your full name',
                   filled: true,
-                  fillColor: Color(0xFFF2F4FF),
+                  fillColor: const Color(0xFFF2F4FF),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none,
@@ -81,7 +82,7 @@ class RegisterPage extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: 'Enter your email',
                   filled: true,
-                  fillColor: Color(0xFFF2F4FF),
+                  fillColor: const Color(0xFFF2F4FF),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none,
@@ -95,7 +96,7 @@ class RegisterPage extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Confirm Password',
+                  'Password',
                   style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w300,
@@ -109,8 +110,8 @@ class RegisterPage extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: 'Enter your password',
                   filled: true,
-                  fillColor: Color(0xFFF2F4FF),
-                  suffixIcon: Icon(Icons.visibility),
+                  fillColor: const Color(0xFFF2F4FF),
+                  suffixIcon: const Icon(Icons.visibility),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none,
@@ -138,8 +139,8 @@ class RegisterPage extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: 'Enter your confirm password',
                   filled: true,
-                  fillColor: Color(0xFFF2F4FF),
-                  suffixIcon: Icon(Icons.visibility),
+                  fillColor: const Color(0xFFF2F4FF),
+                  suffixIcon: const Icon(Icons.visibility),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide.none,
@@ -149,19 +150,25 @@ class RegisterPage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
 
-              // Sign Up Button
+              // Sign Up Button (dengan kontras warna yang diperbaiki)
               SizedBox(
                 width: double.infinity,
                 height: 48,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(0xFF3742FA),
+                    backgroundColor: const Color(0xFF3742FA), // biru gelap
+                    foregroundColor: Colors.white, // teks putih kontras
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                   onPressed: () {
-                    // Proses registrasi
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoginPage(),
+                      ),
+                    );
                   },
                   child: const Text(
                     'Sign up',
@@ -188,7 +195,12 @@ class RegisterPage extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Navigasi ke halaman Login
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginPage(),
+                        ),
+                      );
                     },
                     child: const Text(
                       "Sign In",

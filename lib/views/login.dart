@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart'; // Mengimpor pustaka UI Flutter
 import 'package:health_tracker/utils/colors.dart'; // Mengimpor warna-warna kustom
+import 'package:health_tracker/views/home.dart';
 import 'package:health_tracker/views/register.dart'; // Mengimpor halaman Register
 
 // Widget login yang bersifat Stateful karena akan ada perubahan pada UI (misal toggle password)
@@ -60,9 +61,9 @@ class _LoginViewState extends State<LoginView> {
                         Text(
                           "Email",
                           style: TextStyle(
-                            fontFamily: "PoppinsRegular",
+                            fontFamily: "PoppinsMedium",
                             fontSize: 14,
-                            color: grayColor,
+                            color: darkGrayColor,
                           ),
                         ),
                         const SizedBox(height: 5),
@@ -78,10 +79,18 @@ class _LoginViewState extends State<LoginView> {
                           ),
                           decoration: InputDecoration(
                             contentPadding: const EdgeInsets.symmetric(
-                                vertical: 13.5, horizontal: 16),
+                              vertical: 13.5,
+                              horizontal: 16,
+                            ),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(4)),
-                                borderSide: const BorderSide(width: 0, style: BorderStyle.none)),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(4),
+                              ),
+                              borderSide: const BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
+                            ),
                             hintText: "Enter your email",
                             hintStyle: TextStyle(
                               fontSize: 14,
@@ -91,8 +100,13 @@ class _LoginViewState extends State<LoginView> {
                             filled: true,
                             fillColor: youngBlueColor,
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(4)),
-                              borderSide: BorderSide(color: blueColor, width: 2.0),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(4),
+                              ),
+                              borderSide: BorderSide(
+                                color: blueColor,
+                                width: 2.0,
+                              ),
                             ),
                           ),
                         ),
@@ -101,9 +115,9 @@ class _LoginViewState extends State<LoginView> {
                         Text(
                           "Password",
                           style: TextStyle(
-                            fontFamily: "PoppinsRegular",
+                            fontFamily: "PoppinsMedium",
                             fontSize: 14,
-                            color: grayColor,
+                            color: darkGrayColor,
                           ),
                         ),
                         const SizedBox(height: 5),
@@ -113,7 +127,8 @@ class _LoginViewState extends State<LoginView> {
                             setState(() {});
                           },
                           controller: passwordController,
-                          obscureText: isHide, // Menyembunyikan password saat diketik
+                          obscureText:
+                              isHide, // Menyembunyikan password saat diketik
                           style: TextStyle(
                             fontSize: 14,
                             fontFamily: "PoppinsRegular",
@@ -121,23 +136,33 @@ class _LoginViewState extends State<LoginView> {
                           decoration: InputDecoration(
                             // Tombol icon untuk toggle password visibility
                             suffixIcon: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    isHide = !isHide; // Toggle sembunyi/tampilkan password
-                                  });
-                                },
-                                icon: Icon(
-                                  isHide
-                                      ? Icons.remove_red_eye
-                                      : Icons.remove_red_eye_outlined,
-                                  size: 18,
-                                  color: grayColor,
-                                )),
+                              onPressed: () {
+                                setState(() {
+                                  isHide =
+                                      !isHide; // Toggle sembunyi/tampilkan password
+                                });
+                              },
+                              icon: Icon(
+                                isHide
+                                    ? Icons.remove_red_eye
+                                    : Icons.remove_red_eye_outlined,
+                                size: 18,
+                                color: grayColor,
+                              ),
+                            ),
                             contentPadding: const EdgeInsets.symmetric(
-                                vertical: 13.5, horizontal: 16),
+                              vertical: 13.5,
+                              horizontal: 16,
+                            ),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(4)),
-                                borderSide: const BorderSide(width: 0, style: BorderStyle.none)),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(4),
+                              ),
+                              borderSide: const BorderSide(
+                                width: 0,
+                                style: BorderStyle.none,
+                              ),
+                            ),
                             hintText: "Enter your password",
                             hintStyle: TextStyle(
                               fontSize: 14,
@@ -147,15 +172,22 @@ class _LoginViewState extends State<LoginView> {
                             filled: true,
                             fillColor: youngBlueColor,
                             focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(4)),
-                              borderSide: BorderSide(color: blueColor, width: 2.0),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(4),
+                              ),
+                              borderSide: BorderSide(
+                                color: blueColor,
+                                width: 2.0,
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 80), // Jarak antara form dan tombol login
+                  const SizedBox(
+                    height: 80,
+                  ), // Jarak antara form dan tombol login
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: GestureDetector(
@@ -164,7 +196,10 @@ class _LoginViewState extends State<LoginView> {
                         if (emailController.text != "" &&
                             passwordController.text != "") {
                           // Jika valid, arahkan ke halaman home
-                          Navigator.pushNamed(context, "homePage");
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
                         } else {
                           // Jika tidak valid, tampilkan snackbar
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -180,10 +215,11 @@ class _LoginViewState extends State<LoginView> {
                         padding: EdgeInsets.symmetric(vertical: 13.5),
                         decoration: BoxDecoration(
                           // Mengatur warna tombol tergantung apakah field terisi atau tidak
-                          color: emailController.text != "" &&
-                                  passwordController.text != ""
-                              ? blueColor
-                              : blueColor.withOpacity(0.28),
+                          color:
+                              emailController.text != "" &&
+                                      passwordController.text != ""
+                                  ? blueColor
+                                  : blueColor.withOpacity(0.28),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
@@ -284,8 +320,10 @@ class _LoginViewState extends State<LoginView> {
                 GestureDetector(
                   onTap: () {
                     // Arahkan ke halaman register
-                    Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RegisterView()));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => RegisterView()),
+                    );
                   },
                   child: Text(
                     "Sign Up Now",
