@@ -8,7 +8,7 @@
 # yang di kerjakan bagian perorang
 
 1. Liana : bagian ui onboarding trainee, login trainee, regist trainee, splash screen
-2. Enno : home page trainee
+2. Enno : home page trainee, profil trainee
 3. Lika : onboarding trainerrr, login trainerrr
 4. Nathan : which screen, home page traineerrre
 
