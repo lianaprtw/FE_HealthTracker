@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker/views/daily_activity_screen.dart';
 import 'package:health_tracker/views/progressStepDay.dart';
 
 class HomePage extends StatefulWidget {
@@ -132,7 +133,14 @@ class _HomePageState extends State<HomePage> {
                             ),
                           ),
                           TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => DailyActivityScreen(),
+                                ),
+                              );
+                            },
                             child: Text(
                               'View History',
                               style: TextStyle(
