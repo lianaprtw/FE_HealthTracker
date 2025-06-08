@@ -3,9 +3,12 @@ import 'package:intl/intl.dart';
 
 // Definisi warna kustom yang digunakan dalam aplikasi.
 const Color blueColor = Color(0xFF3D5AFE); // Warna biru utama untuk elemen UI.
-const Color darkBlueColor = Color(0xFF152B78); // Warna biru tua untuk teks dan ikon.
-const Color lightBlueColor = Color(0xFFE8EDFF); // Warna biru muda untuk latar belakang input.
-
+const Color darkBlueColor = Color(
+  0xFF152B78,
+); // Warna biru tua untuk teks dan ikon.
+const Color lightBlueColor = Color(
+  0xFFE8EDFF,
+); // Warna biru muda untuk latar belakang input.
 
 /// [DailyActivityScreen] adalah StatefulWidget yang menampilkan dan mengelola daftar aktivitas harian.
 /// Ini memungkinkan pengguna untuk melihat, menambah, mengedit, dan menghapus aktivitas.
@@ -53,7 +56,8 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
       case 'Yoga':
         return Icons.self_improvement;
       default:
-        return Icons.fitness_center; // Ikon default jika aktivitas tidak dikenal.
+        return Icons
+            .fitness_center; // Ikon default jika aktivitas tidak dikenal.
     }
   }
 
@@ -62,11 +66,21 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
   /// [editIndex]: Indeks aktivitas dalam daftar jika sedang dalam mode edit (null jika menambahkan).
   void _showActivityDialog({Activity? activityToEdit, int? editIndex}) {
     // Inisialisasi TextEditingController dengan data aktivitas yang akan diedit, jika ada.
-    final dateController = TextEditingController(text: activityToEdit?.date ?? '');
-    final timeController = TextEditingController(text: activityToEdit?.time ?? '');
-    final activityController = TextEditingController(text: activityToEdit?.activity ?? '');
-    final placeController = TextEditingController(text: activityToEdit?.location ?? '');
-    final trainerController = TextEditingController(text: activityToEdit?.trainer ?? '');
+    final dateController = TextEditingController(
+      text: activityToEdit?.date ?? '',
+    );
+    final timeController = TextEditingController(
+      text: activityToEdit?.time ?? '',
+    );
+    final activityController = TextEditingController(
+      text: activityToEdit?.activity ?? '',
+    );
+    final placeController = TextEditingController(
+      text: activityToEdit?.location ?? '',
+    );
+    final trainerController = TextEditingController(
+      text: activityToEdit?.trainer ?? '',
+    );
 
     DateTime? selectedDate;
     TimeOfDay? selectedStartTime;
@@ -76,12 +90,13 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
     if (activityToEdit != null) {
       try {
         // Mencoba mengurai tanggal dari string aktivitas yang ada.
-        selectedDate = DateFormat('EEEE, d MMMM yyyy').parse(activityToEdit.date);
+        selectedDate = DateFormat(
+          'EEEE, d MMMM yyyy',
+        ).parse(activityToEdit.date);
         final timeParts = activityToEdit.time.split('–');
         if (timeParts.length == 2) {
           final startTimeString = timeParts[0].replaceAll('.', ':');
           final endTimeString = timeParts[1].replaceAll('.', ':');
-
         }
       } catch (e) {
         // Tangani kesalahan parsing jika format tanggal/waktu tidak sesuai.
@@ -138,14 +153,18 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
               final now = DateTime.now();
               final date = await showDatePicker(
                 context: context,
-                initialDate: selectedDate ?? now, // Tanggal awal adalah tanggal terpilih atau tanggal saat ini.
+                initialDate:
+                    selectedDate ??
+                    now, // Tanggal awal adalah tanggal terpilih atau tanggal saat ini.
                 firstDate: DateTime(2000), // Batas tanggal paling awal.
                 lastDate: DateTime(2100), // Batas tanggal paling akhir.
               );
               if (date != null) {
                 selectedDate = date;
                 // Memformat tanggal ke string yang sesuai (contoh: "Sunday, 1 June 2025").
-                dateController.text = DateFormat('EEEE, d MMMM yyyy').format(date);
+                dateController.text = DateFormat(
+                  'EEEE, d MMMM yyyy',
+                ).format(date);
                 setStateDialog(() {}); // Perbarui UI dialog.
               }
             }
@@ -155,18 +174,27 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
             Future<void> pickTimeRange() async {
               final start = await showTimePicker(
                 context: context,
-                initialTime: selectedStartTime ?? const TimeOfDay(hour: 6, minute: 0), // Waktu awal default.
+                initialTime:
+                    selectedStartTime ??
+                    const TimeOfDay(hour: 6, minute: 0), // Waktu awal default.
               );
               if (start != null) {
                 selectedStartTime = start;
                 final end = await showTimePicker(
                   context: context,
-                  initialTime: selectedEndTime ?? TimeOfDay(hour: start.hour + 1, minute: start.minute), // Waktu akhir default 1 jam setelah waktu mulai.
+                  initialTime:
+                      selectedEndTime ??
+                      TimeOfDay(
+                        hour: start.hour + 1,
+                        minute: start.minute,
+                      ), // Waktu akhir default 1 jam setelah waktu mulai.
                 );
                 if (end != null) {
                   selectedEndTime = end;
                   // Memformat waktu ke format "HH.mm–HH.mm" (contoh: "05.00–06.00").
-                  final startFormatted = start.format(context).replaceAll(':', '.');
+                  final startFormatted = start
+                      .format(context)
+                      .replaceAll(':', '.');
                   final endFormatted = end.format(context).replaceAll(':', '.');
                   timeController.text = '$startFormatted–$endFormatted';
                   setStateDialog(() {}); // Perbarui UI dialog.
@@ -176,13 +204,20 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
 
             // Struktur UI untuk dialog "Create Your Daily Activity" atau "Edit Your Daily Activity".
             return Dialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.85, // Lebar dialog relatif terhadap lebar layar.
+                width:
+                    MediaQuery.of(context).size.width *
+                    0.85, // Lebar dialog relatif terhadap lebar layar.
                 padding: const EdgeInsets.all(24),
-                child: SingleChildScrollView( // Memungkinkan konten dapat discroll jika terlalu panjang.
+                child: SingleChildScrollView(
+                  // Memungkinkan konten dapat discroll jika terlalu panjang.
                   child: Column(
-                    mainAxisSize: MainAxisSize.min, // Mengambil ruang minimal yang dibutuhkan.
+                    mainAxisSize:
+                        MainAxisSize
+                            .min, // Mengambil ruang minimal yang dibutuhkan.
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Center(
@@ -192,7 +227,7 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
                               ? 'Create Your Daily Activity'
                               : 'Edit Your Daily Activity',
                           style: const TextStyle(
-                            color: blueColor, 
+                            color: blueColor,
                             fontFamily: 'PoppinsSemiBold',
                             fontSize: 20,
                           ),
@@ -200,12 +235,14 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
                       ),
                       const SizedBox(height: 20),
                       // Bagian input untuk Tanggal.
-                      const Text('Date',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'PoppinsMedium',
-                            color: darkBlueColor, 
-                          )),
+                      const Text(
+                        'Date',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'PoppinsMedium',
+                          color: darkBlueColor,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       // GestureDetector dan AbsorbPointer memungkinkan `TextField` untuk memicu pemilih tanggal
                       // saat disentuh, tetapi mencegah keyboard muncul.
@@ -214,18 +251,20 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
                         child: AbsorbPointer(
                           child: TextField(
                             controller: dateController,
-                            decoration: _inputDecoration(''), 
+                            decoration: _inputDecoration(''),
                           ),
                         ),
                       ),
                       const SizedBox(height: 16),
                       // Bagian input untuk Waktu.
-                      const Text('Time',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'PoppinsMedium',
-                            color: darkBlueColor,
-                          )),
+                      const Text(
+                        'Time',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'PoppinsMedium',
+                          color: darkBlueColor,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       GestureDetector(
                         onTap: pickTimeRange,
@@ -238,12 +277,14 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
                       ),
                       const SizedBox(height: 16),
                       // Bagian input untuk Aktivitas.
-                      const Text('Activity',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'PoppinsMedium',
-                            color: darkBlueColor,
-                          )),
+                      const Text(
+                        'Activity',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'PoppinsMedium',
+                          color: darkBlueColor,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       TextField(
                         controller: activityController,
@@ -251,12 +292,14 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
                       ),
                       const SizedBox(height: 16),
                       // Bagian input untuk Tempat.
-                      const Text('Place',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'PoppinsMedium',
-                            color: darkBlueColor,
-                          )),
+                      const Text(
+                        'Place',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'PoppinsMedium',
+                          color: darkBlueColor,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       TextField(
                         controller: placeController,
@@ -264,12 +307,14 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
                       ),
                       const SizedBox(height: 16),
                       // Bagian input untuk Trainer (opsional).
-                      const Text('Trainer',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'PoppinsMedium',
-                            color: darkBlueColor,
-                          )),
+                      const Text(
+                        'Trainer',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontFamily: 'PoppinsMedium',
+                          color: darkBlueColor,
+                        ),
+                      ),
                       const SizedBox(height: 6),
                       TextField(
                         controller: trainerController,
@@ -277,38 +322,42 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
                       ),
                       const SizedBox(height: 24),
                       SizedBox(
-                        width: double.infinity, // Tombol mengisi seluruh lebar yang tersedia.
+                        width:
+                            double
+                                .infinity, // Tombol mengisi seluruh lebar yang tersedia.
                         child: ElevatedButton(
                           // Tombol aktif hanya jika `isFormValid()` bernilai true.
-                          onPressed: isFormValid()
-                              ? () {
-                                  // Membuat objek [Activity] baru dari input pengguna.
-                                  final newActivity = Activity(
-                                    date: dateController.text,
-                                    activity: activityController.text,
-                                    time: timeController.text,
-                                    location: placeController.text,
-                                    trainer: trainerController.text,
-                                  );
+                          onPressed:
+                              isFormValid()
+                                  ? () {
+                                    // Membuat objek [Activity] baru dari input pengguna.
+                                    final newActivity = Activity(
+                                      date: dateController.text,
+                                      activity: activityController.text,
+                                      time: timeController.text,
+                                      location: placeController.text,
+                                      trainer: trainerController.text,
+                                    );
 
-                                  // Memperbarui state daftar aktivitas di [DailyActivityScreen].
-                                  setState(() {
-                                    if (editIndex != null) {
-                                      // Jika mode edit, perbarui aktivitas yang sudah ada pada indeks tertentu.
-                                      activities[editIndex] = newActivity;
-                                    } else {
-                                      // Jika mode tambah, tambahkan aktivitas baru ke daftar.
-                                      activities.add(newActivity);
-                                    }
-                                  });
+                                    // Memperbarui state daftar aktivitas di [DailyActivityScreen].
+                                    setState(() {
+                                      if (editIndex != null) {
+                                        // Jika mode edit, perbarui aktivitas yang sudah ada pada indeks tertentu.
+                                        activities[editIndex] = newActivity;
+                                      } else {
+                                        // Jika mode tambah, tambahkan aktivitas baru ke daftar.
+                                        activities.add(newActivity);
+                                      }
+                                    });
 
-                                  // Hapus listener sebelum menutup dialog untuk menghindari memory leaks.
-                                  removeListeners();
-                                  Navigator.pop(context); // Tutup dialog.
-                                }
-                              : null, // Jika form tidak valid, tombol nonaktif.
+                                    // Hapus listener sebelum menutup dialog untuk menghindari memory leaks.
+                                    removeListeners();
+                                    Navigator.pop(context); // Tutup dialog.
+                                  }
+                                  : null, // Jika form tidak valid, tombol nonaktif.
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: blueColor, // Warna latar belakang tombol.
+                            backgroundColor:
+                                blueColor, // Warna latar belakang tombol.
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -356,13 +405,15 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
           content: const Text('Do you want to delete this activity?'),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context), // Tutup dialog tanpa menghapus.
+              onPressed:
+                  () => Navigator.pop(context), // Tutup dialog tanpa menghapus.
               child: const Text(
                 'Cancel',
                 style: TextStyle(
                   fontFamily: 'PoppinsSemiBold',
                   color: Colors.grey, // Warna teks abu-abu untuk tombol batal.
-                ),),
+                ),
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -375,7 +426,8 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
                 'Yes',
                 style: TextStyle(
                   fontFamily: 'PoppinsSemiBold',
-                  color: blueColor), 
+                  color: blueColor,
+                ),
               ),
             ),
           ],
@@ -403,11 +455,14 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Daily Activity", style: TextStyle(
-          fontFamily: 'PoppinsSemiBold',
-          fontSize: 20,
-          color: Color(0xFF000000), // Warna teks judul AppBar.
-        )),
+        title: const Text(
+          "Daily Activity",
+          style: TextStyle(
+            fontFamily: 'PoppinsSemiBold',
+            fontSize: 20,
+            color: Color(0xFF000000), // Warna teks judul AppBar.
+          ),
+        ),
         centerTitle: false,
         elevation: 0,
         backgroundColor: Colors.white,
@@ -415,34 +470,51 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.all(16),
-        itemCount: activities.length, // Jumlah item adalah jumlah aktivitas dalam daftar.
+        itemCount:
+            activities
+                .length, // Jumlah item adalah jumlah aktivitas dalam daftar.
         itemBuilder: (context, index) {
           final activity = activities[index];
           // Membangun [ActivityCard] untuk setiap aktivitas dalam daftar.
           return ActivityCard(
             activity: activity,
-            icon: getIconForActivity(activity.activity), // Mendapatkan ikon berdasarkan jenis aktivitas.
+            icon: getIconForActivity(
+              activity.activity,
+            ), // Mendapatkan ikon berdasarkan jenis aktivitas.
             onEdit: () {
-              _showActivityDialog(activityToEdit: activity, editIndex: index); // Memanggil dialog edit.
+              _showActivityDialog(
+                activityToEdit: activity,
+                editIndex: index,
+              ); // Memanggil dialog edit.
             },
             onDelete: () {
-              _showDeleteConfirmation(index); // Memanggil dialog konfirmasi hapus.
+              _showDeleteConfirmation(
+                index,
+              ); // Memanggil dialog konfirmasi hapus.
             },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _showActivityDialog(), // Tombol untuk menambah aktivitas baru.
+        onPressed:
+            () =>
+                _showActivityDialog(), // Tombol untuk menambah aktivitas baru.
         backgroundColor: blueColor,
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0, 
-        selectedItemColor: blueColor, 
-        unselectedItemColor: Colors.grey, 
+        currentIndex: 0,
+        selectedItemColor: blueColor,
+        unselectedItemColor: Colors.grey,
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: ''), // Item navigasi Home.
-          BottomNavigationBarItem(icon: Icon(Icons.person_rounded), label: ''), // Item navigasi Profile.
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home_rounded),
+            label: '',
+          ), // Item navigasi Home.
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person_rounded),
+            label: '',
+          ), // Item navigasi Profile.
         ],
       ),
     );
@@ -468,20 +540,25 @@ class ActivityCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16), // Margin bawah untuk memisahkan kartu.
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)), // Bentuk kartu dengan sudut membulat.
+      margin: const EdgeInsets.only(
+        bottom: 16,
+      ), // Margin bawah untuk memisahkan kartu.
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ), // Bentuk kartu dengan sudut membulat.
       elevation: 2, // Efek bayangan kartu.
       child: Stack(
         children: [
           Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start, // Mengatur konten rata kiri.
+              crossAxisAlignment:
+                  CrossAxisAlignment.start, // Mengatur konten rata kiri.
               children: [
                 // Baris informasi tanggal.
                 _buildInfoRow(
                   icon: Icons.calendar_today,
-                  iconColor: darkBlueColor, 
+                  iconColor: darkBlueColor,
                   content: activity.date,
                   contentStyle: const TextStyle(
                     color: darkBlueColor,
@@ -501,7 +578,8 @@ class ActivityCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
-                  subContent: activity.time, // Waktu aktivitas sebagai sub-konten.
+                  subContent:
+                      activity.time, // Waktu aktivitas sebagai sub-konten.
                 ),
                 const SizedBox(height: 12),
                 // Baris informasi lokasi.
@@ -516,7 +594,8 @@ class ActivityCard extends StatelessWidget {
                   ),
                 ),
                 // Baris informasi trainer (hanya ditampilkan jika ada).
-                if (activity.trainer != null && activity.trainer!.isNotEmpty) ...[
+                if (activity.trainer != null &&
+                    activity.trainer!.isNotEmpty) ...[
                   const SizedBox(height: 12),
                   _buildInfoRow(
                     icon: Icons.person,
@@ -537,7 +616,10 @@ class ActivityCard extends StatelessWidget {
             top: 8,
             right: 8,
             child: PopupMenuButton<String>(
-              icon: const Icon(Icons.more_vert, color: darkBlueColor), // Ikon tiga titik vertikal.
+              icon: const Icon(
+                Icons.more_vert,
+                color: darkBlueColor,
+              ), // Ikon tiga titik vertikal.
               onSelected: (value) {
                 if (value == 'edit' && onEdit != null) {
                   onEdit!(); // Memanggil callback edit jika dipilih "Edit".
@@ -545,10 +627,17 @@ class ActivityCard extends StatelessWidget {
                   onDelete!(); // Memanggil callback delete jika dipilih "Delete".
                 }
               },
-              itemBuilder: (context) => [
-                const PopupMenuItem(value: 'edit', child: Text('Edit')), // Opsi Edit.
-                const PopupMenuItem(value: 'delete', child: Text('Delete')), // Opsi Delete.
-              ],
+              itemBuilder:
+                  (context) => [
+                    const PopupMenuItem(
+                      value: 'edit',
+                      child: Text('Edit'),
+                    ), // Opsi Edit.
+                    const PopupMenuItem(
+                      value: 'delete',
+                      child: Text('Delete'),
+                    ), // Opsi Delete.
+                  ],
             ),
           ),
         ],
@@ -564,7 +653,8 @@ class ActivityCard extends StatelessWidget {
     String? subContent,
   }) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start, // Mengatur konten rata atas.
+      crossAxisAlignment:
+          CrossAxisAlignment.start, // Mengatur konten rata atas.
       children: [
         Padding(
           padding: const EdgeInsets.only(top: 2),
@@ -577,13 +667,17 @@ class ActivityCard extends StatelessWidget {
             children: [
               Text(
                 content,
-                style: contentStyle ?? const TextStyle(color: darkBlueColor), // Teks utama.
+                style:
+                    contentStyle ??
+                    const TextStyle(color: darkBlueColor), // Teks utama.
               ),
               if (subContent != null) ...[
                 const SizedBox(height: 4),
                 Text(
                   subContent,
-                  style: const TextStyle(color: darkBlueColor), // Teks sub-konten.
+                  style: const TextStyle(
+                    color: darkBlueColor,
+                  ), // Teks sub-konten.
                 ),
               ],
             ],
