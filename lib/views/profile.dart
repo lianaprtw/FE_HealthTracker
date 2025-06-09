@@ -148,23 +148,6 @@ class ProfilePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        selectedItemColor: Color(0xFF3742FA),
-        unselectedItemColor: Colors.grey,
-        // currentIndex: _selectedIndex,
-        // onTap: _onItemTapped,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_filled),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_2),
-            label: 'Profile',
-          )
-        ],
-      ),
     );
   }
 }
