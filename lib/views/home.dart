@@ -14,10 +14,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   // Daftar halaman
-  final List<Widget> _pages = [
-    const HomeContent(),
-    const ProfilePage(),
-  ];
+  final List<Widget> PofilePages = [const HomeContent(), const ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +38,7 @@ class _HomePageState extends State<HomePage> {
               Text(
                 'Holla, Enno!',
                 style: TextStyle(
-                    fontFamily: "PoppinsSemiBold",
+                  fontFamily: "PoppinsSemiBold",
                   fontSize: 25,
                   fontWeight: FontWeight.w600,
                   color: Color.fromARGB(219, 21, 42, 120),
@@ -69,7 +66,7 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             'Your Progress',
                             style: TextStyle(
-                                fontFamily: "PoppinsSemiBold",
+                              fontFamily: "PoppinsSemiBold",
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                               color: Colors.white,
@@ -80,11 +77,10 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {
                               Navigator.push(
                                 context,
-                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                    ProgressStepDayPage(),
-                                    ),
-                                    );
+                                MaterialPageRoute(
+                                  builder: (context) => ProgressStepDayPage(),
+                                ),
+                              );
                             },
                             child: Text(
                               'Show More',
@@ -98,21 +94,22 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ],
                       ),
-                    Padding(padding: const EdgeInsets.only(top: 16.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.asset(
-                          "assets/images/Woman doing sports with dumbbells.png",
-                          width: 200,
-                          height: 217,
-                          fit: BoxFit.cover,
-                          ), 
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.asset(
+                            "assets/images/Woman doing sports with dumbbells.png",
+                            width: 200,
+                            height: 217,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ],
-                 ),
+                  ),
+                ),
               ),
-            ),
               SizedBox(height: 20),
 
               // Daily Activity
@@ -133,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             'Daily Activity',
                             style: TextStyle(
-                                fontFamily: "PoppinsSemiBold",
+                              fontFamily: "PoppinsSemiBold",
                               color: Colors.white,
                               fontSize: 17,
                               fontWeight: FontWeight.w600,
@@ -170,7 +167,7 @@ class _HomePageState extends State<HomePage> {
                           _buildActivityItem(Icons.directions_walk, 'Walk'),
                           _buildActivityItem(Icons.add, 'Add New'),
                         ],
-                      )
+                      ),
                     ],
                   ),
                 ),
@@ -195,7 +192,7 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             'Water Tracker',
                             style: TextStyle(
-                                fontFamily: "PoppinsSemiBold",
+                              fontFamily: "PoppinsSemiBold",
                               color: Colors.white,
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
@@ -205,7 +202,7 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             '10:00 AM',
                             style: TextStyle(
-                                fontFamily: "PoppinsSemiBold",
+                              fontFamily: "PoppinsSemiBold",
                               color: Colors.amberAccent,
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -215,7 +212,7 @@ class _HomePageState extends State<HomePage> {
                           Text(
                             '200ml water (2 Glass)',
                             style: TextStyle(
-                                fontFamily: "PoppinsSemiBold",
+                              fontFamily: "PoppinsSemiBold",
                               color: Colors.white70,
                               fontSize: 13,
                             ),
@@ -229,7 +226,9 @@ class _HomePageState extends State<HomePage> {
                                 borderRadius: BorderRadius.circular(30),
                               ),
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 24, vertical: 10),
+                                horizontal: 24,
+                                vertical: 10,
+                              ),
                             ),
                             child: Text(
                               'Drink',
@@ -280,10 +279,7 @@ class _HomePageState extends State<HomePage> {
           });
         },
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
             label: 'Profile',
@@ -433,8 +429,14 @@ class HomeContent extends StatelessWidget {
                       runSpacing: 16,
                       children: const [
                         ActivityItem(icon: Icons.directions_run, label: 'Run'),
-                        ActivityItem(icon: Icons.directions_bike, label: 'Bicycle'),
-                        ActivityItem(icon: Icons.directions_walk, label: 'Walk'),
+                        ActivityItem(
+                          icon: Icons.directions_bike,
+                          label: 'Bicycle',
+                        ),
+                        ActivityItem(
+                          icon: Icons.directions_walk,
+                          label: 'Walk',
+                        ),
                         ActivityItem(icon: Icons.add, label: 'Add New'),
                       ],
                     ),
@@ -495,7 +497,10 @@ class HomeContent extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(30),
                             ),
-                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 10,
+                            ),
                           ),
                           child: const Text(
                             'Drink',
