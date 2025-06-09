@@ -92,6 +92,32 @@ class RegisterPage extends StatelessWidget {
               ),
               const SizedBox(height: 16),
 
+              // Specialis field
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Spesialis',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w300,
+                    fontFamily: 'Poppins',
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                decoration: InputDecoration(
+                  hintText: 'Masukkan spesialis Anda',
+                  filled: true,
+                  fillColor: const Color(0xFFF2F4FF),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide.none,
+                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                ),
+              ),
+
               // Password Field
               Align(
                 alignment: Alignment.centerLeft,
