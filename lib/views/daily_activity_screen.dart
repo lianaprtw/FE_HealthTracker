@@ -95,8 +95,8 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
         ).parse(activityToEdit.date);
         final timeParts = activityToEdit.time.split('–');
         if (timeParts.length == 2) {
-          final startTimeString = timeParts[0].replaceAll('.', ':');
-          final endTimeString = timeParts[1].replaceAll('.', ':');
+          // final startTimeString = timeParts[0].replaceAll('.', ':');
+          // final endTimeString = timeParts[1].replaceAll('.', ':');
         }
       } catch (e) {
         // Tangani kesalahan parsing jika format tanggal/waktu tidak sesuai.
