@@ -34,7 +34,13 @@ class HomepageTrainner extends StatelessWidget {
           if (index == 1) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ProfilePage()),
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) => ProfilePage(),
+                transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                  return child; // Tidak ada animasi transisi
+                },
+                transitionDuration: Duration.zero, // Durasi transisi nol
+              ),
             );
           }
         },
@@ -133,9 +139,9 @@ class HomepageTrainner extends StatelessWidget {
                                 MaterialPageRoute(
                                   builder:
                                       (context) => CalendarPage(
-                                        username: username,
-                                        age: age,
-                                      ),
+                                          username: username,
+                                          age: age,
+                                        ),
                                 ),
                               );
                             },
@@ -224,8 +230,8 @@ class HomepageTrainner extends StatelessWidget {
                                         MaterialPageRoute(
                                           builder:
                                               (context) => TraineeDetailScreen(
-                                                name: name,
-                                              ),
+                                                  name: name,
+                                                ),
                                         ),
                                       );
                                     },
