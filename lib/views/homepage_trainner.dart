@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_tracker/views/Profile_Trainner.dart';
 import 'package:health_tracker/views/calender.dart';
 import 'package:health_tracker/views/user_trainer.dart';
+import 'package:health_tracker/views/trainee_details.dart'; // pastikan file ini ada
 
 class HomepageTrainner extends StatelessWidget {
   final Color blueColor = const Color(0xFF3742FA);
@@ -190,7 +191,7 @@ class HomepageTrainner extends StatelessWidget {
                                 vertical: 8,
                               ),
                               decoration: BoxDecoration(
-                                color: Color(0xFF152B78),
+                                color: const Color(0xFF152B78),
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Row(
@@ -218,7 +219,15 @@ class HomepageTrainner extends StatelessWidget {
                                       color: Color(0xFFF1F4FF),
                                     ),
                                     onPressed: () {
-                                      // Handle chat
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder:
+                                              (context) => TraineeDetailScreen(
+                                                name: name,
+                                              ),
+                                        ),
+                                      );
                                     },
                                   ),
                                 ],
