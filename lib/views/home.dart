@@ -52,8 +52,137 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class HomeContent extends StatelessWidget {
+class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
+
+  @override
+  State<HomeContent> createState() => _HomeContentState();
+}
+
+class _HomeContentState extends State<HomeContent> {
+  double _waterDrank = 200; // Initial water drank
+  final double _waterTarget = 2000; // Daily water target
+  double _currentDrinkAmount = 500; // Default value for the slider
+
+  void _showWaterTrackerDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              title: const Text(
+                'How Much Do You Drink',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: "PoppinsSemiBold",
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                ),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        '${_currentDrinkAmount.round()}',
+                        style: const TextStyle(
+                          fontFamily: "PoppinsSemiBold",
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 57, 67, 255),
+                        ),
+                      ),
+                      const Text(
+                        ' ml',
+                        style: TextStyle(
+                          fontFamily: "PoppinsSemiBold",
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 57, 67, 255),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Slider(
+                    value: _currentDrinkAmount,
+                    min: 0,
+                    max: 2000,
+                    divisions: 40, // 2000 / 50 = 40 divisions for 50ml steps
+                    label: '${_currentDrinkAmount.round()} ml',
+                    activeColor: const Color.fromARGB(255, 57, 67, 255),
+                    inactiveColor: const Color.fromARGB(255, 180, 187, 255),
+                    onChanged: (double value) {
+                      setDialogState(() {
+                        _currentDrinkAmount = value;
+                      });
+                    },
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const [
+                      Text(
+                        '0 ml',
+                        style: TextStyle(
+                          fontFamily: "PoppinsSemiBold",
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                      Text(
+                        '2000 ml',
+                        style: TextStyle(
+                          fontFamily: "PoppinsSemiBold",
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _waterDrank += _currentDrinkAmount;
+                        if (_waterDrank > _waterTarget) {
+                          _waterDrank = _waterTarget; // Cap at target
+                        }
+                      });
+                      Navigator.of(context).pop(); // Close the dialog
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 57, 67, 255),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 12,
+                      ),
+                    ),
+                    child: const Text(
+                      'Add',
+                      style: TextStyle(
+                        fontFamily: "PoppinsSemiBold",
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -239,6 +368,7 @@ class HomeContent extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         const Text(
+                          // You might want to update this time dynamically
                           '10:00 AM',
                           style: TextStyle(
                             fontFamily: "PoppinsSemiBold",
@@ -248,9 +378,10 @@ class HomeContent extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        const Text(
-                          '200ml water (2 Glass)',
-                          style: TextStyle(
+                        Text(
+                          // Update this to reflect current water drank
+                          '${_waterDrank.round()}ml water (${(_waterDrank / 200).round()} Glass)',
+                          style: const TextStyle(
                             fontFamily: "PoppinsSemiBold",
                             color: Colors.white70,
                             fontSize: 13,
@@ -258,7 +389,7 @@ class HomeContent extends StatelessWidget {
                         ),
                         const SizedBox(height: 12),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: _showWaterTrackerDialog, // Call the dialog here
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
@@ -291,9 +422,9 @@ class HomeContent extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                           const SizedBox(height: 10),
-                          const Text(
-                            '200 / 2000 ml',
-                            style: TextStyle(
+                          Text(
+                            '${_waterDrank.round()} / ${_waterTarget.round()} ml', // Update this text
+                            style: const TextStyle(
                               fontFamily: "PoppinsSemiBold",
                               color: Colors.white,
                               fontSize: 13,
@@ -322,7 +453,6 @@ class ActivityItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // Tidak perlu lagi menentukan width secara eksplisit di sini
       height: 40,
       decoration: BoxDecoration(
         color: Colors.white,
