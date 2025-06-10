@@ -19,6 +19,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
@@ -37,10 +38,10 @@ class _HomePageState extends State<HomePage> {
           });
         },
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
           BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
-            label: 'Profile',
+            label: '',
           ),
         ],
         selectedItemColor: Color.fromARGB(255, 57, 67, 255),
