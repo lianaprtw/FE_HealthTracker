@@ -185,20 +185,26 @@ class HomeContent extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 12),
-                    const Wrap(
-                      spacing: 16,
-                      runSpacing: 16,
+                    // Modified section for Daily Activity items
+                    Column(
                       children: [
-                        ActivityItem(icon: Icons.directions_run, label: 'Run'),
-                        ActivityItem(
-                          icon: Icons.directions_bike,
-                          label: 'Bicycle',
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Expanded(child: ActivityItem(icon: Icons.directions_run, label: 'Run')),
+                            SizedBox(width: 16), // Memberikan jarak antar item
+                            Expanded(child: ActivityItem(icon: Icons.directions_bike, label: 'Bicycle')),
+                          ],
                         ),
-                        ActivityItem(
-                          icon: Icons.directions_walk,
-                          label: 'Walk',
+                        const SizedBox(height: 16), // Memberikan jarak antar baris
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: const [
+                            Expanded(child: ActivityItem(icon: Icons.directions_walk, label: 'Walk')),
+                            SizedBox(width: 16), // Memberikan jarak antar item
+                            Expanded(child: ActivityItem(icon: Icons.add, label: 'Add New')),
+                          ],
                         ),
-                        ActivityItem(icon: Icons.add, label: 'Add New'),
                       ],
                     ),
                   ],
@@ -316,7 +322,7 @@ class ActivityItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 140,
+      // Tidak perlu lagi menentukan width secara eksplisit di sini
       height: 40,
       decoration: BoxDecoration(
         color: Colors.white,
