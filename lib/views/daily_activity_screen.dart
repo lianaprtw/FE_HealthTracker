@@ -500,6 +500,7 @@ class _DailyActivityScreenState extends State<DailyActivityScreen> {
             () =>
                 _showActivityDialog(), // Tombol untuk menambah aktivitas baru.
         backgroundColor: blueColor,
+        foregroundColor: Colors.white, 
         child: const Icon(Icons.add),
       ),
       bottomNavigationBar: BottomNavigationBar(
