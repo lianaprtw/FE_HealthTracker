@@ -1,192 +1,175 @@
 import 'package:flutter/material.dart';
 import 'package:health_tracker/views/logintrainer.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _specialistController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
+  String? selectedGender;
+  bool obscurePassword = true;
+  bool obscureConfirmPassword = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 40),
-              const Text(
-                'Create an Account',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Poppins',
-                  color: Color(0xFF3742FA),
+              const Center(
+                child: Text(
+                  'Create an Account',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
+                    fontFamily: 'Poppins',
+                    color: Color(0xFF3742FA),
+                  ),
                 ),
-                textAlign: TextAlign.center,
               ),
               const SizedBox(height: 12),
-              const Text(
-                'Welcome! Let’s get you started on your\njourney to better health',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins',
-                  color: Colors.black54,
+              const Center(
+                child: Text(
+                  'Welcome! Let’s get you started on your\njourney to better health',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Poppins',
+                    color: Colors.black54,
+                  ),
                 ),
               ),
               const SizedBox(height: 32),
 
-              // Full Name Field
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Full Name',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: 'Poppins',
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Enter your full name',
-                  filled: true,
-                  fillColor: const Color(0xFFF2F4FF),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                ),
-              ),
-              const SizedBox(height: 16),
+              _buildLabel('Full Name'),
+              _buildInput(_nameController, 'Enter your full name'),
 
-              // Email Field
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Email',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: 'Poppins',
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Enter your email',
-                  filled: true,
-                  fillColor: const Color(0xFFF2F4FF),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                ),
-              ),
-              const SizedBox(height: 16),
+              _buildLabel('Email'),
+              _buildInput(_emailController, 'Enter your email'),
 
-              // Specialis field
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Spesialis',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: 'Poppins',
-                  ),
+              _buildLabel('Gender'),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFF2F4FF),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                decoration: InputDecoration(
-                  hintText: 'Masukkan spesialis Anda',
-                  filled: true,
-                  fillColor: const Color(0xFFF2F4FF),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: selectedGender,
+                    hint: const Text(
+                      'Enter your gender',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 14,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    icon: const Icon(Icons.arrow_drop_down),
+                    isExpanded: true,
+                    items: const [
+                      DropdownMenuItem(
+                        value: 'Male',
+                        child: Row(
+                          children: [
+                            Icon(Icons.male, color: Color(0xFF3742FA)),
+                            SizedBox(width: 8),
+                            Text(
+                              'Male',
+                              style: TextStyle(fontFamily: 'Poppins'),
+                            ),
+                          ],
+                        ),
+                      ),
+                      DropdownMenuItem(
+                        value: 'Female',
+                        child: Row(
+                          children: [
+                            Icon(Icons.female, color: Color(0xFF3742FA)),
+                            SizedBox(width: 8),
+                            Text(
+                              'Female',
+                              style: TextStyle(fontFamily: 'Poppins'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                    onChanged: (value) {
+                      setState(() {
+                        selectedGender = value;
+                      });
+                    },
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
                 ),
               ),
 
-              // Password Field
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Password',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: 'Poppins',
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Enter your password',
-                  filled: true,
-                  fillColor: const Color(0xFFF2F4FF),
-                  suffixIcon: const Icon(Icons.visibility),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
-                  ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                ),
-              ),
-              const SizedBox(height: 16),
+              _buildLabel('Specialist'),
+              _buildInput(_specialistController, 'Enter your specialist'),
 
-              // Confirm Password Field
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Confirm Password',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: 'Poppins',
+              _buildLabel('Password'),
+              _buildInput(
+                _passwordController,
+                'Enter your password',
+                obscureText: obscurePassword,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    obscurePassword ? Icons.visibility : Icons.visibility_off,
                   ),
+                  onPressed: () {
+                    setState(() {
+                      obscurePassword = !obscurePassword;
+                    });
+                  },
                 ),
               ),
-              const SizedBox(height: 8),
-              TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: 'Enter your confirm password',
-                  filled: true,
-                  fillColor: const Color(0xFFF2F4FF),
-                  suffixIcon: const Icon(Icons.visibility),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide.none,
+
+              _buildLabel('Confirm Password'),
+              _buildInput(
+                _confirmPasswordController,
+                'Enter your confirm password',
+                obscureText: obscureConfirmPassword,
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    obscureConfirmPassword
+                        ? Icons.visibility
+                        : Icons.visibility_off,
                   ),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                  onPressed: () {
+                    setState(() {
+                      obscureConfirmPassword = !obscureConfirmPassword;
+                    });
+                  },
                 ),
               ),
+
               const SizedBox(height: 30),
-
-              // Sign Up Button (dengan kontras warna yang diperbaiki)
               SizedBox(
                 width: double.infinity,
-                height: 48,
+                height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF3742FA), // biru gelap
-                    foregroundColor: Colors.white, // teks putih kontras
+                    backgroundColor: const Color(0xFF3742FA),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                      borderRadius: BorderRadius.circular(12),
                     ),
+                    elevation: 3,
                   ),
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -199,49 +182,89 @@ class RegisterPage extends StatelessWidget {
                   child: const Text(
                     'Sign up',
                     style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
                       fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 20),
 
-              // Link to Sign In
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Already have an account? ",
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      color: Colors.black54,
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginPage(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "Sign In",
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Already have an account? ',
                       style: TextStyle(
                         fontFamily: 'Poppins',
-                        color: Color(0xFF3742FA),
-                        fontWeight: FontWeight.w500,
+                        color: Colors.black54,
                       ),
                     ),
-                  ),
-                ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoginPage(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Sign In',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w500,
+                          color: Color(0xFF3742FA),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
+              const SizedBox(height: 20),
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildLabel(String label) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 16, bottom: 8),
+      child: Text(
+        label,
+        style: const TextStyle(
+          fontFamily: 'Poppins',
+          fontSize: 14,
+          fontWeight: FontWeight.w300,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildInput(
+    TextEditingController controller,
+    String hintText, {
+    bool obscureText = false,
+    Widget? suffixIcon,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: const TextStyle(fontFamily: 'Poppins', color: Colors.grey),
+        filled: true,
+        fillColor: const Color(0xFFF2F4FF),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+        suffixIcon: suffixIcon,
       ),
     );
   }
