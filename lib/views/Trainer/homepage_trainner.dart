@@ -1,89 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:health_tracker/views/Trainee/profile.dart';
 import 'package:health_tracker/views/Trainer/Profile_Trainner.dart';
-import 'package:health_tracker/views/Trainee/chat_screen.dart';
-import 'package:health_tracker/views/Trainee/user_trainer.dart';
-import 'package:health_tracker/views/Trainee/trainee_details.dart';
+
+class ChatPage extends StatelessWidget {
+  const ChatPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text(
+        'Chat Page Content Here',
+        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+}
 
 class HomepageTrainner extends StatefulWidget {
   const HomepageTrainner({super.key});
 
   @override
-  _HomepageTrainnerState createState() => _HomepageTrainnerState();
+  State<HomepageTrainner> createState() => _HomePageState();
 }
 
-class _HomepageTrainnerState extends State<HomepageTrainner> {
+class _HomePageState extends State<HomepageTrainner> {
   int _selectedIndex = 0;
-  static const blueColor = Color(0xFF3742FA);
 
+  // Define the primary color here
+  static const Color primaryColor = Color(0xFF3742FA);
+
+  // Daftar halaman/layar yang sesuai dengan item bottom navigation bar
   final List<Widget> _pages = [
-    const HomepageTrainner(),
-    const ChatScreen(recipientName: 'Enno Lerebulan'),
-    const ProfilePage(),
+    const HomePageContent(), // Halaman Home dengan semua kartu
+    const ChatPage(), // Placeholder untuk Halaman Chat
+    const ProfileTrainner(), // Halaman Profil
   ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: _pages[_selectedIndex],
-      floatingActionButton: SizedBox(
-        height: 65,
-        width: 65,
-        child: FloatingActionButton(
-          backgroundColor: blueColor,
-          elevation: 4,
-          onPressed: () {
-            _onItemTapped(1);
-          },
-          child: const Icon(
-            Icons.chat_bubble_outline,
-            color: Colors.white,
-            size: 32,
+      body: SafeArea(child: _pages[_selectedIndex]),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        selectedItemColor: primaryColor,
+        unselectedItemColor: Colors.grey,
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble_outline),
+            label: '',
           ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        notchMargin: 8,
-        child: BottomNavigationBar(
-          backgroundColor: Colors.white,
-          currentIndex: _selectedIndex == 1 ? 0 : _selectedIndex,
-          onTap: (index) {
-            if (index == 0) {
-              _onItemTapped(0);
-            } else if (index == 1) {
-              _onItemTapped(2);
-            }
-          },
-          selectedItemColor: blueColor,
-          unselectedItemColor: Colors.grey,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          items: [
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
-                color: _selectedIndex == 0 ? blueColor : Colors.grey,
-              ),
-              label: '',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person,
-                color: _selectedIndex == 2 ? blueColor : Colors.grey,
-              ),
-              label: '',
-            ),
-          ],
-        ),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+        ],
       ),
     );
   }
@@ -94,168 +66,135 @@ class HomePageContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const blueColor = Color(0xFF3742FA);
+    const Color primaryColor = Color(0xFF3742FA);
 
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Health Tracker',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: blueColor,
-                    ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.notifications_none, size: 28),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: blueColor,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Row(
-                  children: [
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Enno Lerebulan',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Female, 23 y.o',
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Height: 155 cm',
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                          SizedBox(height: 4),
-                          Text(
-                            'Weight: 50 kg',
-                            style: TextStyle(color: Colors.white, fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 100,
-                      width: 100,
-                      child: Image.asset(
-                        'images/avatar.png',
-                        fit: BoxFit.cover,
-                        errorBuilder:
-                            (context, error, stackTrace) => const Icon(
-                              Icons.image,
-                              color: Colors.white,
-                              size: 50,
-                            ),
-                      ),
-                    ),
-                  ],
+              const Text(
+                "Health Tracker",
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF3742FA),
                 ),
               ),
-              const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: blueColor,
-                  borderRadius: BorderRadius.circular(16),
+              IconButton(
+                icon: const Icon(
+                  Icons.notifications,
+                  color: Colors.black,
+                  size: 30,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text(
-                          'Your Trainee',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            // Navigasi ke list trainee
-                          },
-                          child: const Row(
-                            children: [
-                              Text(
-                                'Show more',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                color: Colors.white,
-                                size: 14,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    _traineeCard('Bambang'),
-                    const SizedBox(height: 12),
-                    _traineeCard('Piwo'),
-                  ],
-                ),
+                onPressed: () {
+                  // Tangani saat ikon notifikasi ditekan
+                  print('Ikon notifikasi ditekan!');
+                },
               ),
             ],
           ),
-        ),
+          const SizedBox(height: 20),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: primaryColor,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: const Row(
+              children: [
+                CircleAvatar(
+                  radius: 40,
+                  backgroundImage: AssetImage('images/avatar.jpg'),
+                ),
+                SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Enno Lerebulan",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      "Female, 23 y.o",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text(
+                      "Height: 155cm",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Text("Weight: 50kg", style: TextStyle(color: Colors.white)),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 24),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: primaryColor,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Your Trainee",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(
+                      "Show more >",
+                      style: TextStyle(color: Colors.white70),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                _buildTraineeCard("Bambang"),
+                const SizedBox(height: 12),
+                _buildTraineeCard("Sukijan"),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _traineeCard(String name) {
+  Widget _buildTraineeCard(String name) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(30),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.15),
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Row(
         children: [
-          const CircleAvatar(
-            backgroundColor: Colors.orange,
-            child: Icon(Icons.person, color: Colors.white),
-          ),
+          const CircleAvatar(backgroundImage: AssetImage('images/avatar.jpg')),
           const SizedBox(width: 12),
-          Expanded(child: Text(name, style: const TextStyle(fontSize: 16))),
+          Expanded(
+            child: Text(
+              name,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            ),
+          ),
+          const Icon(Icons.arrow_forward_ios, size: 16),
         ],
       ),
     );

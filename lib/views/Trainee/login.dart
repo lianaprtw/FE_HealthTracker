@@ -12,8 +12,13 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  bool _obscurePassword = true; // tambahkan variabel untuk sembunyikan password
+class _LoginPageState extends State<LoginView> {
+  bool _obscurePassword = true;
+
+  get emailController => null;
+
+  get passwordController =>
+      null; // tambahkan variabel untuk sembunyikan password
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF3742FA),
+                        backgroundColor: const Color(0xFF3742FA),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
