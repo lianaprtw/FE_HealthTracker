@@ -11,7 +11,36 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool _obscurePassword = true; // tambahkan variabel untuk sembunyikan password
+  bool _obscurePassword = true;
+
+  // Tambahkan controller untuk input
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  // Fungsi validasi untuk cek field sudah terisi atau belum
+  bool get isFormValid {
+    return emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Listener untuk update tombol secara real time
+    emailController.addListener(() {
+      setState(() {});
+    });
+    passwordController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +63,6 @@ class _LoginPageState extends State<LoginPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 10),
-
                   const Align(
                     alignment: Alignment.topCenter,
                     child: Text(
@@ -49,9 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 8),
-
                   const Align(
                     alignment: Alignment.center,
                     child: Text(
@@ -65,7 +91,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 50),
 
                   // Email Field
@@ -73,10 +98,12 @@ class _LoginPageState extends State<LoginPage> {
                     width: 358,
                     height: 64,
                     child: TextField(
+                      controller: emailController,
+                      onChanged: (value) => setState(() {}),
                       decoration: InputDecoration(
                         hintText: "Enter your email",
                         filled: true,
-                        fillColor: Color(0xFFF4F4FF),
+                        fillColor: const Color(0xFFF4F4FF),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
@@ -87,7 +114,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 20),
 
                   // Password Field
@@ -95,11 +121,13 @@ class _LoginPageState extends State<LoginPage> {
                     width: 358,
                     height: 64,
                     child: TextField(
+                      controller: passwordController,
                       obscureText: _obscurePassword,
+                      onChanged: (value) => setState(() {}),
                       decoration: InputDecoration(
                         hintText: "Enter your password",
                         filled: true,
-                        fillColor: Color(0xFFF4F4FF),
+                        fillColor: const Color(0xFFF4F4FF),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _obscurePassword
@@ -122,7 +150,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 30),
 
                   // Sign In Button
@@ -130,16 +157,22 @@ class _LoginPageState extends State<LoginPage> {
                     width: 357,
                     height: 60,
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomepageTrainner(),
-                          ),
-                        );
-                      },
+                      onPressed:
+                          isFormValid
+                              ? () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomepageTrainner(),
+                                  ),
+                                );
+                              }
+                              : null, // Jika form kosong, tombol disable
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF3742FA),
+                        backgroundColor:
+                            isFormValid
+                                ? const Color(0xFF3742FA)
+                                : const Color(0xFF3742FA).withOpacity(0.3),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -157,7 +190,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 30),
 
                   // Tombol Sign Up untuk navigasi ke RegisterPage

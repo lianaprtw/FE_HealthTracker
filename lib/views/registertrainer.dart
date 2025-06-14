@@ -20,6 +20,99 @@ class _RegisterPageState extends State<RegisterPage> {
   bool obscurePassword = true;
   bool obscureConfirmPassword = true;
 
+  bool isFormValid = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController.addListener(_updateFormState);
+    _emailController.addListener(_updateFormState);
+    _specialistController.addListener(_updateFormState);
+    _passwordController.addListener(_updateFormState);
+    _confirmPasswordController.addListener(_updateFormState);
+  }
+
+  void _updateFormState() {
+    final valid = _validateInputsWithoutMessage();
+    if (valid != isFormValid) {
+      setState(() {
+        isFormValid = valid;
+      });
+    }
+  }
+
+  void _showSnackBar(String message) {
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  bool _validateInputsWithoutMessage() {
+    String name = _nameController.text.trim();
+    String email = _emailController.text.trim();
+    String specialist = _specialistController.text.trim();
+    String password = _passwordController.text;
+    String confirmPassword = _confirmPasswordController.text;
+
+    return name.isNotEmpty &&
+        email.isNotEmpty &&
+        selectedGender != null &&
+        specialist.isNotEmpty &&
+        password.isNotEmpty &&
+        confirmPassword.isNotEmpty &&
+        password == confirmPassword &&
+        password.length >= 6 &&
+        RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(email);
+  }
+
+  bool _validateInputs() {
+    String name = _nameController.text.trim();
+    String email = _emailController.text.trim();
+    String specialist = _specialistController.text.trim();
+    String password = _passwordController.text;
+    String confirmPassword = _confirmPasswordController.text;
+
+    if (name.isEmpty ||
+        email.isEmpty ||
+        selectedGender == null ||
+        specialist.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
+      _showSnackBar('Please fill in all the fields');
+      return false;
+    }
+
+    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(email)) {
+      _showSnackBar('Please enter a valid email address');
+      return false;
+    }
+
+    if (password.length < 6) {
+      _showSnackBar('Password must be at least 6 characters');
+      return false;
+    }
+
+    if (password != confirmPassword) {
+      _showSnackBar('Passwords do not match');
+      return false;
+    }
+
+    return true;
+  }
+
+  void _register() {
+    if (_validateInputs()) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Registration Successful')));
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => const LoginPage()),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -114,6 +207,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     onChanged: (value) {
                       setState(() {
                         selectedGender = value;
+                        _updateFormState();
                       });
                     },
                   ),
@@ -165,20 +259,14 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 50,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF3742FA),
+                    backgroundColor:
+                        isFormValid ? const Color(0xFF3742FA) : Colors.grey,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     elevation: 3,
                   ),
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LoginPage(),
-                      ),
-                    );
-                  },
+                  onPressed: isFormValid ? _register : null,
                   child: const Text(
                     'Sign up',
                     style: TextStyle(
@@ -254,6 +342,7 @@ class _RegisterPageState extends State<RegisterPage> {
     return TextField(
       controller: controller,
       obscureText: obscureText,
+      onChanged: (v) => _updateFormState(),
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(fontFamily: 'Poppins', color: Colors.grey),
