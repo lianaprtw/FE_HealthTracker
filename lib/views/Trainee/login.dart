@@ -12,7 +12,7 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginView> {
+class _LoginPageState extends State<LoginPage> {
   bool _obscurePassword = true; // tambahkan variabel untuk sembunyikan password
 
   @override
@@ -36,7 +36,6 @@ class _LoginPageState extends State<LoginView> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const SizedBox(height: 10),
-
                   const Align(
                     alignment: Alignment.topCenter,
                     child: Text(
@@ -51,9 +50,7 @@ class _LoginPageState extends State<LoginView> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 8),
-
                   const Align(
                     alignment: Alignment.center,
                     child: Text(
@@ -67,7 +64,6 @@ class _LoginPageState extends State<LoginView> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 50),
 
                   // Email Field
@@ -75,6 +71,8 @@ class _LoginPageState extends State<LoginView> {
                     width: 358,
                     height: 64,
                     child: TextField(
+                      controller: emailController,
+                      onChanged: (value) => setState(() {}),
                       decoration: InputDecoration(
                         hintText: "Enter your email",
                         filled: true,
@@ -89,7 +87,6 @@ class _LoginPageState extends State<LoginView> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 20),
 
                   // Password Field
@@ -97,15 +94,12 @@ class _LoginPageState extends State<LoginView> {
                     width: 358,
                     height: 64,
                     child: TextField(
+                      controller: passwordController,
                       obscureText: _obscurePassword,
+                      onChanged: (value) => setState(() {}),
                       decoration: InputDecoration(
                         filled: true,
-                        fillColor: const Color(0xFFF5F5FF),
-                        hintText: 'Enter your password',
-                        hintStyle: const TextStyle(
-                          color: Colors.black54,
-                          fontFamily: 'Poppins',
-                        ),
+                        fillColor: const Color(0xFFF4F4FF),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _obscurePassword
@@ -157,7 +151,6 @@ class _LoginPageState extends State<LoginView> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 30),
 
                   // Sign In Button
@@ -174,7 +167,7 @@ class _LoginPageState extends State<LoginView> {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF3742FA),
+                        backgroundColor: Color(0xFF3742FA),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -192,7 +185,6 @@ class _LoginPageState extends State<LoginView> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 30),
 
                   // Tombol Sign Up untuk navigasi ke RegisterPage
