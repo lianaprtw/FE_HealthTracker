@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_tracker/views/Trainer/Profile_Trainner.dart';
+import 'package:health_tracker/views/Trainee/user_Trainer.dart';
+import 'package:health_tracker/views/Trainee/detail_trainee.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
@@ -140,18 +142,24 @@ class HomePageContent extends StatelessWidget {
           ),
           const SizedBox(height: 24),
           Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: primaryColor,
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+                bottomRight: Radius.circular(
+                  32,
+                ), // Sudut kanan bawah lebih besar
+              ),
             ),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Your Trainee",
                       style: TextStyle(
                         fontSize: 16,
@@ -159,43 +167,76 @@ class HomePageContent extends StatelessWidget {
                         color: Colors.white,
                       ),
                     ),
-                    Text(
-                      "Show more >",
-                      style: TextStyle(color: Colors.white70),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) =>
+                                    const TraineeListPage(), // Ganti sesuai halaman tujuan
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        "Show more >",
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
-                _buildTraineeCard("Bambang"),
+                _buildTraineeCard(context, "Bambang"),
                 const SizedBox(height: 12),
-                _buildTraineeCard("Sukijan"),
+                _buildTraineeCard(context, "Sukijan"),
               ],
             ),
           ),
+          const SizedBox(height: 24),
         ],
       ),
     );
   }
 
-  Widget _buildTraineeCard(String name) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Row(
-        children: [
-          const CircleAvatar(backgroundImage: AssetImage('images/avatar.jpg')),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              name,
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-            ),
+  Widget _buildTraineeCard(BuildContext context, String name) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder:
+                (context) =>
+                    const TraineeDetailPage(), // Ganti dengan halaman detail trainee
           ),
-          const Icon(Icons.arrow_forward_ios, size: 16),
-        ],
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            const CircleAvatar(
+              backgroundImage: AssetImage('images/avatar.jpg'),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                name,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios, size: 16),
+          ],
+        ),
       ),
     );
   }

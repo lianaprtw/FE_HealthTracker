@@ -1,128 +1,84 @@
 import 'package:flutter/material.dart';
 
-class UserListScreen extends StatefulWidget {
-  @override
-  _UserListScreenState createState() => _UserListScreenState();
-}
+class TraineeListPage extends StatelessWidget {
+  const TraineeListPage({super.key});
 
-class _UserListScreenState extends State<UserListScreen> {
-  final List<String> users = [
-    "Bambang",
-    "Nyoman",
-    "Delta",
-    "Alpha",
-    "Beta",
-    "Gamma",
-    "June",
-    "Jully",
+  final List<Map<String, String>> trainees = const [
+    {
+      'name': 'Jaya',
+      'gender': 'Male',
+      'age': '21',
+      'image': 'assets/images/avatar1.png',
+    },
+    {
+      'name': 'Jerome',
+      'gender': 'Male',
+      'age': '22',
+      'image': 'assets/images/avatar2.png',
+    },
+    {
+      'name': 'Erika',
+      'gender': 'Female',
+      'age': '22',
+      'image': 'assets/images/avatar3.png',
+    },
   ];
-
-  bool showCount = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color(0xFF3742FA),
-        title: const Text(
-          'Trainner List',
-          style: TextStyle(color: Color(0xFFF1F4FF)),
-        ),
-        iconTheme: const IconThemeData(color: Color(0xFFF1F4FF)),
+        title: const Text('Trainee', style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: const BackButton(color: Colors.black),
       ),
-      body: Center(
-        child: Container(
-          margin: const EdgeInsets.all(20),
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: Colors.blue[700],
-            borderRadius: BorderRadius.circular(30),
-            boxShadow: [
-              BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 10),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GridView.builder(
-                shrinkWrap: true,
-                itemCount: users.length,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 3.5,
-                ),
-                itemBuilder: (context, index) {
-                  return UserCard(name: users[index]);
-                },
+      backgroundColor: Colors.white,
+      body: ListView.builder(
+        padding: const EdgeInsets.all(16),
+        itemCount: trainees.length,
+        itemBuilder: (context, index) {
+          final trainee = trainees[index];
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.blueAccent),
+                borderRadius: BorderRadius.circular(12),
               ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    showCount = !showCount;
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue[700],
-                  foregroundColor: Colors.white,
-                  side: const BorderSide(color: Colors.white),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 30,
+                    backgroundImage: AssetImage(trainee['image']!),
                   ),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${trainee['gender']}, ${trainee['age']}y.o',
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          trainee['name']!,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                child: Text(
-                  showCount ? "${users.length} People" : "Show More",
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
+                  const Icon(Icons.arrow_forward_ios, size: 16),
+                ],
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class UserCard extends StatelessWidget {
-  final String name;
-
-  const UserCard({required this.name});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.blue[900],
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: const [
-          BoxShadow(color: Colors.black45, blurRadius: 4, offset: Offset(2, 2)),
-        ],
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Row(
-        children: [
-          CircleAvatar(
-            backgroundColor: Colors.orange[100],
-            child: const Icon(Icons.person, color: Colors.brown),
-          ),
-          const SizedBox(width: 8),
-          Expanded(
-            child: Text(
-              name,
-              style: const TextStyle(color: Colors.white),
-              overflow: TextOverflow.ellipsis,
             ),
-          ),
-          const Icon(Icons.chat_bubble_outline, color: Colors.white),
-        ],
+          );
+        },
       ),
     );
   }
