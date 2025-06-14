@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:health_tracker/views/chat_screen.dart'; // Pastikan path ini benar untuk halaman chat Anda
+import 'package:health_tracker/views/Trainee/chat_screen.dart'; // Pastikan path ini benar untuk halaman chat Anda
 
 // Ubah dari StatelessWidget menjadi StatefulWidget
 class TraineeDetailScreen extends StatefulWidget {

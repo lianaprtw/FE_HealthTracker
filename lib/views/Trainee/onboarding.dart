@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:health_tracker/views/logintrainer.dart';
-import 'package:health_tracker/views/registertrainer.dart';
+import 'package:health_tracker/views/Trainee/login.dart';
+import 'package:health_tracker/views/Trainee/register.dart';
 
 // Warna default jika belum didefinisikan
 const Color grayColor = Colors.grey;
 const Color blueColor = Color(0xFF2F3CFF);
 
-class OnboardingScreen extends StatelessWidget {
-  const OnboardingScreen({Key? key}) : super(key: key);
+class OnboardingView extends StatelessWidget {
+  const OnboardingView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class OnboardingScreen extends StatelessWidget {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 24),
                     child: Text(
-                      'Guide daily workouts and\nempower a healthier lifestyle.',
+                      'Create daily targets and achieve\na balanced lifestyle',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'PoppinsRegular',
@@ -81,13 +81,13 @@ class OnboardingScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const LoginPage(),
+                                  builder: (context) => const LoginView(),
                                 ),
                               );
                             },
                             style: ButtonStyle(
                               backgroundColor: WidgetStateProperty.all(
-                                Color(0xFF3742FA),
+                                const Color(0xFF3742FA),
                               ),
                               foregroundColor: WidgetStateProperty.all(
                                 Colors.white,
@@ -134,7 +134,7 @@ class OnboardingScreen extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const RegisterPage(),
+                                  builder: (context) => const RegisterView(),
                                 ),
                               );
                             },

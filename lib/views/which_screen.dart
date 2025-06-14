@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_tracker/utils/colors.dart';
-import 'package:health_tracker/views/onboarding.dart';
-import 'package:health_tracker/views/onboarding_trainer.dart';
+import 'package:health_tracker/views/Trainee/onboarding.dart';
+import 'package:health_tracker/views/Trainer/onboarding_trainer.dart';
 
 void main() => runApp(WhichScreen());
 
@@ -70,8 +70,9 @@ class RoleSelectionScreen extends StatelessWidget {
                         'Trainer',
                         style: TextStyle(
                           color: whiteColor,
-                          fontFamily: 'PoppinsSemiBold', 
-                          fontSize: 20),
+                          fontFamily: 'PoppinsSemiBold',
+                          fontSize: 20,
+                        ),
                       ),
                     ),
                   ),
@@ -99,8 +100,9 @@ class RoleSelectionScreen extends StatelessWidget {
                         'Trainee',
                         style: TextStyle(
                           color: blueColor,
-                          fontFamily: 'PoppinsSemiBold', 
-                          fontSize: 20),
+                          fontFamily: 'PoppinsSemiBold',
+                          fontSize: 20,
+                        ),
                       ),
                     ),
                   ),

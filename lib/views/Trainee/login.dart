@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:health_tracker/views/homepage_trainner.dart';
-import 'package:health_tracker/views/registertrainer.dart';
+import 'package:health_tracker/views/Trainee/genderscreen.dart';
+// import 'package:health_tracker/views/home.dart';
+import 'package:health_tracker/views/Trainee/register.dart';
+import 'package:health_tracker/views/Trainee/ForgetPass.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginView> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginView> {
   bool _obscurePassword = true; // tambahkan variabel untuk sembunyikan password
 
   @override
@@ -55,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
                   const Align(
                     alignment: Alignment.center,
                     child: Text(
-                      "Welcome back you’ve been\nmissed",
+                      "Hello, Welcome to \nHealth Tracker for Trainer",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Poppins',
@@ -76,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                       decoration: InputDecoration(
                         hintText: "Enter your email",
                         filled: true,
-                        fillColor: Color(0xFFF4F4FF),
+                        fillColor: const Color(0xFFF4F4FF),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
@@ -97,14 +99,19 @@ class _LoginPageState extends State<LoginPage> {
                     child: TextField(
                       obscureText: _obscurePassword,
                       decoration: InputDecoration(
-                        hintText: "Enter your password",
                         filled: true,
-                        fillColor: Color(0xFFF4F4FF),
+                        fillColor: const Color(0xFFF5F5FF),
+                        hintText: 'Enter your password',
+                        hintStyle: const TextStyle(
+                          color: Colors.black54,
+                          fontFamily: 'Poppins',
+                        ),
                         suffixIcon: IconButton(
                           icon: Icon(
                             _obscurePassword
                                 ? Icons.visibility_off
                                 : Icons.visibility,
+                            color: Colors.grey,
                           ),
                           onPressed: () {
                             setState(() {
@@ -113,11 +120,39 @@ class _LoginPageState extends State<LoginPage> {
                           },
                         ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(12.0),
                           borderSide: BorderSide.none,
                         ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 16,
+                      ),
+                    ),
+                  ),
+
+                  // Tambahkan sedikit jarak, misalnya 6 pixel
+                  const SizedBox(height: 6),
+
+                  // Forget Password Text
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder:
+                                (context) =>
+                                    const ForgetPasswordScreen(), // Ganti dengan nama file halaman forget password
+                          ),
+                        );
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          "Forget Your Password?",
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 13,
+                            color: Color(0xFF4A4AFF),
+                          ),
                         ),
                       ),
                     ),
@@ -134,12 +169,12 @@ class _LoginPageState extends State<LoginPage> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomepageTrainner(),
+                            builder: (context) => const GenderSelectionScreen(),
                           ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF3742FA),
+                        backgroundColor: const Color(0xFF3742FA),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -176,7 +211,7 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const RegisterPage(),
+                              builder: (context) => const RegisterView(),
                             ),
                           );
                         },

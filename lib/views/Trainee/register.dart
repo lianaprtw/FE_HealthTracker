@@ -1,7 +1,7 @@
 // Import library Flutter dan file warna kustom
 import 'package:flutter/material.dart';
 import 'package:health_tracker/utils/colors.dart';
-import 'package:health_tracker/views/login.dart';
+import 'package:health_tracker/views/Trainee/login.dart';
 
 // Widget utama untuk halaman registrasi
 class RegisterView extends StatefulWidget {
@@ -106,7 +106,11 @@ class _RegisterViewState extends State<RegisterView> {
                         _buildTextField("Full Name", nameController, false),
                         _buildTextField("Email", emailController, false),
                         _buildTextField("Password", passwordController, true),
-                        _buildTextField("Confirm Password", confirmPasswordController, true),
+                        _buildTextField(
+                          "Confirm Password",
+                          confirmPasswordController,
+                          true,
+                        ),
                       ],
                     ),
                   ),
@@ -120,8 +124,10 @@ class _RegisterViewState extends State<RegisterView> {
                           // Jika valid, navigasi ke halaman beranda
                           Navigator.push(
                             context,
-                             MaterialPageRoute(builder: (context) => LoginView()),
-                             );
+                            MaterialPageRoute(
+                              builder: (context) => LoginView(),
+                            ),
+                          );
                         } else {
                           // Jika tidak valid, tampilkan pesan kesalahan
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -137,7 +143,10 @@ class _RegisterViewState extends State<RegisterView> {
                         padding: EdgeInsets.symmetric(vertical: 13.5),
                         decoration: BoxDecoration(
                           // Tombol aktif jika form valid
-                          color: isFormValid ? blueColor : blueColor.withOpacity(0.28),
+                          color:
+                              isFormValid
+                                  ? blueColor
+                                  : blueColor.withOpacity(0.28),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
@@ -193,7 +202,11 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   // Widget reusable untuk membuat field input
-  Widget _buildTextField(String label, TextEditingController controller, bool isPassword) {
+  Widget _buildTextField(
+    String label,
+    TextEditingController controller,
+    bool isPassword,
+  ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 20),
       child: Column(
@@ -216,34 +229,38 @@ class _RegisterViewState extends State<RegisterView> {
             },
             controller: controller,
             // Menentukan apakah field ini password dan perlu disembunyikan
-            obscureText: isPassword ? (label == "Confirm Password" ? isHideConfirm : isHide) : false,
-            style: TextStyle(
-              fontSize: 14,
-              fontFamily: "PoppinsRegular",
-            ),
+            obscureText:
+                isPassword
+                    ? (label == "Confirm Password" ? isHideConfirm : isHide)
+                    : false,
+            style: TextStyle(fontSize: 14, fontFamily: "PoppinsRegular"),
             decoration: InputDecoration(
               // Tombol untuk toggle show/hide password
-              suffixIcon: isPassword
-                  ? IconButton(
-                      onPressed: () {
-                        setState(() {
-                          if (label == "Confirm Password") {
-                            isHideConfirm = !isHideConfirm;
-                          } else {
-                            isHide = !isHide;
-                          }
-                        });
-                      },
-                      icon: Icon(
-                        (label == "Confirm Password" ? isHideConfirm : isHide)
-                            ? Icons.remove_red_eye
-                            : Icons.remove_red_eye_outlined,
-                        size: 18,
-                        color: grayColor,
-                      ),
-                    )
-                  : null,
-              contentPadding: const EdgeInsets.symmetric(vertical: 13.5, horizontal: 16),
+              suffixIcon:
+                  isPassword
+                      ? IconButton(
+                        onPressed: () {
+                          setState(() {
+                            if (label == "Confirm Password") {
+                              isHideConfirm = !isHideConfirm;
+                            } else {
+                              isHide = !isHide;
+                            }
+                          });
+                        },
+                        icon: Icon(
+                          (label == "Confirm Password" ? isHideConfirm : isHide)
+                              ? Icons.remove_red_eye
+                              : Icons.remove_red_eye_outlined,
+                          size: 18,
+                          color: grayColor,
+                        ),
+                      )
+                      : null,
+              contentPadding: const EdgeInsets.symmetric(
+                vertical: 13.5,
+                horizontal: 16,
+              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(4)),
                 borderSide: BorderSide.none,

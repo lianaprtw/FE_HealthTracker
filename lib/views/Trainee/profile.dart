@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker/views/Trainee/login.dart';
 
 // Import CustomBottomNavigationBar Anda jika ada di file terpisah
 // import 'package:health_tracker/widgets/custom_bottom_nav_bar.dart'; // Sesuaikan path ini
@@ -15,7 +16,8 @@ class _ProfilePageState extends State<ProfilePage> {
   void _showLanguageSelectionSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      backgroundColor: Colors.transparent, // Untuk sudut membulat di latar belakang putih
+      backgroundColor:
+          Colors.transparent, // Untuk sudut membulat di latar belakang putih
       builder: (BuildContext bc) {
         return Container(
           decoration: const BoxDecoration(
@@ -25,20 +27,21 @@ class _ProfilePageState extends State<ProfilePage> {
               topRight: Radius.circular(20.0),
             ),
           ),
-          child: Wrap( // Wrap untuk menyusun pilihan bahasa
+          child: Wrap(
+            // Wrap untuk menyusun pilihan bahasa
             children: <Widget>[
               // Judul opsional jika diperlukan
-              // const Padding(
-              //   padding: EdgeInsets.all(16.0),
-              //   child: Text(
-              //     'Select Language',
-              //     style: TextStyle(
-              //       fontSize: 18,
-              //       fontWeight: FontWeight.bold,
-              //       fontFamily: "PoppinsSemiBold",
-              //     ),
-              //   ),
-              // ),
+              const Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text(
+                  'Select Language',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "PoppinsSemiBold",
+                  ),
+                ),
+              ),
               ListTile(
                 title: const Text(
                   'English',
@@ -61,7 +64,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: "Poppins",
-                    color: Color(0xFF3333FF), // Warna biru untuk Indonesia, sesuai desain
+                    color: Color(
+                      0xFF3333FF,
+                    ), // Warna biru untuk Indonesia, sesuai desain
                   ),
                 ),
                 onTap: () {
@@ -84,7 +89,9 @@ class _ProfilePageState extends State<ProfilePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           title: const Text(
             'Sign Out',
             style: TextStyle(
@@ -110,15 +117,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 // Tambahkan logika sign out Anda di sini
                 print('User Signed Out!');
                 // Biasanya navigasi ke halaman login:
-                // Navigator.pushAndRemoveUntil(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const LoginPage()), // Ganti dengan halaman login Anda
-                //   (Route<dynamic> route) => false,
-                // );
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginView(),
+                  ), // Ganti dengan halaman login Anda
+                  (Route<dynamic> route) => false,
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFFF3333), // Warna merah
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
               child: const Text(
                 'Sign Out',
@@ -137,7 +148,9 @@ class _ProfilePageState extends State<ProfilePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
           title: const Text(
             'Delete Account',
             style: TextStyle(
@@ -163,15 +176,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 // Tambahkan logika delete account Anda di sini
                 print('User Account Deleted!');
                 // Biasanya navigasi ke halaman login atau halaman onboarding:
-                // Navigator.pushAndRemoveUntil(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => const LoginPage()), // Ganti dengan halaman login Anda
-                //   (Route<dynamic> route) => false,
-                // );
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const LoginView(),
+                  ), // Ganti dengan halaman login Anda
+                  (Route<dynamic> route) => false,
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color(0xFFFF3333), // Warna merah
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
               ),
               child: const Text(
                 'Delete',
@@ -187,7 +204,9 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     const Color primaryColor = Color(0xFF3333FF); // Warna biru utama
-    const Color redColor = Color(0xFFFF3333); // Warna merah untuk tombol hapus/sign out
+    const Color redColor = Color(
+      0xFFFF3333,
+    ); // Warna merah untuk tombol hapus/sign out
 
     return Scaffold(
       appBar: AppBar(
@@ -195,28 +214,30 @@ class _ProfilePageState extends State<ProfilePage> {
         centerTitle: true, // Tetap pusatkan, meskipun isinya kosong
         backgroundColor: Colors.white, // Latar belakang putih
         elevation: 0, // Tanpa bayangan
-        automaticallyImplyLeading: false, // Biasanya diset false jika ini adalah root dari tab
+        automaticallyImplyLeading:
+            false, // Biasanya diset false jika ini adalah root dari tab
       ),
       body: SafeArea(
-        child: SingleChildScrollView( // Menggunakan SingleChildScrollView agar konten bisa digulir
+        child: SingleChildScrollView(
+          // Menggunakan SingleChildScrollView agar konten bisa digulir
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 24), // Spacer di atas avatar
               Center(
-                child: Stack( // Menggunakan Stack untuk menumpuk avatar dan ikon edit
-                  alignment: Alignment.bottomRight, // Posisikan ikon edit di pojok kanan bawah
+                child: Stack(
+                  // Menggunakan Stack untuk menumpuk avatar dan ikon edit
+                  alignment:
+                      Alignment
+                          .bottomRight, // Posisikan ikon edit di pojok kanan bawah
                   children: [
                     Container(
                       width: 140,
                       height: 131, // Sesuaikan tinggi sesuai desain
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        border: Border.all(
-                          color: primaryColor,
-                          width: 4.0,
-                        ),
+                        border: Border.all(color: primaryColor, width: 4.0),
                       ),
                       child: const CircleAvatar(
                         backgroundImage: AssetImage(
@@ -231,7 +252,8 @@ class _ProfilePageState extends State<ProfilePage> {
                       child: Container(
                         padding: const EdgeInsets.all(4),
                         decoration: const BoxDecoration(
-                          color: primaryColor, // Latar belakang biru untuk ikon edit
+                          color:
+                              primaryColor, // Latar belakang biru untuk ikon edit
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
@@ -279,7 +301,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 },
               ),
               const SizedBox(height: 16),
-              ProfileOption( // Tambahkan opsi Help
+              ProfileOption(
+                // Tambahkan opsi Help
                 icon: Icons.help_outline,
                 title: 'Help',
                 iconColor: primaryColor,
@@ -290,7 +313,9 @@ class _ProfilePageState extends State<ProfilePage> {
                   // Navigasi ke halaman Help
                 },
               ),
-              const SizedBox(height: 32), // Spacer sebelum tombol Delete Account
+              const SizedBox(
+                height: 32,
+              ), // Spacer sebelum tombol Delete Account
               SizedBox(
                 width: double.infinity,
                 height: 55, // Tinggi tombol
@@ -317,7 +342,10 @@ class _ProfilePageState extends State<ProfilePage> {
                     backgroundColor: Colors.white, // Latar belakang putih
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15), // Sudut membulat
-                      side: const BorderSide(color: redColor, width: 1.5), // Border merah
+                      side: const BorderSide(
+                        color: redColor,
+                        width: 1.5,
+                      ), // Border merah
                     ),
                     elevation: 0, // Tanpa bayangan
                     padding: const EdgeInsets.symmetric(vertical: 12),
@@ -387,7 +415,8 @@ class ProfileOption extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector( // Menggunakan GestureDetector untuk membuat seluruh area bisa diklik
+    return GestureDetector(
+      // Menggunakan GestureDetector untuk membuat seluruh area bisa diklik
       onTap: onTap,
       child: Container(
         height: 55, // Menyesuaikan tinggi
@@ -411,7 +440,11 @@ class ProfileOption extends StatelessWidget {
                 ),
               ),
             ),
-            Icon(Icons.chevron_right, color: arrowColor, size: 24), // Ukuran ikon panah
+            Icon(
+              Icons.chevron_right,
+              color: arrowColor,
+              size: 24,
+            ), // Ukuran ikon panah
           ],
         ),
       ),

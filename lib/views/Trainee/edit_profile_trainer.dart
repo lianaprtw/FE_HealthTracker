@@ -34,7 +34,7 @@ class _EditProfileTrainerScreenState extends State<EditProfileTrainerScreen> {
               // Profile Picture
               Stack(
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 60,
                     backgroundImage: AssetImage(
                       'assets/images/profile.png',
@@ -44,7 +44,7 @@ class _EditProfileTrainerScreenState extends State<EditProfileTrainerScreen> {
                     bottom: 0,
                     right: 0,
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.blue,
                       ),

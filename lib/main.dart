@@ -2,10 +2,8 @@
 import 'package:flutter/material.dart';
 // Import file warna kustom dari proyek
 import 'package:health_tracker/utils/colors.dart';
-// Import halaman kalender
-import 'package:health_tracker/views/calender.dart';
 // Import tampilan home page
-import 'package:health_tracker/views/home.dart';
+import 'package:health_tracker/views/Trainee/home.dart';
 // Import tampilan yang menentukan screen mana yang dibuka pertama kali
 import 'package:health_tracker/views/which_screen.dart';
 
@@ -28,14 +26,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: WhichScreen(), // Halaman pertama yang ditampilkan
-      routes: {
-        'homePage': (context) => const HomePage(),
-        'calendarPage':
-            (context) => const CalendarPage(
-              username: 'guest', // Placeholder data (nanti bisa diubah dinamis)
-              age: 0, // Placeholder data
-            ),
-      },
+      routes: {'homePage': (context) => const HomePage()},
     );
   }
 }

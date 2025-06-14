@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:health_tracker/views/daily_activity_screen.dart'; // Asumsi file ini ada
-import 'package:health_tracker/views/progressStepDay.dart'; // Asumsi file ini ada
-import 'package:health_tracker/views/profile.dart'; // Asumsi file ini ada
-import 'package:health_tracker/views/water_tracker.dart'; // <--- IMPORT HALAMAN BARU INI
+import 'package:health_tracker/views/Trainee/daily_activity_screen.dart'; // Asumsi file ini ada
+import 'package:health_tracker/views/Trainee/history.dart';
+import 'package:health_tracker/views/Trainee/profile.dart'; // Asumsi file ini ada
+import 'package:health_tracker/views/Trainee/water_tracker.dart'; // <--- IMPORT HALAMAN BARU INI
 
 // Placeholder untuk halaman chat
 class ChatPage extends StatelessWidget {
@@ -15,30 +15,6 @@ class ChatPage extends StatelessWidget {
         'Chat Page Content Here',
         style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
       ),
-    );
-  }
-}
-
-// Main entry point of the application
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Health Tracker App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: "Poppins", // Pastikan Anda memiliki font Poppins di assets atau dari Google Fonts
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        scaffoldBackgroundColor: const Color(0xFFF7F7F7), // Background yang konsisten
-      ),
-      home: const HomePage(),
-      debugShowCheckedModeBanner: false, // Hilangkan banner debug
     );
   }
 }
@@ -65,14 +41,18 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // Mencegah Flutter menambahkan tombol kembali secara otomatis
+        automaticallyImplyLeading:
+            false, // Mencegah Flutter menambahkan tombol kembali secara otomatis
         backgroundColor: const Color(0xFFF7F7F7), // Background abu-abu muda
         elevation: 0, // Tanpa bayangan
         toolbarHeight: 80.0, // Sesuaikan tinggi sesuai desain
         title: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0.0), // Tanpa padding horizontal di sini
+          padding: const EdgeInsets.symmetric(
+            horizontal: 0.0,
+          ), // Tanpa padding horizontal di sini
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Mendistribusikan ruang
+            mainAxisAlignment:
+                MainAxisAlignment.spaceBetween, // Mendistribusikan ruang
             children: [
               // Teks "Health Tracker" di kiri
               const Text(
@@ -86,7 +66,11 @@ class _HomePageState extends State<HomePage> {
               ),
               // Ikon bel notifikasi di kanan
               IconButton(
-                icon: const Icon(Icons.notifications, color: Colors.black, size: 30),
+                icon: const Icon(
+                  Icons.notifications,
+                  color: Colors.black,
+                  size: 30,
+                ),
                 onPressed: () {
                   // Tangani saat ikon notifikasi ditekan
                   print('Ikon notifikasi ditekan!');
@@ -99,7 +83,9 @@ class _HomePageState extends State<HomePage> {
       body: _pages[_selectedIndex], // Menampilkan halaman yang dipilih
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white, // Latar belakang putih untuk container bottom nav bar
+          color:
+              Colors
+                  .white, // Latar belakang putih untuk container bottom nav bar
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.1), // Bayangan lembut
@@ -117,13 +103,29 @@ class _HomePageState extends State<HomePage> {
             });
           },
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home, size: 30), label: ''), // Ikon Home
-            BottomNavigationBarItem(icon: Icon(Icons.chat_bubble, size: 30), label: ''), // Ikon Chat
-            BottomNavigationBarItem(icon: Icon(Icons.person, size: 30), label: ''), // Ikon Profil
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home, size: 30),
+              label: '',
+            ), // Ikon Home
+            BottomNavigationBarItem(
+              icon: Icon(Icons.chat_bubble, size: 30),
+              label: '',
+            ), // Ikon Chat
+            BottomNavigationBarItem(
+              icon: Icon(Icons.person, size: 30),
+              label: '',
+            ), // Ikon Profil
           ],
-          selectedItemColor: const Color.fromARGB(255, 57, 67, 255), // Warna item yang dipilih
+          selectedItemColor: const Color.fromARGB(
+            255,
+            57,
+            67,
+            255,
+          ), // Warna item yang dipilih
           unselectedItemColor: Colors.grey, // Warna item yang tidak dipilih
-          backgroundColor: Colors.transparent, // Transparan untuk menampilkan warna container
+          backgroundColor:
+              Colors
+                  .transparent, // Transparan untuk menampilkan warna container
           elevation: 0, // Hilangkan elevasi default BottomNavigationBar
           showSelectedLabels: false, // Sembunyikan label
           showUnselectedLabels: false, // Sembunyikan label
@@ -144,7 +146,7 @@ class HomeContent extends StatefulWidget {
 
 class _HomeContentState extends State<HomeContent> {
   // Pindahkan state water tracker ke HomeContent agar bisa diperbarui di halaman ini
-  double _waterDrank = 200; // Air yang sudah diminum
+  final double _waterDrank = 200; // Air yang sudah diminum
   final double _waterTarget = 2000; // Target air harian
 
   // --- Helper Methods untuk membangun kartu individu ---
@@ -159,10 +161,10 @@ class _HomeContentState extends State<HomeContent> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start, // Sejajarkan item ke atas
         children: [
-          Expanded(
+          const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
                   'Enno Lerebulan',
                   style: TextStyle(
@@ -225,12 +227,13 @@ class _HomeContentState extends State<HomeContent> {
         color: const Color(0xFF3333FF), // Background biru
         borderRadius: BorderRadius.circular(15.0),
       ),
-      child: Column(
+      child: const Column(
         // Gunakan Column utama untuk menumpuk elemen
-        crossAxisAlignment: CrossAxisAlignment.start, // Sejajarkan konten kolom ke kiri
+        crossAxisAlignment:
+            CrossAxisAlignment.start, // Sejajarkan konten kolom ke kiri
         children: [
           // Teks "Your Trainer" di pojok kiri atas
-          const Text(
+          Text(
             'Your Trainer',
             style: TextStyle(
               color: Colors.white,
@@ -240,14 +243,14 @@ class _HomeContentState extends State<HomeContent> {
             ),
           ),
 
-          const SizedBox(
-              height: 15), // Spasi antara "Your Trainer" dan baris di bawahnya
-
+          SizedBox(
+            height: 15,
+          ), // Spasi antara "Your Trainer" dan baris di bawahnya
           // Baris untuk ikon dan detail trainer
           Row(
             children: [
               // Ikon Pengguna
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 30,
                 backgroundColor: Colors.white,
                 child: Icon(
@@ -257,15 +260,14 @@ class _HomeContentState extends State<HomeContent> {
                 ),
               ),
 
-              const SizedBox(width: 15), // Spasi antara ikon dan detail trainer
-
+              SizedBox(width: 15), // Spasi antara ikon dan detail trainer
               // Detail Trainer (akan mengambil sisa ruang)
               Expanded(
                 child: Column(
                   // Column untuk menumpuk detail trainer secara vertikal
                   crossAxisAlignment:
                       CrossAxisAlignment.start, // Sejajarkan teks ke kiri
-                  children: const [
+                  children: [
                     Text(
                       'Bambang Suherman',
                       style: TextStyle(
@@ -303,7 +305,7 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 
-  Widget _buildDailyActivityCard() {
+  Widget _buildDailyActivityCard(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20.0),
       decoration: BoxDecoration(
@@ -327,12 +329,10 @@ class _HomeContentState extends State<HomeContent> {
               ),
               TextButton(
                 onPressed: () {
-                  print('View history pressed!');
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          DailyActivityScreen(), // Navigate to DailyActivityScreen
+                      builder: (context) => const HistoryScreen(),
                     ),
                   );
                 },
@@ -358,23 +358,31 @@ class _HomeContentState extends State<HomeContent> {
           ),
           const SizedBox(height: 20),
           SizedBox(
-            width: double.infinity, // Make button fill width
+            width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                print('Add New pressed!');
-                // Implement navigation or dialog for adding new activity
+                // Navigasi ke halaman DailyActivityScreen untuk menambahkan aktivitas baru
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddDailyActivityScreen(),
+                  ),
+                ).then((_) {
+                  // Opsional: Jika Anda ingin memperbarui tampilan setelah kembali dari halaman DailyActivityScreen
+                  // Anda bisa menggunakan setState() untuk memperbarui data yang ditampilkan.
+                });
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white, // White background
+                backgroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(vertical: 15),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50), // Rounded corners
+                  borderRadius: BorderRadius.circular(50),
                 ),
               ),
               child: const Text(
                 'Add New',
                 style: TextStyle(
-                  color: Color(0xFF3333FF), // Blue text
+                  color: Color(0xFF3333FF),
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                   fontFamily: "PoppinsSemiBold",
@@ -429,10 +437,7 @@ class _HomeContentState extends State<HomeContent> {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white,
-              border: Border.all(
-                color: const Color(0xFF3333FF),
-                width: 2.0,
-              ),
+              border: Border.all(color: const Color(0xFF3333FF), width: 2.0),
             ),
             child: const Icon(
               Icons.local_drink, // Water drop icon
@@ -475,7 +480,7 @@ class _HomeContentState extends State<HomeContent> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  WaterTrackerScreen(),
+                  builder: (context) => const WaterTrackerScreen(),
                 ),
               ).then((_) {
                 // Opsional: Jika Anda ingin memperbarui _waterDrank setelah kembali dari halaman WaterTrackerScreen
@@ -516,7 +521,8 @@ class _HomeContentState extends State<HomeContent> {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0), // Padding di sekitar konten utama
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start, // Sejajarkan children ke awal (kiri)
+        crossAxisAlignment:
+            CrossAxisAlignment.start, // Sejajarkan children ke awal (kiri)
         children: [
           // Removed "Holla, Enno!" greeting
           // const Text(
@@ -534,15 +540,12 @@ class _HomeContentState extends State<HomeContent> {
           // User Profile Card (dibuat ulang dari desain detail sebelumnya)
           _buildUserProfileCard(),
           const SizedBox(height: 20), // Spacer
-
           // Your Trainer Card (dibuat ulang dari desain detail sebelumnya)
           _buildYourTrainerCard(),
           const SizedBox(height: 20), // Spacer
-
           // Daily Activity Card (dibuat ulang dari desain detail sebelumnya)
-          _buildDailyActivityCard(),
+          _buildDailyActivityCard(context),
           const SizedBox(height: 20), // Spacer
-
           // Water Tracker Card (dibuat ulang dari desain detail sebelumnya, diintegrasikan dengan state)
           _buildWaterTrackerCard(),
         ],
