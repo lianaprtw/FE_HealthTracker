@@ -38,103 +38,97 @@ class _HomePageState extends State<HomePage> {
     const ProfilePage(), // Halaman Profil
   ];
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading:
-            false, // Mencegah Flutter menambahkan tombol kembali secara otomatis
-        backgroundColor: const Color(0xFFF7F7F7), // Background abu-abu muda
-        elevation: 0, // Tanpa bayangan
-        toolbarHeight: 80.0, // Sesuaikan tinggi sesuai desain
-        title: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 0.0,
-          ), // Tanpa padding horizontal di sini
-          child: Row(
-            mainAxisAlignment:
-                MainAxisAlignment.spaceBetween, // Mendistribusikan ruang
-            children: [
-              // Teks "Health Tracker" di kiri
-              const Text(
-                'Health Tracker',
-                style: TextStyle(
-                  color: Color(0xFF3333FF), // Warna biru dari desain
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: "PoppinsSemiBold", // Asumsi gaya ini
-                ),
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      automaticallyImplyLeading: false,
+      backgroundColor: const Color(0xFFF7F7F7),
+      elevation: 0,
+      toolbarHeight: 80.0,
+      title: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Health Tracker',
+              style: TextStyle(
+                color: Color(0xFF3333FF),
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                fontFamily: "PoppinsSemiBold",
               ),
-              // Ikon bel notifikasi di kanan
-              IconButton(
-                icon: const Icon(
-                  Icons.notifications,
-                  color: Colors.black,
-                  size: 30,
-                ),
-                onPressed: () {
-                  // Tangani saat ikon notifikasi ditekan
-                  print('Ikon notifikasi ditekan!');
-                },
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.notifications,
+                color: Colors.black,
+                size: 30,
               ),
-            ],
-          ),
-        ),
-      ),
-      body: _pages[_selectedIndex], // Menampilkan halaman yang dipilih
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color:
-              Colors
-                  .white, // Latar belakang putih untuk container bottom nav bar
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1), // Bayangan lembut
-              spreadRadius: 0,
-              blurRadius: 10,
-              offset: const Offset(0, -5), // Bayangan di bagian atas
+              onPressed: () {
+                print('Ikon notifikasi ditekan!');
+              },
             ),
           ],
         ),
-        child: BottomNavigationBar(
-          currentIndex: _selectedIndex,
-          onTap: (index) {
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home, size: 30),
-              label: '',
-            ), // Ikon Home
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble, size: 30),
-              label: '',
-            ), // Ikon Chat
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person, size: 30),
-              label: '',
-            ), // Ikon Profil
+      ),
+    ),
+
+    // Halaman yang sedang dipilih
+    body: _pages[_selectedIndex],
+
+    // FAB (Chat)
+    floatingActionButton: FloatingActionButton(
+      onPressed: () {
+        setState(() {
+          _selectedIndex = 1; // Pindah ke halaman Chat
+        });
+      },
+      backgroundColor: const Color(0xFF3333FF),
+      elevation: 0,
+      shape: const CircleBorder(),
+      child: const Icon(Icons.chat_bubble, color: Colors.white),
+    ),
+
+    // Lokasi FAB
+    floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+    // Bottom App Bar dengan FAB
+    bottomNavigationBar: BottomAppBar(
+      color: Colors.white,
+      shape: const CircularNotchedRectangle(),
+      notchMargin: 8,
+      child: SizedBox(
+        height: 60,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            IconButton(
+              icon: const Icon(Icons.home),
+              color: _selectedIndex == 0 ? const Color(0xFF3333FF) : Colors.grey,
+              onPressed: () {
+                setState(() {
+                  _selectedIndex = 0;
+                });
+              },
+            ),
+            const SizedBox(width: 40), // Ruang untuk FAB di tengah
+            IconButton(
+              icon: const Icon(Icons.person),
+              color: _selectedIndex == 2 ? const Color(0xFF3333FF) : Colors.grey,
+              onPressed: () {
+                setState(() {
+                  _selectedIndex = 2;
+                });
+              },
+            ),
           ],
-          selectedItemColor: const Color.fromARGB(
-            255,
-            57,
-            67,
-            255,
-          ), // Warna item yang dipilih
-          unselectedItemColor: Colors.grey, // Warna item yang tidak dipilih
-          backgroundColor:
-              Colors
-                  .transparent, // Transparan untuk menampilkan warna container
-          elevation: 0, // Hilangkan elevasi default BottomNavigationBar
-          showSelectedLabels: false, // Sembunyikan label
-          showUnselectedLabels: false, // Sembunyikan label
-          type: BottomNavigationBarType.fixed, // Pastikan ikon tidak bergeser
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 // Konten tab Home, berisi semua kartu
