@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:health_tracker/views/Trainee/login.dart';
+import 'package:health_tracker/views/Trainer/update_profile.dart';
 
 // Import CustomBottomNavigationBar Anda jika ada di file terpisah
 // import 'package:health_tracker/widgets/custom_bottom_nav_bar.dart'; // Sesuaikan path ini
@@ -227,21 +228,18 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(height: 24), // Spacer di atas avatar
               Center(
                 child: Stack(
-                  // Menggunakan Stack untuk menumpuk avatar dan ikon edit
-                  alignment:
-                      Alignment
-                          .bottomRight, // Posisikan ikon edit di pojok kanan bawah
+                  alignment: Alignment.center,
                   children: [
                     Container(
                       width: 140,
-                      height: 131, // Sesuaikan tinggi sesuai desain
+                      height: 131,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(color: primaryColor, width: 4.0),
                       ),
                       child: const CircleAvatar(
                         backgroundImage: AssetImage(
-                          'assets/images/woman meditates under a rainbow.png', // Pastikan path ini benar
+                          'assets/images/woman meditates under a rainbow.png',
                         ),
                         backgroundColor: Colors.white,
                       ),
@@ -249,17 +247,28 @@ class _ProfilePageState extends State<ProfilePage> {
                     Positioned(
                       right: 0,
                       bottom: 0,
-                      child: Container(
-                        padding: const EdgeInsets.all(4),
-                        decoration: const BoxDecoration(
-                          color:
-                              primaryColor, // Latar belakang biru untuk ikon edit
-                          shape: BoxShape.circle,
-                        ),
-                        child: const Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                          size: 20, // Ukuran ikon edit
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder:
+                                  (context) =>
+                                      const TrainerProfileEditPage(), // Ganti dengan halaman target kamu
+                            ),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(4),
+                          decoration: const BoxDecoration(
+                            color: primaryColor,
+                            shape: BoxShape.circle,
+                          ),
+                          child: const Icon(
+                            Icons.edit,
+                            color: Colors.white,
+                            size: 20,
+                          ),
                         ),
                       ),
                     ),

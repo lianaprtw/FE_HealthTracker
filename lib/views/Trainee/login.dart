@@ -103,6 +103,7 @@ class _LoginPageState extends State<LoginView> {
                       obscureText: _obscurePassword,
                       onChanged: (value) => setState(() {}),
                       decoration: InputDecoration(
+                        hintText: "Enter your password",
                         filled: true,
                         fillColor: const Color(0xFFF4F4FF),
                         suffixIcon: IconButton(
