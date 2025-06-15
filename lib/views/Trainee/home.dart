@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_tracker/views/Trainee/daily_activity_screen.dart'; // Asumsi file ini ada
 import 'package:health_tracker/views/Trainee/history.dart';
+import 'package:health_tracker/views/Trainee/notification.dart';
 import 'package:health_tracker/views/Trainee/profile.dart'; // Asumsi file ini ada
 import 'package:health_tracker/views/Trainee/water_tracker.dart'; // <--- IMPORT HALAMAN BARU INI
 import 'package:health_tracker/views/Trainer/addTrainer.dart';
@@ -67,7 +68,13 @@ Widget build(BuildContext context) {
                 size: 30,
               ),
               onPressed: () {
-                print('Ikon notifikasi ditekan!');
+                // Navigasi ke halaman notifikasi
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const NotificationPage(), // Ganti dengan halaman notifikasi yang sesuai
+                  ),
+                );
               },
             ),
           ],
