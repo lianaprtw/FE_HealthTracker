@@ -180,27 +180,27 @@ class _HomeContentState extends State<HomeContent> {
                 Text(
                   'Female, 23y.o',
                   style: TextStyle(
-                    color: Colors.white70, // Putih yang sedikit lebih terang
-                    fontSize: 13,
-                    fontFamily: "Poppins",
+                    color: Colors.white, // Putih yang sedikit lebih terang
+                    fontSize: 14,
+                    fontFamily: "PoppinsMedium",
                   ),
                 ),
                 SizedBox(height: 4),
                 Text(
                   'Height: 155cm',
                   style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 10,
-                    fontFamily: "Poppins",
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontFamily: "PoppinsRegular",
                   ),
                 ),
                 SizedBox(height: 4),
                 Text(
                   'Weight: 50kg',
                   style: TextStyle(
-                    color: Colors.white70,
-                    fontSize: 10,
-                    fontFamily: "Poppins",
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontFamily: "PoppinsRegular",
                   ),
                 ),
               ],
@@ -245,7 +245,7 @@ class _HomeContentState extends State<HomeContent> {
                 color: Colors.white,
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
-                fontFamily: "Poppins",
+                fontFamily: "PoppinsSemiBold",
               ),
             ),
             const SizedBox(height: 16), // Spasi antara teks dan tombol
@@ -262,7 +262,8 @@ class _HomeContentState extends State<HomeContent> {
                   style: TextStyle(
                     color: Color(0xFF3333FF),
                     fontWeight: FontWeight.w600,
-                    fontFamily: "Poppins",
+                    fontFamily: "PoppinsSemiBold",
+                    fontSize: 15,
                   ),
                 ),
               ),
@@ -307,9 +308,9 @@ class _HomeContentState extends State<HomeContent> {
                 child: const Text(
                   'view history',
                   style: TextStyle(
-                    color: Colors.white70,
+                    color: Color(0xFFFFEAA7), 
                     fontSize: 16,
-                    fontFamily: "Poppins",
+                    fontFamily: "PoppinsMedium",
                   ),
                 ),
               ),
@@ -381,9 +382,9 @@ class _HomeContentState extends State<HomeContent> {
         Text(
           label,
           style: const TextStyle(
-            color: Colors.white70,
+            color: Colors.white,
             fontSize: 14,
-            fontFamily: "Poppins",
+            fontFamily: "PoppinsSemiBold",
           ),
         ),
       ],
@@ -424,7 +425,7 @@ class _HomeContentState extends State<HomeContent> {
                   '${_waterDrank.round()}/${_waterTarget.round()} ml',
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: 18,
                     fontWeight: FontWeight.bold,
                     fontFamily: "PoppinsSemiBold",
                   ),
@@ -432,9 +433,9 @@ class _HomeContentState extends State<HomeContent> {
                 const Text(
                   'Water Tracker',
                   style: TextStyle(
-                    color: Colors.white70,
+                    color: Colors.white,
                     fontSize: 14,
-                    fontFamily: "Poppins",
+                    fontFamily: "PoppinsRegular",
                   ),
                 ),
               ],
