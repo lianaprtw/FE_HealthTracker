@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:health_tracker/utils/colors.dart';
-import 'package:health_tracker/views/Trainee/home.dart';
+// import 'package:health_tracker/views/Trainee/home.dart';
+import 'package:health_tracker/views/Trainee/mainpage.dart';
 import 'package:health_tracker/views/which_screen.dart';
-
 void main() {
   runApp(const MyApp());
 }
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: WhichScreen(),
-      routes: {'homePage': (context) => const HomePage()},
+      routes: {'mainPage': (context) => const MainPage()},
     );
   }
 }
