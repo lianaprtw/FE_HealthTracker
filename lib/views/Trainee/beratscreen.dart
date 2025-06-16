@@ -31,7 +31,7 @@ class _ProfilePageState extends State<WeightScreen> {
       backgroundColor: const Color(0xFFF5F5F5), // Light grey background
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -56,7 +56,7 @@ class _ProfilePageState extends State<WeightScreen> {
                   fontSize: 14,
                 ),
               ),
-              const SizedBox(height: 32),
+              const SizedBox(height: 75),
               // Height label
               const Text(
                 'Height',
