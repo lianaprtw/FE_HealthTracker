@@ -39,103 +39,107 @@ class _HomePageState extends State<HomePage> {
     const ProfilePage(), // Halaman Profil
   ];
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      automaticallyImplyLeading: false,
-      backgroundColor: const Color(0xFFF7F7F7),
-      elevation: 0,
-      toolbarHeight: 80.0,
-      title: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 0.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Text(
-              'Health Tracker',
-              style: TextStyle(
-                color: Color(0xFF3333FF),
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                fontFamily: "PoppinsSemiBold",
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: const Color(0xFFF7F7F7),
+        elevation: 0,
+        toolbarHeight: 80.0,
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 0.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text(
+                'Health Tracker',
+                style: TextStyle(
+                  color: Color(0xFF3333FF),
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "PoppinsSemiBold",
+                ),
               ),
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.notifications,
-                color: Colors.black,
-                size: 30,
+              IconButton(
+                icon: const Icon(
+                  Icons.notifications,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  // Navigasi ke halaman notifikasi
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) =>
+                              const NotificationPage(), // Ganti dengan halaman notifikasi yang sesuai
+                    ),
+                  );
+                },
               ),
-              onPressed: () {
-                // Navigasi ke halaman notifikasi
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const NotificationPage(), // Ganti dengan halaman notifikasi yang sesuai
-                  ),
-                );
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),
 
-    // Halaman yang sedang dipilih
-    body: _pages[_selectedIndex],
+      // Halaman yang sedang dipilih
+      body: _pages[_selectedIndex],
 
-    // FAB (Chat)
-    floatingActionButton: FloatingActionButton(
-      onPressed: () {
-        setState(() {
-          _selectedIndex = 1; // Pindah ke halaman Chat
-        });
-      },
-      backgroundColor: const Color(0xFF3333FF),
-      elevation: 0,
-      shape: const CircleBorder(),
-      child: const Icon(Icons.chat_bubble, color: Colors.white),
-    ),
+      // FAB (Chat)
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            _selectedIndex = 1; // Pindah ke halaman Chat
+          });
+        },
+        backgroundColor: const Color(0xFF3333FF),
+        elevation: 0,
+        shape: const CircleBorder(),
+        child: const Icon(Icons.chat_bubble, color: Colors.white),
+      ),
 
-    // Lokasi FAB
-    floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      // Lokasi FAB
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
-    // Bottom App Bar dengan FAB
-    bottomNavigationBar: BottomAppBar(
-      color: Colors.white,
-      shape: const CircularNotchedRectangle(),
-      notchMargin: 8,
-      child: SizedBox(
-        height: 60,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              icon: const Icon(Icons.home),
-              color: _selectedIndex == 0 ? const Color(0xFF3333FF) : Colors.grey,
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 0;
-                });
-              },
-            ),
-            const SizedBox(width: 40), // Ruang untuk FAB di tengah
-            IconButton(
-              icon: const Icon(Icons.person),
-              color: _selectedIndex == 2 ? const Color(0xFF3333FF) : Colors.grey,
-              onPressed: () {
-                setState(() {
-                  _selectedIndex = 2;
-                });
-              },
-            ),
-          ],
+      // Bottom App Bar dengan FAB
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 8,
+        child: SizedBox(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.home),
+                color:
+                    _selectedIndex == 0 ? const Color(0xFF3333FF) : Colors.grey,
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                },
+              ),
+              const SizedBox(width: 40), // Ruang untuk FAB di tengah
+              IconButton(
+                icon: const Icon(Icons.person),
+                color:
+                    _selectedIndex == 2 ? const Color(0xFF3333FF) : Colors.grey,
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                },
+              ),
+            ],
+          ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 }
 
 // Konten tab Home, berisi semua kartu
@@ -308,7 +312,7 @@ class _HomeContentState extends State<HomeContent> {
                 child: const Text(
                   'view history',
                   style: TextStyle(
-                    color: Color(0xFFFFEAA7), 
+                    color: Color(0xFFFFEAA7),
                     fontSize: 16,
                     fontFamily: "PoppinsMedium",
                   ),

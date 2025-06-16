@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_tracker/views/Trainer/Profile_Trainner.dart';
 import 'package:health_tracker/views/Trainee/user_Trainer.dart';
 import 'package:health_tracker/views/Trainee/detail_trainee.dart';
+import 'package:health_tracker/views/Trainee/notification.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
@@ -52,10 +53,7 @@ class _HomePageState extends State<HomepageTrainner> {
         },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline),
-            label: '',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
         ],
       ),
@@ -80,11 +78,12 @@ class HomePageContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Text(
-                "Health Tracker",
+                'Health Tracker',
                 style: TextStyle(
-                  fontSize: 22,
+                  color: Color(0xFF3333FF),
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF3742FA),
+                  fontFamily: "PoppinsSemiBold",
                 ),
               ),
               IconButton(
@@ -94,12 +93,20 @@ class HomePageContent extends StatelessWidget {
                   size: 30,
                 ),
                 onPressed: () {
-                  // Tangani saat ikon notifikasi ditekan
-                  print('Ikon notifikasi ditekan!');
+                  // Navigasi ke halaman notifikasi
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder:
+                          (context) =>
+                              const NotificationPage(), // Ganti dengan halaman notifikasi yang sesuai
+                    ),
+                  );
                 },
               ),
             ],
           ),
+
           const SizedBox(height: 20),
           Container(
             padding: const EdgeInsets.all(16),
