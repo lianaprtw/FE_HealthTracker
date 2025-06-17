@@ -118,7 +118,7 @@ class HomePageContent extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  fontFamily: "PoppinsSemiBold",
+                  fontFamily: "PoppinsSemiBold", 
                   color: Color(0xFF3742FA),
                 ),
               ),
@@ -245,23 +245,14 @@ class HomePageContent extends StatelessWidget {
   }
 
   Widget _buildTraineeCard(BuildContext context, String name) {
-    // Example trainee data
-    final Map<String, String> traineeData = {
-      'name': name,
-      'gender': 'Male', // Replace with actual data
-      'age': '25', // Replace with actual data
-      'image': 'images/avatar.jpg', // Replace with actual image path
-    };
-
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder:
-                (context) => TraineeDetailPage(
-                  trainee: traineeData, // Pass the trainee data as a map
-                ),
+                (context) =>
+                    const TraineeDetailPage(), // Ganti dengan halaman detail trainee
           ),
         );
       },

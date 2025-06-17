@@ -20,6 +20,13 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
   final TextEditingController calorieController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    // Dengarkan perubahan di distanceController
+    distanceController.addListener(_updateDuration);
+  }
+
+  @override
   void dispose() {
     distanceController.dispose();
     calorieController.dispose();
@@ -153,22 +160,46 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
     );
   }
 
-  void _updateDuration() {
-    setState(() {
-      duration =
-          '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
-    });
-  }
+void _updateDuration() {
+  print('distanceController.text = "${distanceController.text}"');
+  setState(() {
+    duration = '${hours.toString().padLeft(2, '0')}:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+
+    int totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    double distance = double.tryParse(distanceController.text) ?? 0;
+
+    // ignore: constant_identifier_names
+    const double RATE_FOR_JUMP_ROPE = 0.1;
+    // ignore: constant_identifier_names
+    const double RATE_OTHERS = 0.05;
+
+    double estimatedCalories;
+    if (selectedActivity == 'Jump Rope') {
+      estimatedCalories = totalSeconds * RATE_FOR_JUMP_ROPE;
+    } else {
+      estimatedCalories = distance * totalSeconds * RATE_OTHERS;
+    }
+
+    print('estimatedCalories raw = $estimatedCalories');
+
+    calorieController.text = estimatedCalories.toStringAsFixed(1);
+  });
+}
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          '9:41',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.normal),
-        ),
-        centerTitle: true,
+              'Add Daily Activity',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'PoppinsSemiBold',
+              ),
+            ),
+        centerTitle: false,
         elevation: 0,
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.black,
@@ -178,21 +209,13 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              'Add Daily Activity',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'PoppinsSemiBold',
-              ),
-            ),
             const SizedBox(height: 30),
             const Text(
               'Choose activity',
               style: TextStyle(
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: FontWeight.w600,
-                fontFamily: 'Poppins',
+                fontFamily: 'PoppinsSemiBold',
               ),
             ),
             const SizedBox(height: 15),
@@ -204,15 +227,13 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
                   borderRadius: BorderRadius.circular(12),
                   borderSide: BorderSide.none,
                 ),
-                contentPadding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
+                contentPadding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               ),
               hint: const Text(
                 'Select activity',
                 style: TextStyle(
-                  fontFamily: 'Poppins',
+                  fontFamily: 'PoppinsRegular',
                   color: Color(0xFF8C8C8C),
                 ),
               ),
@@ -239,9 +260,9 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
                   ),
                 ),
                 DropdownMenuItem(
-                  value: 'Swimming',
+                  value: 'Walk',
                   child: Text(
-                    'Swimming',
+                    'Walk',
                     style: TextStyle(fontFamily: 'Poppins'),
                   ),
                 ),
@@ -253,86 +274,122 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
               },
             ),
             const SizedBox(height: 20),
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Distance (km)',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Poppins',
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      TextField(
-                        controller: distanceController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xFFF5F6FF),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide.none,
-                          ),
-                          hintText: '0.0',
-                          hintStyle: const TextStyle(
-                            fontFamily: 'Poppins',
-                            color: Color(0xFF8C8C8C),
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
+
+            if (selectedActivity != 'Jump Rope') ...[
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Distance (km)',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'PoppinsSemiBold',
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        TextField(
+                          controller: distanceController,
+                          readOnly: false,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: const Color(0xFFF5F6FF),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide.none,
+                            ),
+                            hintText: '0.0',
+                            hintStyle: const TextStyle(
+                              fontFamily: 'PoppinsRegular',
+                              color: Color(0xFF8C8C8C),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                const SizedBox(width: 20),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Calorie (kcal)',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          fontFamily: 'Poppins',
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      TextField(
-                        controller: calorieController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          filled: true,
-                          fillColor: const Color(0xFFF5F6FF),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            borderSide: BorderSide.none,
-                          ),
-                          hintText: '0',
-                          hintStyle: const TextStyle(
-                            fontFamily: 'Poppins',
-                            color: Color(0xFF8C8C8C),
-                          ),
-                          contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
+                  const SizedBox(width: 20),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Calorie (kcal)',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'PoppinsSemiBold',
                           ),
                         ),
-                      ),
-                    ],
+                        const SizedBox(height: 8),
+                        TextField(
+                          controller: calorieController,
+                          readOnly: true,
+                          decoration: InputDecoration(
+                            filled: true,
+                            fillColor: const Color(0xFFF5F6FF),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: BorderSide.none,
+                            ),
+                            hintText: '0',
+                            hintStyle: const TextStyle(
+                              fontFamily: 'PoppinsaRegular',
+                              color: Color(0xFF8C8C8C),
+                            ),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 12,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
+                ],
+              ),
+            ] else ...[
+              const Text(
+                'Calorie (kcal)',
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  fontFamily: 'PoppinsSemiBold',
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+  controller: calorieController,
+  readOnly: true, // bikin auto only
+  decoration: InputDecoration(
+    filled: true,
+    fillColor: const Color(0xFFF5F6FF),
+    border: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(12),
+      borderSide: BorderSide.none,
+    ),
+    hintText: '0',
+    hintStyle: const TextStyle(
+      fontFamily: 'PoppinsRegular',
+      color: Color(0xFF8C8C8C),
+    ),
+    contentPadding: const EdgeInsets.symmetric(
+      horizontal: 16,
+      vertical: 12,
+    ),
+  ),
+),
+            ],
+
             const SizedBox(height: 20),
+
             Row(
               children: [
                 Expanded(
@@ -344,17 +401,15 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
                         const Text(
                           'Start',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            fontFamily: 'Poppins',
+                            fontFamily: 'PoppinsSemiBold',
                           ),
                         ),
                         const SizedBox(height: 8),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
-                          ),
+                              horizontal: 16, vertical: 12),
                           decoration: BoxDecoration(
                             color: const Color(0xFFF5F6FF),
                             borderRadius: BorderRadius.circular(12),
@@ -365,11 +420,10 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
                               Text(
                                 startTime.isEmpty ? 'HH:MM' : startTime,
                                 style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  color:
-                                      startTime.isEmpty
-                                          ? const Color(0xFF8C8C8C)
-                                          : Colors.black,
+                                  fontFamily: 'PoppinsRegular',
+                                  color: startTime.isEmpty
+                                      ? const Color(0xFF8C8C8C)
+                                      : Colors.black,
                                 ),
                               ),
                               const Icon(
@@ -393,17 +447,15 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
                         const Text(
                           'Duration',
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 14,
                             fontWeight: FontWeight.w600,
-                            fontFamily: 'Poppins',
+                            fontFamily: 'PoppinsSemiBold',
                           ),
                         ),
                         const SizedBox(height: 8),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 16,
-                            vertical: 12,
-                          ),
+                              horizontal: 16, vertical: 12),
                           decoration: BoxDecoration(
                             color: const Color(0xFFF5F6FF),
                             borderRadius: BorderRadius.circular(12),
@@ -411,13 +463,16 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                duration,
-                                style: const TextStyle(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.black,
-                                ),
-                              ),
+                          Text(
+                            duration == '00:00:01' ? 'HH:MM:SS' : duration,
+                            style: TextStyle(
+                              fontFamily: 'PoppinsRegular',
+                              color: duration == '00:00:01'
+                                  ? const Color(0xFF8C8C8C)
+                                  : Colors.black,
+                            ),
+                          ),
+                              
                               const Icon(
                                 Icons.access_time,
                                 color: Color(0xFF8C8C8C),
@@ -431,6 +486,7 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
                 ),
               ],
             ),
+
             const Spacer(),
             SizedBox(
               width: 357,
@@ -439,7 +495,8 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(
+                        builder: (context) => const HomePage()),
                   );
                 },
                 style: ElevatedButton.styleFrom(
@@ -450,12 +507,12 @@ class _AddDailyActivityScreenState extends State<AddDailyActivityScreen> {
                   ),
                 ),
                 child: const Text(
-                  'SAVE',
+                  'Save',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 19,
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'PoppinsSemiBold',
+                    fontFamily: 'PoppinsBold',
                   ),
                 ),
               ),

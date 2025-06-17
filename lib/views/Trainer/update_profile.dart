@@ -59,7 +59,7 @@ class _TrainerProfileEditPageState extends State<TrainerProfileEditPage> {
         title: const Text('Profil', style: TextStyle(color: Colors.black)),
         actions: [
           IconButton(
-            icon: const Icon(Icons.save_alt, color: blueColor),
+            icon: const Icon(Icons.save, color: blueColor),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
@@ -160,22 +160,22 @@ class _TrainerProfileEditPageState extends State<TrainerProfileEditPage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 2,
-        onTap: (index) {},
-        selectedItemColor: blueColor,
-        unselectedItemColor: Colors.grey,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline),
-            label: '',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   currentIndex: 2,
+      //   onTap: (index) {},
+      //   selectedItemColor: blueColor,
+      //   unselectedItemColor: Colors.grey,
+      //   showSelectedLabels: false,
+      //   showUnselectedLabels: false,
+      //   items: const [
+      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.chat_bubble_outline),
+      //       label: '',
+      //     ),
+      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+      //   ],
+      // ),
     );
   }
 

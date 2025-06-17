@@ -45,7 +45,8 @@ class TraineeListPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => TraineeDetailPage(trainee: trainee),
+                  // ignore: prefer_const_constructors
+                  builder: (context) => TraineeDetailPage(),
                 ),
               );
             },
