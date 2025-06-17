@@ -42,19 +42,17 @@ class TraineeDetailPage extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             const FieldLabel(label: 'Name'),
-            FieldInput(
-              value: trainee['name'] ?? 'Unknown',
-            ), // Default value if not found
+            FieldInput(value: trainee['name'] ?? 'Unknown'),
             const FieldLabel(label: 'Gender'),
-            FieldInput(
-              value: trainee['gender'] ?? 'Unknown',
-            ), // Default value if not found
+            FieldInput(value: trainee['gender'] ?? 'Unknown'),
             const FieldLabel(label: 'Age'),
-            FieldInput(
-              value: '${trainee['age'] ?? 'N/A'} Years Old',
-            ), // Default value if not found
+            FieldInput(value: '${trainee['age'] ?? 'N/A'} Years Old'),
+            const FieldLabel(label: 'Height'),
+            FieldInput(value: trainee['height'] ?? 'N/A'),
+            const FieldLabel(label: 'Weight'),
+            FieldInput(value: trainee['weight'] ?? 'N/A'),
             const FieldLabel(label: 'Exercise choices'),
-            const FieldInput(value: 'Aerobic'), // Assuming this is static
+            FieldInput(value: trainee['exercise'] ?? 'Aerobic'),
           ],
         ),
       ),
@@ -83,6 +81,20 @@ class FieldInput extends StatelessWidget {
   Widget build(BuildContext context) {
     const Color primaryColor = Color(0xFF3742FA);
 
-    return Text(value, style: const TextStyle(fontSize: 16, color: primaryColor));
+    return TextFormField(
+      initialValue: value,
+      enabled: false, // Supaya tidak bisa diedit
+      style: const TextStyle(fontSize: 16, color: Colors.black),
+      decoration: InputDecoration(
+        contentPadding: const EdgeInsets.symmetric(
+          vertical: 10,
+          horizontal: 12,
+        ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: primaryColor),
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    );
   }
 }
