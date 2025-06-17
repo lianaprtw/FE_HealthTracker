@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker/views/Trainee/detail_trainee.dart'; // Pastikan import halaman detail kamu
 
 class TraineeListPage extends StatelessWidget {
   const TraineeListPage({super.key});
@@ -39,42 +40,52 @@ class TraineeListPage extends StatelessWidget {
         itemCount: trainees.length,
         itemBuilder: (context, index) {
           final trainee = trainees[index];
-          return Padding(
-            padding: const EdgeInsets.only(bottom: 12),
-            child: Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.blueAccent),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    radius: 30,
-                    backgroundImage: AssetImage(trainee['image']!),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          '${trainee['gender']}, ${trainee['age']}y.o',
-                          style: const TextStyle(color: Colors.grey),
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          trainee['name']!,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TraineeDetailPage(trainee: trainee),
+                ),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 12),
+              child: Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.blueAccent),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      radius: 30,
+                      backgroundImage: AssetImage(trainee['image']!),
                     ),
-                  ),
-                  const Icon(Icons.arrow_forward_ios, size: 16),
-                ],
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${trainee['gender']}, ${trainee['age']}y.o',
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            trainee['name']!,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const Icon(Icons.arrow_forward_ios, size: 16),
+                  ],
+                ),
               ),
             ),
           );

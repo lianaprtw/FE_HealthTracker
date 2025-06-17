@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TraineeDetailPage extends StatelessWidget {
-  const TraineeDetailPage({super.key});
+  final Map<String, String> trainee;
+
+  const TraineeDetailPage({super.key, required this.trainee});
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +19,6 @@ class TraineeDetailPage extends StatelessWidget {
           'Detail Trainee',
           style: TextStyle(color: Colors.black),
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.send, color: primaryColor),
-            onPressed: () {
-              // Tambahkan logika kirim data jika diperlukan
-            },
-          ),
-        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -38,46 +32,36 @@ class TraineeDetailPage extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: primaryColor, width: 4),
                 ),
-                child: const CircleAvatar(
-                  backgroundImage: AssetImage('images/avatar.jpg'),
+                child: CircleAvatar(
+                  backgroundImage: AssetImage(
+                    trainee['image'] ?? 'images/default_avatar.jpg',
+                  ), // Default image if not found
                   backgroundColor: Colors.white,
                 ),
               ),
             ),
             const SizedBox(height: 24),
             const FieldLabel(label: 'Name'),
-            const FieldInput(value: 'Jaya Sanjaya'),
+            FieldInput(
+              value: trainee['name'] ?? 'Unknown',
+            ), // Default value if not found
             const FieldLabel(label: 'Gender'),
-            const FieldInput(value: 'Male'),
+            FieldInput(
+              value: trainee['gender'] ?? 'Unknown',
+            ), // Default value if not found
             const FieldLabel(label: 'Age'),
-            const FieldInput(value: '21 Years Old'),
-            const FieldLabel(label: 'Height'),
-            const FieldInput(value: '179 cm'),
-            const FieldLabel(label: 'Weight'),
-            const FieldInput(value: '75 kg'),
+            FieldInput(
+              value: '${trainee['age'] ?? 'N/A'} Years Old',
+            ), // Default value if not found
             const FieldLabel(label: 'Exercise choices'),
-            const FieldInput(value: 'Aerobic'),
+            const FieldInput(value: 'Aerobic'), // Assuming this is static
           ],
         ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        selectedItemColor: primaryColor,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline),
-            label: '',
-          ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
       ),
     );
   }
 }
 
-// Widget untuk label
 class FieldLabel extends StatelessWidget {
   final String label;
   const FieldLabel({required this.label, super.key});
@@ -91,7 +75,6 @@ class FieldLabel extends StatelessWidget {
   }
 }
 
-// Widget untuk input readonly
 class FieldInput extends StatelessWidget {
   final String value;
   const FieldInput({required this.value, super.key});
@@ -100,23 +83,6 @@ class FieldInput extends StatelessWidget {
   Widget build(BuildContext context) {
     const Color primaryColor = Color(0xFF3742FA);
 
-    return TextFormField(
-      initialValue: value,
-      readOnly: true,
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 12,
-        ),
-        border: OutlineInputBorder(
-          borderSide: const BorderSide(color: primaryColor),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: primaryColor),
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-    );
+    return Text(value, style: const TextStyle(fontSize: 16, color: primaryColor));
   }
 }
