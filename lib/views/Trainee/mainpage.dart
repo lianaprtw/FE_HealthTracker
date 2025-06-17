@@ -82,6 +82,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  static _MainPageState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_MainPageState>();
+  // Hapus baris ini jika Anda tidak memerlukannya
+  // static _MainPageState? of(BuildContext context) =>
+  //     context.findAncestorStateOfType<_MainPageState>();
 }
