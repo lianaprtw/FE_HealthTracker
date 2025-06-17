@@ -39,7 +39,7 @@ class RoleSelectionScreen extends StatelessWidget {
                 // fontWeight: FontWeight.bold,
               ),
             ),
-            Image.asset('images/which_one.png', height: 500),
+            Image.asset('assets/images/which_one.png', height: 500),
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 32.0,
