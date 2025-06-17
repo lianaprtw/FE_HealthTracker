@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker/views/Trainer/aboutTrainer.dart';
 import 'package:health_tracker/views/Trainer/logintrainer.dart';
 import 'package:health_tracker/views/Trainer/update_profile.dart';
 
@@ -336,8 +337,10 @@ class _ProfilePageState extends State<ProfileTrainner> {
                 borderColor: Colors.grey.shade300,
                 arrowColor: Colors.black,
                 onTap: () {
-                  print('About Us option tapped');
-                  // Navigasi ke halaman About Us
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AboutPageTrainer()),
+                  );
                 },
               ),
               // BAGIAN "HELP" TELAH DIHAPUS SESUAI PERMINTAAN
