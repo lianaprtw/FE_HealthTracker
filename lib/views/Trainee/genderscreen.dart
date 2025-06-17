@@ -20,6 +20,7 @@ class GenderSelectionScreen extends StatefulWidget {
 class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
   String? selectedGender;
 
+  // Widget pembantu ini membangun kartu pilihan gender individual.
   Widget _buildGenderCard(String gender, IconData iconData) {
     final isSelected = selectedGender == gender;
 
@@ -30,8 +31,8 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
         });
       },
       child: Container(
-        width: 120,
-        height: 130,
+        width: 150,
+        height: 160,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: Colors.white,
@@ -43,21 +44,25 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
               offset: Offset(2, 2),
             ),
           ],
-          border:
-              isSelected
-                  ? Border.all(color: const Color(0xFF3333FF), width: 2)
-                  : null,
+          // Terapkan border saat kartu dipilih.
+          // Warna diubah agar sesuai dengan border ungu di desain Anda.
+          border: isSelected
+              ? Border.all(color: const Color(0xFF7A28F2), width: 2)
+              : null,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(iconData, size: 40, color: const Color(0xFF7A28F2)),
+            // Warna ikon diatur secara eksplisit ke ungu dari desain Anda.
+            Icon(iconData, size: 55, color: const Color(0xFF7A28F2)),
             const SizedBox(height: 10),
             Text(
               gender,
               style: const TextStyle(
-                fontFamily: "Poppins",
-                fontWeight: FontWeight.bold,
+                fontFamily: "PoppinsBold",
+                fontSize: 18, // Ukuran font disesuaikan dengan desain Anda.
+                fontWeight: FontWeight.normal,
+                color: Colors.black, // Pastikan teks berwarna hitam untuk kontras.
               ),
             ),
           ],
@@ -69,45 +74,56 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF9F9F9),
+      backgroundColor: const Color(0xFFF9F9F9), // Warna latar belakang dari desain Anda.
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Gaya teks judul disesuaikan dengan desain Anda.
               const Text(
                 'Choose Your Gender',
                 style: TextStyle(
-                  fontSize: 24,
-                  fontFamily: "Poppins",
+                  fontSize: 38, // Ukuran font sedikit diperbesar agar sesuai dengan penekanan desain.
+                  fontFamily: "PoppinsBold",
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF3333FF),
+                  color: Color(0xFF3333FF), // Warna biru yang khas dari desain Anda.
                 ),
               ),
               const SizedBox(height: 8),
+              // Gaya teks subjudul.
               const Text(
                 'for calorie calculation',
                 style: TextStyle(
                   color: Colors.grey,
-                  fontFamily: "Poppins",
-                  fontSize: 14,
+                  fontFamily: "PoppinsMedium",
+                  fontSize: 16, // Ukuran font sedikit diperbesar.
                 ),
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 180), // Jarak yang diperbesar sesuai desain.
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildGenderCard('Female', Icons.female),
-                  _buildGenderCard('Male', Icons.male),
+                  // Untuk ikon wanita, gambar di desain Anda menunjukkan simbol wanita yang khas.
+                  // Karena Icons.female Flutter adalah ikon orang yang lebih umum,
+                  // kita bisa menggunakan ikon kustom atau memastikan yang sekarang dapat diterima.
+                  // Untuk kecocokan yang lebih dekat dengan desain, Anda mungkin mempertimbangkan untuk menggunakan aset SVG
+                  // atau ikon font kustom jika tersedia. Untuk saat ini, kita akan tetap menggunakan `Icons.female`
+                  // dan `Icons.male` karena umum. Jika simbol yang tepat sangat penting,
+                  // Anda perlu mengimpornya sebagai aset.
+                  _buildGenderCard('Female', Icons.female), // Menggunakan ikon wanita bawaan Flutter.
+                  _buildGenderCard('Male', Icons.male),     // Menggunakan ikon pria bawaan Flutter.
                 ],
               ),
-              const Spacer(),
+              const Spacer(), // Mendorong konten ke atas dan tombol ke bawah.
               SizedBox(
-                width: 357,
+                width: double.infinity, // Memastikan tombol menempati seluruh lebar yang tersedia.
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () {
+                    // Navigasi ke WeightScreen setelah pemilihan gender.
+                    // Ini menggunakan `pushReplacement` untuk mencegah kembali ke pemilihan gender.
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
@@ -116,20 +132,20 @@ class _GenderSelectionScreenState extends State<GenderSelectionScreen> {
                     );
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF3742FA),
+                    backgroundColor: const Color(0xFF3742FA), // Warna latar belakang tombol dari desain Anda.
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10), // Sudut membulat untuk tombol.
                     ),
-                    elevation: 6,
-                    shadowColor: Colors.blueAccent,
+                    elevation: 6, // Menambahkan bayangan halus.
+                    shadowColor: Colors.blueAccent, // Warna bayangan.
                   ),
                   child: const Text(
-                    'Next',
+                    'Next', // Teks tombol dalam bahasa Indonesia.
                     style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: Colors.white,
+                      fontFamily: 'PoppinsBold',
+                      fontWeight: FontWeight.w600, // Berat font untuk teks tombol.
+                      fontSize: 18,
+                      color: Colors.white, // Warna teks untuk tombol.
                     ),
                   ),
                 ),

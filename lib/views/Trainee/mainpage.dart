@@ -18,9 +18,9 @@ class _MainPageState extends State<MainPage> {
   Widget? _currentContent;
 
   final List<Widget> _pages = [
-    HomePage(),
-    ChatScreen(recipientName: "Trainer"),
-    ProfilePage(),
+    const HomePage(),
+    const ChatScreen(recipientName: "Trainer"),
+    const ProfilePage(),
   ];
 
   @override
@@ -64,13 +64,15 @@ class _MainPageState extends State<MainPage> {
             children: [
               IconButton(
                 icon: const Icon(Icons.home),
-                color: _selectedIndex == 0 ? const Color(0xFF3333FF) : Colors.grey,
+                color:
+                    _selectedIndex == 0 ? const Color(0xFF3333FF) : Colors.grey,
                 onPressed: () => _onItemTapped(0),
               ),
               const SizedBox(width: 40),
               IconButton(
                 icon: const Icon(Icons.person),
-                color: _selectedIndex == 2 ? const Color(0xFF3333FF) : Colors.grey,
+                color:
+                    _selectedIndex == 2 ? const Color(0xFF3333FF) : Colors.grey,
                 onPressed: () => _onItemTapped(2),
               ),
             ],
@@ -80,6 +82,7 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  static _MainPageState? of(BuildContext context) =>
-      context.findAncestorStateOfType<_MainPageState>();
+  // Hapus baris ini jika Anda tidak memerlukannya
+  // static _MainPageState? of(BuildContext context) =>
+  //     context.findAncestorStateOfType<_MainPageState>();
 }

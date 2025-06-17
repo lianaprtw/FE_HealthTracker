@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:health_tracker/views/Trainee/ForgetPass.dart';
 
 class TrainerProfileEditPage extends StatefulWidget {
@@ -10,6 +12,39 @@ class TrainerProfileEditPage extends StatefulWidget {
 
 class _TrainerProfileEditPageState extends State<TrainerProfileEditPage> {
   bool _obscurePassword = true;
+  File? _imageFile; // Untuk menyimpan gambar dari galeri
+
+  final ImagePicker _picker = ImagePicker();
+
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _imageFile = File(pickedFile.path);
+      });
+    }
+  }
+
+  void _showEditOptions() {
+    showModalBottomSheet(
+      context: context,
+      builder:
+          (context) => SafeArea(
+            child: Wrap(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.photo_library),
+                  title: const Text('Edit Profile Picture'),
+                  onTap: () {
+                    Navigator.pop(context);
+                    _pickImage();
+                  },
+                ),
+              ],
+            ),
+          ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +61,6 @@ class _TrainerProfileEditPageState extends State<TrainerProfileEditPage> {
           IconButton(
             icon: const Icon(Icons.save_alt, color: blueColor),
             onPressed: () {
-              // Menampilkan snackbar popup
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text("Data berhasil diperbarui"),
@@ -38,17 +72,40 @@ class _TrainerProfileEditPageState extends State<TrainerProfileEditPage> {
           ),
         ],
       ),
-
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           children: [
-            const CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage(
-                'images/profile_avatar.png',
-              ), // Ganti sesuai path kamu
-              backgroundColor: Colors.grey,
+            GestureDetector(
+              onTap: _showEditOptions,
+              child: Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage:
+                        _imageFile != null
+                            ? FileImage(_imageFile!)
+                            : const AssetImage('images/profile_avatar.png')
+                                as ImageProvider,
+                    backgroundColor: Colors.grey[300],
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4,
+                      horizontal: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.black45,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: const Text(
+                      "Edit Profile",
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 20),
             _buildTextField(label: "Email", initialValue: "bambang@gmail.com"),
@@ -83,9 +140,7 @@ class _TrainerProfileEditPageState extends State<TrainerProfileEditPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder:
-                          (context) =>
-                              const ForgetPasswordScreen(), // Ganti dengan nama file halaman forget password
+                      builder: (context) => const ForgetPasswordScreen(),
                     ),
                   );
                 },
@@ -107,9 +162,7 @@ class _TrainerProfileEditPageState extends State<TrainerProfileEditPage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: 2,
-        onTap: (index) {
-          // Navigasi ke halaman lain
-        },
+        onTap: (index) {},
         selectedItemColor: blueColor,
         unselectedItemColor: Colors.grey,
         showSelectedLabels: false,
