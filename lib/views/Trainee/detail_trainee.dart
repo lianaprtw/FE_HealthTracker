@@ -109,11 +109,11 @@ class FieldInput extends StatelessWidget {
           horizontal: 12,
         ),
         border: OutlineInputBorder(
-          borderSide: BorderSide(color: primaryColor),
+          borderSide: const BorderSide(color: primaryColor),
           borderRadius: BorderRadius.circular(8),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: primaryColor),
+          borderSide: const BorderSide(color: primaryColor),
           borderRadius: BorderRadius.circular(8),
         ),
       ),

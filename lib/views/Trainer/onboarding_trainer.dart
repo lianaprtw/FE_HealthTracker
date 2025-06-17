@@ -7,7 +7,7 @@ const Color grayColor = Colors.grey;
 const Color blueColor = Color(0xFF2F3CFF);
 
 class OnboardingScreen extends StatelessWidget {
-  const OnboardingScreen({Key? key}) : super(key: key);
+  const OnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class OnboardingScreen extends StatelessWidget {
                             },
                             style: ButtonStyle(
                               backgroundColor: WidgetStateProperty.all(
-                                Color(0xFF3742FA),
+                                const Color(0xFF3742FA),
                               ),
                               foregroundColor: WidgetStateProperty.all(
                                 Colors.white,

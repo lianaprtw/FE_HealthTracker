@@ -6,6 +6,8 @@ import 'package:health_tracker/views/Trainer/onboarding_trainer.dart';
 void main() => runApp(WhichScreen());
 
 class WhichScreen extends StatelessWidget {
+  const WhichScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +19,9 @@ class WhichScreen extends StatelessWidget {
 }
 
 class RoleSelectionScreen extends StatelessWidget {
-  final Color blueColor = Color(0xFF3742FA);
+  static const Color blueColor = Color(0xFF3742FA);
+
+  RoleSelectionScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,7 @@ class RoleSelectionScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'Which One\nAre You?',
               textAlign: TextAlign.center,
@@ -54,13 +58,13 @@ class RoleSelectionScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OnboardingScreen(),
+                            builder: (context) => const OnboardingScreen(),
                           ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: blueColor,
-                        padding: EdgeInsets.symmetric(vertical: 16),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),
@@ -76,20 +80,20 @@ class RoleSelectionScreen extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OnboardingView(),
+                            builder: (context) => const OnboardingView(),
                           ),
                         );
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
-                        padding: EdgeInsets.symmetric(vertical: 16),
+                        padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                           side: BorderSide(color: Colors.grey.shade300),
