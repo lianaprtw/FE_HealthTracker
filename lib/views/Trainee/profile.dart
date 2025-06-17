@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker/views/Trainee/about.dart';
 import 'package:health_tracker/views/Trainee/login.dart';
 import 'package:health_tracker/views/Trainer/update_profile.dart';
 
@@ -304,7 +305,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 borderColor: Colors.grey.shade300,
                 arrowColor: Colors.black,
                 onTap: () {
-                  print('About Us option tapped');
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute(builder: (context) => const AboutPage())); // Ganti dengan rute yang sesuai
                   // Navigasi ke halaman About Us
                 },
               ),
