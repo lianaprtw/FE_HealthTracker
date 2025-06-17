@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:health_tracker/views/Trainee/genderscreen.dart';
-// import 'package:health_tracker/views/home.dart';
+import 'package:health_tracker/views/Trainee/home.dart';
 import 'package:health_tracker/views/Trainee/register.dart';
 import 'package:health_tracker/views/Trainee/ForgetPass.dart';
 
@@ -15,10 +14,34 @@ class LoginView extends StatefulWidget {
 class _LoginPageState extends State<LoginView> {
   bool _obscurePassword = true;
 
-  get emailController => null;
+  // Tambahkan controller untuk input
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
-  get passwordController =>
-      null; // tambahkan variabel untuk sembunyikan password
+  // Fungsi validasi untuk cek field sudah terisi atau belum
+  bool get isFormValid {
+    return emailController.text.isNotEmpty &&
+        passwordController.text.isNotEmpty;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Listener untuk update tombol secara real time
+    emailController.addListener(() {
+      setState(() {});
+    });
+    passwordController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +82,7 @@ class _LoginPageState extends State<LoginView> {
                   const Align(
                     alignment: Alignment.center,
                     child: Text(
-                      "Hello, Welcome to \nHealth Tracker for Trainer",
+                      "Welcome back you’ve been\nmissed",
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontFamily: 'Poppins',
@@ -111,7 +134,6 @@ class _LoginPageState extends State<LoginView> {
                             _obscurePassword
                                 ? Icons.visibility_off
                                 : Icons.visibility,
-                            color: Colors.grey,
                           ),
                           onPressed: () {
                             setState(() {
@@ -120,17 +142,16 @@ class _LoginPageState extends State<LoginView> {
                           },
                         ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12.0),
+                          borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
                         ),
                       ),
                     ),
                   ),
-
-                  // Tambahkan sedikit jarak, misalnya 6 pixel
                   const SizedBox(height: 6),
-
-                  // Forget Password Text
                   Align(
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
@@ -164,16 +185,22 @@ class _LoginPageState extends State<LoginView> {
                     width: 357,
                     height: 60,
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const GenderSelectionScreen(),
-                          ),
-                        );
-                      },
+                      onPressed:
+                          isFormValid
+                              ? () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const HomePage(),
+                                  ),
+                                );
+                              }
+                              : null, // Jika form kosong, tombol disable
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFF3742FA),
+                        backgroundColor:
+                            isFormValid
+                                ? const Color(0xFF3742FA)
+                                : const Color(0xFF3742FA).withOpacity(0.3),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
