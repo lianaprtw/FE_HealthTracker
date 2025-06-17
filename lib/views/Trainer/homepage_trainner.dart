@@ -82,8 +82,9 @@ class HomePageContent extends StatelessWidget {
               const Text(
                 "Health Tracker",
                 style: TextStyle(
-                  fontSize: 22,
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
+                  fontFamily: "PoppinsSemiBold", 
                   color: Color(0xFF3742FA),
                 ),
               ),

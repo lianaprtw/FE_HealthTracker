@@ -211,16 +211,17 @@ class _ProfilePageState extends State<ProfilePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const SizedBox.shrink(), // Mengganti title dengan widget kosong
-        centerTitle: true, // Tetap pusatkan, meskipun isinya kosong
-        backgroundColor: Colors.white, // Latar belakang putih
-        elevation: 0, // Tanpa bayangan
-        automaticallyImplyLeading:
-            false, // Biasanya diset false jika ini adalah root dari tab
+        // Menghapus title (tulisan Health Tracker)
+        title: const SizedBox.shrink(),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        // Menghapus actions (ikon notifikasi)
+        actions: const [],
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          // Menggunakan SingleChildScrollView agar konten bisa digulir
           padding: const EdgeInsets.symmetric(horizontal: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -252,9 +253,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder:
-                                  (context) =>
-                                      const TrainerProfileEditPage(), // Ganti dengan halaman target kamu
+                              builder: (context) =>
+                                  const TrainerProfileEditPage(),
                             ),
                           );
                         },
@@ -280,7 +280,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 'Enno Lerebulan',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
-                  fontSize: 18, // Ukuran font disesuaikan
+                  fontSize: 18,
                   fontFamily: 'PoppinsSemiBold',
                   color: Colors.black,
                 ),
@@ -289,11 +289,10 @@ class _ProfilePageState extends State<ProfilePage> {
               ProfileOption(
                 icon: Icons.language,
                 title: 'Language',
-                iconColor: primaryColor, // Warna ikon biru
-                borderColor: Colors.grey.shade300, // Border abu-abu muda
+                iconColor: primaryColor,
+                borderColor: Colors.grey.shade300,
                 arrowColor: Colors.black,
                 onTap: () {
-                  // Panggil fungsi untuk menampilkan pilihan bahasa
                   _showLanguageSelectionSheet(context);
                 },
               ),
@@ -309,54 +308,41 @@ class _ProfilePageState extends State<ProfilePage> {
                   // Navigasi ke halaman About Us
                 },
               ),
-              const SizedBox(height: 16),
-              ProfileOption(
-                // Tambahkan opsi Help
-                icon: Icons.help_outline,
-                title: 'Help',
-                iconColor: primaryColor,
-                borderColor: Colors.grey.shade300,
-                arrowColor: Colors.black,
-                onTap: () {
-                  print('Help option tapped');
-                  // Navigasi ke halaman Help
-                },
-              ),
+              // --- Bagian "Help" telah dihapus di sini ---
+
               const SizedBox(
-                height: 32,
-              ), // Spacer sebelum tombol Delete Account
+                  height: 32), // Spacer sebelum tombol Delete Account
               SizedBox(
                 width: double.infinity,
-                height: 55, // Tinggi tombol
+                height: 55,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    // Logika untuk menampilkan dialog konfirmasi delete account
                     _showDeleteAccountDialog(context);
                   },
                   icon: const Icon(
-                    Icons.delete_outline, // Ikon tempat sampah
-                    color: redColor, // Warna ikon merah
+                    Icons.delete_outline,
+                    color: redColor,
                     size: 24,
                   ),
                   label: const Text(
                     'Delete account',
                     style: TextStyle(
-                      color: redColor, // Warna teks merah
+                      color: redColor,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       fontFamily: "PoppinsSemiBold",
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white, // Latar belakang putih
+                    backgroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15), // Sudut membulat
+                      borderRadius: BorderRadius.circular(15),
                       side: const BorderSide(
                         color: redColor,
                         width: 1.5,
-                      ), // Border merah
+                      ),
                     ),
-                    elevation: 0, // Tanpa bayangan
+                    elevation: 0,
                     padding: const EdgeInsets.symmetric(vertical: 12),
                   ),
                 ),
@@ -364,32 +350,31 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(height: 16), // Spacer antara tombol
               SizedBox(
                 width: double.infinity,
-                height: 55, // Tinggi tombol
+                height: 55,
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    // Logika untuk menampilkan dialog konfirmasi sign out
                     _showSignOutDialog(context);
                   },
                   icon: const Icon(
-                    Icons.logout_outlined, // Ikon keluar
-                    color: Colors.white, // Warna ikon putih
+                    Icons.logout_outlined,
+                    color: Colors.white,
                     size: 24,
                   ),
                   label: const Text(
                     'Sign Out',
                     style: TextStyle(
-                      color: Colors.white, // Warna teks putih
+                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                       fontFamily: "PoppinsSemiBold",
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: redColor, // Latar belakang merah
+                    backgroundColor: redColor,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15), // Sudut membulat
+                      borderRadius: BorderRadius.circular(15),
                     ),
-                    elevation: 0, // Tanpa bayangan
+                    elevation: 0,
                     padding: const EdgeInsets.symmetric(vertical: 12),
                   ),
                 ),
@@ -403,14 +388,14 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-// Widget ProfileOption yang telah diubah
+// Widget ProfileOption tidak perlu diubah, karena perubahan hanya pada penggunaannya
 class ProfileOption extends StatelessWidget {
   final IconData icon;
   final String title;
   final Color iconColor;
   final Color borderColor;
   final Color arrowColor;
-  final VoidCallback? onTap; // Menambahkan callback onTap
+  final VoidCallback? onTap;
 
   const ProfileOption({
     super.key,
@@ -419,26 +404,25 @@ class ProfileOption extends StatelessWidget {
     required this.iconColor,
     required this.borderColor,
     required this.arrowColor,
-    this.onTap, // onTap bisa null jika tidak ada aksi
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      // Menggunakan GestureDetector untuk membuat seluruh area bisa diklik
       onTap: onTap,
       child: Container(
-        height: 55, // Menyesuaikan tinggi
+        height: 55,
         padding: const EdgeInsets.symmetric(horizontal: 16),
         decoration: BoxDecoration(
-          color: Colors.white, // Latar belakang putih
+          color: Colors.white,
           border: Border.all(color: borderColor, width: 1.5),
-          borderRadius: BorderRadius.circular(15), // Sudut membulat
+          borderRadius: BorderRadius.circular(15),
         ),
         child: Row(
           children: [
-            Icon(icon, size: 24, color: iconColor), // Ukuran ikon disesuaikan
-            const SizedBox(width: 16), // Spasi disesuaikan
+            Icon(icon, size: 24, color: iconColor),
+            const SizedBox(width: 16),
             Expanded(
               child: Text(
                 title,
@@ -453,7 +437,7 @@ class ProfileOption extends StatelessWidget {
               Icons.chevron_right,
               color: arrowColor,
               size: 24,
-            ), // Ukuran ikon panah
+            ),
           ],
         ),
       ),

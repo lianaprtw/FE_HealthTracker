@@ -49,7 +49,7 @@ class HistoryScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                border: Border.all(color: Color(0xFF3742FA), width: 1),
+                border: Border.all(color: const Color(0xFF3742FA), width: 1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(

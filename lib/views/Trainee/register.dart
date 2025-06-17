@@ -125,13 +125,13 @@ class _RegisterViewState extends State<RegisterView> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginView(),
+                              builder: (context) => const LoginView(),
                             ),
                           );
                         } else {
                           // Jika tidak valid, tampilkan pesan kesalahan
                           ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
+                            const SnackBar(
                               content: Text("Please fill all fields correctly"),
                               duration: Duration(seconds: 2),
                             ),
@@ -140,7 +140,7 @@ class _RegisterViewState extends State<RegisterView> {
                       },
                       child: Container(
                         width: double.infinity,
-                        padding: EdgeInsets.symmetric(vertical: 13.5),
+                        padding: const EdgeInsets.symmetric(vertical: 13.5),
                         decoration: BoxDecoration(
                           // Tombol aktif jika form valid
                           color:
@@ -233,7 +233,7 @@ class _RegisterViewState extends State<RegisterView> {
                 isPassword
                     ? (label == "Confirm Password" ? isHideConfirm : isHide)
                     : false,
-            style: TextStyle(fontSize: 14, fontFamily: "PoppinsRegular"),
+            style: const TextStyle(fontSize: 14, fontFamily: "PoppinsRegular"),
             decoration: InputDecoration(
               // Tombol untuk toggle show/hide password
               suffixIcon:
@@ -261,7 +261,7 @@ class _RegisterViewState extends State<RegisterView> {
                 vertical: 13.5,
                 horizontal: 16,
               ),
-              border: OutlineInputBorder(
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(4)),
                 borderSide: BorderSide.none,
               ),
@@ -274,7 +274,7 @@ class _RegisterViewState extends State<RegisterView> {
               filled: true,
               fillColor: youngBlueColor,
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(4)),
+                borderRadius: const BorderRadius.all(Radius.circular(4)),
                 borderSide: BorderSide(color: blueColor, width: 2.0),
               ),
             ),
