@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker/views/Trainer/aboutTrainer.dart';
 import 'package:health_tracker/views/Trainer/logintrainer.dart';
 import 'package:health_tracker/views/Trainer/update_profile.dart';
 
@@ -211,12 +212,44 @@ class _ProfilePageState extends State<ProfileTrainner> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const SizedBox.shrink(), // Mengganti title dengan widget kosong
-        centerTitle: true, // Tetap pusatkan, meskipun isinya kosong
-        backgroundColor: Colors.white, // Latar belakang putih
-        elevation: 0, // Tanpa bayangan
         automaticallyImplyLeading:
-            false, // Biasanya diset false jika ini adalah root dari tab
+            false, // Mencegah Flutter menambahkan tombol kembali secara otomatis
+        backgroundColor: const Color(0xFFF7F7F7), // Background abu-abu muda
+        elevation: 0, // Tanpa bayangan
+        toolbarHeight: 80.0, // Sesuaikan tinggi sesuai desain
+        title: Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 0.0,
+          ), // Tanpa padding horizontal di sini
+          child: Row(
+            mainAxisAlignment:
+                MainAxisAlignment.spaceBetween, // Mendistribusikan ruang
+            children: [
+              // Teks "Health Tracker" di kiri
+              const Text(
+                'Health Tracker',
+                style: TextStyle(
+                  color: Color(0xFF3333FF), // Warna biru dari desain
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "PoppinsSemiBold", // Asumsi gaya ini
+                ),
+              ),
+              // Ikon bel notifikasi di kanan
+              IconButton(
+                icon: const Icon(
+                  Icons.notifications,
+                  color: Colors.black,
+                  size: 30,
+                ),
+                onPressed: () {
+                  // Tangani saat ikon notifikasi ditekan
+                  print('Ikon notifikasi ditekan di halaman Trainer Profile!');
+                },
+              ),
+            ],
+          ),
+        ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -252,9 +285,8 @@ class _ProfilePageState extends State<ProfileTrainner> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder:
-                                  (context) =>
-                                      const TrainerProfileEditPage(), // Ganti dengan halaman target kamu
+                              builder: (context) =>
+                                  const TrainerProfileEditPage(), // Ganti dengan halaman target kamu
                             ),
                           );
                         },
@@ -305,23 +337,25 @@ class _ProfilePageState extends State<ProfileTrainner> {
                 borderColor: Colors.grey.shade300,
                 arrowColor: Colors.black,
                 onTap: () {
-                  print('About Us option tapped');
-                  // Navigasi ke halaman About Us
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AboutPageTrainer()),
+                  );
                 },
               ),
-              const SizedBox(height: 16),
-              ProfileOption(
-                // Tambahkan opsi Help
-                icon: Icons.help_outline,
-                title: 'Help',
-                iconColor: primaryColor,
-                borderColor: Colors.grey.shade300,
-                arrowColor: Colors.black,
-                onTap: () {
-                  print('Help option tapped');
-                  // Navigasi ke halaman Help
-                },
-              ),
+              // BAGIAN "HELP" TELAH DIHAPUS SESUAI PERMINTAAN
+              // const SizedBox(height: 16),
+              // ProfileOption(
+              //   icon: Icons.help_outline,
+              //   title: 'Help',
+              //   iconColor: primaryColor,
+              //   borderColor: Colors.grey.shade300,
+              //   arrowColor: Colors.black,
+              //   onTap: () {
+              //     print('Help option tapped');
+              //     // Navigasi ke halaman Help
+              //   },
+              // ),
               const SizedBox(
                 height: 32,
               ), // Spacer sebelum tombol Delete Account

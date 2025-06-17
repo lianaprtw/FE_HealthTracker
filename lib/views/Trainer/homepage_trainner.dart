@@ -42,20 +42,56 @@ class _HomePageState extends State<HomepageTrainner> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(child: _pages[_selectedIndex]),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        selectedItemColor: primaryColor,
-        unselectedItemColor: Colors.grey,
-        onTap: (index) {
+      // FAB (Chat)
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
           setState(() {
-            _selectedIndex = index;
+            _selectedIndex = 1; // Pindah ke halaman Chat
           });
         },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.chat_bubble), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
-        ],
+        backgroundColor: const Color(0xFF3333FF),
+        elevation: 0,
+        shape: const CircleBorder(),
+        child: const Icon(Icons.chat_bubble, color: Colors.white),
+      ),
+
+      // Lokasi FAB
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+
+      // Bottom App Bar dengan FAB
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.white,
+        shape: const CircularNotchedRectangle(),
+        notchMargin: 8,
+        child: SizedBox(
+          height: 60,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.home),
+                color:
+                    _selectedIndex == 0 ? const Color(0xFF3333FF) : Colors.grey,
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 0;
+                  });
+                },
+              ),
+              const SizedBox(width: 40), // Ruang untuk FAB di tengah
+              IconButton(
+                icon: const Icon(Icons.person),
+                color:
+                    _selectedIndex == 2 ? const Color(0xFF3333FF) : Colors.grey,
+                onPressed: () {
+                  setState(() {
+                    _selectedIndex = 2;
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -80,10 +116,10 @@ class HomePageContent extends StatelessWidget {
               const Text(
                 'Health Tracker',
                 style: TextStyle(
-                  color: Color(0xFF3333FF),
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
-                  fontFamily: "PoppinsSemiBold",
+                  fontFamily: "PoppinsSemiBold", 
+                  color: Color(0xFF3742FA),
                 ),
               ),
               IconButton(
