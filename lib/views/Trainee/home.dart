@@ -5,7 +5,7 @@ import 'package:health_tracker/views/Trainee/history.dart';
 import 'package:health_tracker/views/Trainee/notification.dart';
 import 'package:health_tracker/views/Trainee/profile.dart';
 import 'package:health_tracker/views/Trainee/water_tracker.dart';
-import 'package:health_tracker/views/Trainer/addTrainer.dart';
+// import 'package:health_tracker/views/Trainer/addTrainer.dart';
 
 // Placeholder untuk halaman chat (tetap gunakan ini sebagai tab jika ChatScreen detail)
 class ChatPage extends StatelessWidget {
@@ -239,57 +239,57 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 
-  Widget _buildYourTrainerCard(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => const AddTrainerPage()),
-        );
-      },
-      child: Container(
-        padding: const EdgeInsets.all(20.0),
-        decoration: BoxDecoration(
-          color: const Color(0xFF3333FF), // Background biru
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
-              'Please add your Trainner', // Teks di atas tombol
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                fontFamily: "PoppinsSemiBold",
-              ),
-            ),
-            const SizedBox(height: 16), // Spasi antara teks dan tombol
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30),
-              ),
-              child: const Center(
-                child: Text(
-                  "Add New",
-                  style: TextStyle(
-                    color: Color(0xFF3333FF),
-                    fontWeight: FontWeight.w600,
-                    fontFamily: "PoppinsSemiBold",
-                    fontSize: 15,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget _buildYourTrainerCard(BuildContext context) {
+  //   return GestureDetector(
+  //     onTap: () {
+  //       Navigator.push(
+  //         context,
+  //         MaterialPageRoute(builder: (_) => const AddTrainerPage()),
+  //       );
+  //     },
+  //     child: Container(
+  //       padding: const EdgeInsets.all(20.0),
+  //       decoration: BoxDecoration(
+  //         color: const Color(0xFF3333FF), // Background biru
+  //         borderRadius: BorderRadius.circular(20.0),
+  //       ),
+  //       child: Column(
+  //         mainAxisSize: MainAxisSize.min,
+  //         children: [
+  //           const Text(
+  //             'Please add your Trainner', // Teks di atas tombol
+  //             style: TextStyle(
+  //               color: Colors.white,
+  //               fontSize: 16,
+  //               fontWeight: FontWeight.w600,
+  //               fontFamily: "PoppinsSemiBold",
+  //             ),
+  //           ),
+  //           const SizedBox(height: 16), // Spasi antara teks dan tombol
+  //           Container(
+  //             padding: const EdgeInsets.symmetric(vertical: 10),
+  //             width: double.infinity,
+  //             decoration: BoxDecoration(
+  //               color: Colors.white,
+  //               borderRadius: BorderRadius.circular(30),
+  //             ),
+  //             child: const Center(
+  //               child: Text(
+  //                 "Add New",
+  //                 style: TextStyle(
+  //                   color: Color(0xFF3333FF),
+  //                   fontWeight: FontWeight.w600,
+  //                   fontFamily: "PoppinsSemiBold",
+  //                   fontSize: 15,
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _buildDailyActivityCard(BuildContext context) {
     return Container(
@@ -504,19 +504,17 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0), // Padding di sekitar konten utama
+      padding: const EdgeInsets.all(16.0),
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start, // Sejajarkan children ke awal (kiri)
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildUserProfileCard(),
-          const SizedBox(height: 20), // Spacer
-          _buildYourTrainerCard(context),
-          const SizedBox(height: 20), // Spacer
-          _buildDailyActivityCard(context),
+          const SizedBox(height: 20), // Hanya satu spacer di sini
+          // _buildYourTrainerCard(context), // Ini tetap dikomentari
+          _buildDailyActivityCard(context), // Langsung ke card berikutnya
           const SizedBox(height: 20), // Spacer
           _buildWaterTrackerCard(),
         ],
