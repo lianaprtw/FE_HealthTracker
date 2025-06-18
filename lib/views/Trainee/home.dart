@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:health_tracker/views/Trainee/chat_screen.dart'; // Pastikan ini benar
 import 'package:health_tracker/views/Trainee/daily_activity_screen.dart';
 import 'package:health_tracker/views/Trainee/history.dart';
 import 'package:health_tracker/views/Trainee/notification.dart';
 import 'package:health_tracker/views/Trainee/profile.dart';
-import 'package:health_tracker/views/Trainee/water_tracker.dart'; // Make sure this is the correct path
+import 'package:health_tracker/views/Trainee/water_tracker.dart';
 import 'package:health_tracker/views/Trainer/addTrainer.dart';
 
-// Placeholder untuk halaman chat
+// Placeholder untuk halaman chat (tetap gunakan ini sebagai tab jika ChatScreen detail)
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
 
@@ -14,8 +15,8 @@ class ChatPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text(
-        'Chat Page Content Here',
-        style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+        'Halaman Chat (tab ini tidak lagi membawa ke Chat Screen utama)',
+        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -32,11 +33,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  // Daftar halaman/layar yang sesuai dengan item bottom navigation bar
   final List<Widget> _pages = [
-    const HomeContent(), // Halaman Home dengan semua kartu
-    const ChatPage(), // Placeholder untuk Halaman Chat
-    const ProfilePage(), // Halaman Profil
+    const HomeContent(),
+    const ChatPage(), // Gunakan ChatPage sebagai tab untuk 'Chat' di bottom bar
+    const ProfilePage(),
   ];
 
   @override
@@ -71,8 +71,7 @@ class _HomePageState extends State<HomePage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          const NotificationPage(), // Ganti dengan halaman notifikasi yang sesuai
+                      builder: (context) => const NotificationPage(),
                     ),
                   );
                 },
@@ -81,27 +80,25 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-
-      // Halaman yang sedang dipilih
       body: _pages[_selectedIndex],
-
-      // FAB (Chat)
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {
-            _selectedIndex = 1; // Pindah ke halaman Chat
-          });
+          // INI ADALAH PERUBAHAN UTAMA: Navigasi ke ChatScreen sebagai halaman baru
+          // Ini akan menumpuk ChatScreen di atas HomePage
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const ChatScreen(recipientName: 'Trainer Anda'),
+            ),
+          );
+          // Hapus setState(_selectedIndex = 1); karena kita tidak lagi beralih tab.
         },
         backgroundColor: const Color(0xFF3333FF),
         elevation: 0,
         shape: const CircleBorder(),
         child: const Icon(Icons.chat_bubble, color: Colors.white),
       ),
-
-      // Lokasi FAB
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-      // Bottom App Bar dengan FAB
       bottomNavigationBar: BottomAppBar(
         color: Colors.white,
         shape: const CircularNotchedRectangle(),
@@ -113,19 +110,17 @@ class _HomePageState extends State<HomePage> {
             children: [
               IconButton(
                 icon: const Icon(Icons.home),
-                color:
-                    _selectedIndex == 0 ? const Color(0xFF3333FF) : Colors.grey,
+                color: _selectedIndex == 0 ? const Color(0xFF3333FF) : Colors.grey,
                 onPressed: () {
                   setState(() {
                     _selectedIndex = 0;
                   });
                 },
               ),
-              const SizedBox(width: 40), // Ruang untuk FAB di tengah
+              const SizedBox(width: 40),
               IconButton(
                 icon: const Icon(Icons.person),
-                color:
-                    _selectedIndex == 2 ? const Color(0xFF3333FF) : Colors.grey,
+                color: _selectedIndex == 2 ? const Color(0xFF3333FF) : Colors.grey,
                 onPressed: () {
                   setState(() {
                     _selectedIndex = 2;

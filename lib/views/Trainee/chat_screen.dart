@@ -1,8 +1,6 @@
-// lib/views/chat_screen.dart
 import 'package:flutter/material.dart';
 
 class ChatScreen extends StatefulWidget {
-  // <-- Pastikan ini StatefulWidget
   final String recipientName;
 
   const ChatScreen({super.key, required this.recipientName});
@@ -13,7 +11,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _messageController = TextEditingController();
-  final List<String> _messages = []; // Daftar pesan yang akan ditampilkan
+  final List<String> _messages = []; // Daftar pesan
 
   @override
   void dispose() {
@@ -27,9 +25,7 @@ class _ChatScreenState extends State<ChatScreen> {
         _messages.add("Anda: ${_messageController.text}");
         Future.delayed(const Duration(seconds: 1), () {
           setState(() {
-            _messages.add(
-              "${widget.recipientName}: Oke, saya terima pesan Anda.",
-            );
+            _messages.add("${widget.recipientName}: Oke, saya terima pesan Anda.");
           });
         });
       });
@@ -40,78 +36,90 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Chat dengan ${widget.recipientName}')),
-      body: Column(
-        children: [
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8.0),
-              reverse: true,
-              itemCount: _messages.length,
-              itemBuilder: (context, index) {
-                final reversedIndex = _messages.length - 1 - index;
-                return Align(
-                  alignment:
-                      _messages[reversedIndex].startsWith('Anda:')
-                          ? Alignment.centerRight
-                          : Alignment.centerLeft,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12.0,
-                      vertical: 8.0,
-                    ),
-                    margin: const EdgeInsets.symmetric(
-                      vertical: 4.0,
-                      horizontal: 8.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color:
-                          _messages[reversedIndex].startsWith('Anda:')
-                              ? Colors.blue[100]
-                              : Colors.grey[300],
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: Text(_messages[reversedIndex]),
+      backgroundColor: Colors.white, // Latar belakang bersih
+      body: SafeArea(
+        child: Column(
+          children: [
+            // Header custom tanpa AppBar
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    onPressed: () => Navigator.of(context).pop(),
                   ),
-                );
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: _messageController,
-                    decoration: InputDecoration(
-                      hintText: 'Ketik pesan...',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20.0),
-                        borderSide: BorderSide.none,
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey[200],
-                      contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 16.0,
-                      ),
+                  const SizedBox(width: 8),
+                  Text(
+                    'Chat dengan ${widget.recipientName}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
                     ),
-                    onSubmitted: (value) => _sendMessage(),
                   ),
-                ),
-                const SizedBox(width: 8.0),
-                FloatingActionButton(
-                  onPressed: _sendMessage,
-                  mini: true,
-                  backgroundColor: Colors.blue,
-                  child: const Icon(Icons.send, color: Colors.white),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+
+            // List chat
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.all(8),
+                reverse: true,
+                itemCount: _messages.length,
+                itemBuilder: (context, index) {
+                  final reversedIndex = _messages.length - 1 - index;
+                  final isSender = _messages[reversedIndex].startsWith('Anda:');
+                  return Align(
+                    alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: isSender ? Colors.blue[100] : Colors.grey[300],
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(_messages[reversedIndex]),
+                    ),
+                  );
+                },
+              ),
+            ),
+
+            // Input pesan + tombol kirim
+            Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _messageController,
+                      decoration: InputDecoration(
+                        hintText: 'Ketik pesan...',
+                        filled: true,
+                        fillColor: Colors.grey[200],
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                      ),
+                      onSubmitted: (_) => _sendMessage(),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  FloatingActionButton(
+                    onPressed: _sendMessage,
+                    mini: true,
+                    backgroundColor: Colors.blue,
+                    child: const Icon(Icons.send, color: Colors.white),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
-
 }
