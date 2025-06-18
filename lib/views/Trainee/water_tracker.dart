@@ -1,29 +1,213 @@
 import 'package:flutter/material.dart';
 
 class WaterTrackerScreen extends StatefulWidget {
-  const WaterTrackerScreen({super.key});
+  // The onSave callback is still useful if you have other side effects,
+  // but for returning data, Navigator.pop is primary.
+  final Function(List<Map<String, dynamic>> waterEntries)? onSave;
+  final List<Map<String, dynamic>> initialWaterEntries;
+
+
+  const WaterTrackerScreen({
+    super.key,
+    this.onSave,
+    this.initialWaterEntries = const [], // Default to empty list
+  });
 
   @override
   State<WaterTrackerScreen> createState() => _WaterTrackerScreenState();
 }
 
 class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
-  final List<Map<String, dynamic>> _waterEntries = [
-    {'time': '06:00 AM', 'amount': 200, 'isChecked': false},
-    {'time': '07:00 AM', 'amount': 200, 'isChecked': false},
-    {'time': '08:00 AM', 'amount': 200, 'isChecked': false},
-    {'time': '09:00 AM', 'amount': 200, 'isChecked': false},
-  ];
+  // Initialize with initialWaterEntries
+  late List<Map<String, dynamic>> _waterEntries;
+
+  final TextEditingController _timeController = TextEditingController();
+  final TextEditingController _amountController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _waterEntries = List.from(widget.initialWaterEntries); // Copy the list
+  }
+
+  @override
+  void dispose() {
+    _timeController.dispose();
+    _amountController.dispose();
+    super.dispose();
+  }
+
+  void _showAddWaterDialog() {
+    _timeController.clear();
+    _amountController.clear();
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          backgroundColor: const Color(0xFF3742FA),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Center(
+                  child: Text(
+                    'Add Water',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'PoppinsSemiBold',
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Divider(color: Colors.white),
+                const SizedBox(height: 15),
+                const Text(
+                  'Time Drank',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Poppins',
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                TextField(
+                  controller: _timeController,
+                  decoration: InputDecoration(
+                    hintText: 'e.g., 08:00 AM',
+                    hintStyle: const TextStyle(color: Colors.grey),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                const Text(
+                  'Amount (ml)',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: 'Poppins',
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(height: 5),
+                TextField(
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: 'e.g., 250',
+                    hintStyle: const TextStyle(color: Colors.grey),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 25),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: const Color(0xFF3742FA),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        minimumSize: const Size(100, 40),
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(fontFamily: 'PoppinsSemiBold'),
+                      ),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: const Color(0xFF3742FA),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        minimumSize: const Size(100, 40),
+                      ),
+                      onPressed: () {
+                        final time = _timeController.text.trim();
+                        final amount =
+                            int.tryParse(_amountController.text.trim());
+
+                        if (time.isEmpty || amount == null || amount <= 0) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content:
+                                  Text("Please enter a valid time and amount."),
+                              backgroundColor: Colors.redAccent,
+                            ),
+                          );
+                          return;
+                        }
+
+                        setState(() {
+                          _waterEntries.add({
+                            'time': time,
+                            'amount': amount,
+                          });
+                        });
+                        Navigator.pop(context); // Close the dialog
+                      },
+                      child: const Text(
+                        'Add',
+                        style: TextStyle(fontFamily: 'PoppinsSemiBold'),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _saveAndReturn() {
+    // If a callback is provided, use it
+    widget.onSave?.call(_waterEntries);
+    // Always return the updated list of entries when popping
+    Navigator.pop(context, _waterEntries);
+  }
+
+  // Function to remove a water entry
+  void _removeWaterEntry(int index) {
+    setState(() {
+      _waterEntries.removeAt(index);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF6F8FF),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(context, _waterEntries), // Return entries on back press
         ),
         title: const Text(
           'Add Water',
@@ -36,14 +220,18 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
         ),
         centerTitle: true,
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text(
-              'Cancel',
-              style: TextStyle(
-                color: Color(0xFF3333FF),
-                fontSize: 16,
-                fontFamily: "Poppins",
+          IconButton(
+            icon: const Icon(Icons.add, color: Color(0xFF3742FA)),
+            onPressed: _showAddWaterDialog,
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context,_waterEntries),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(
+                  color: Color(0xFF3742FA),
+                  fontSize: 16,
+                  fontFamily: "PoppinsSemiBold",
               ),
             ),
           ),
@@ -66,21 +254,39 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
           ),
           Expanded(
             child: _waterEntries.isEmpty
-                ? const Center(child: Text("Tidak ada entri."))
+                ? const Center(
+                    child: Text(
+                      "No water records yet.",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontFamily: "Poppins",
+                      ),
+                    ),
+                  )
                 : ListView.builder(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     itemCount: _waterEntries.length,
                     itemBuilder: (context, index) {
                       final entry = _waterEntries[index];
-                      return _buildWaterEntryCard(
-                        time: entry['time'],
-                        amount: entry['amount'],
-                        isChecked: entry['isChecked'],
-                        onChanged: (value) {
-                          setState(() {
-                            _waterEntries[index]['isChecked'] = value!;
-                          });
+                      return Dismissible(
+                        key: Key(entry['time'] + entry['amount'].toString() + index.toString()), // Unique key for dismissible
+                        direction: DismissDirection.endToStart,
+                        background: Container(
+                          alignment: Alignment.centerRight,
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          color: Colors.red,
+                          child: const Icon(Icons.delete, color: Colors.white),
+                        ),
+                        onDismissed: (direction) {
+                          _removeWaterEntry(index);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Entry deleted")),
+                          );
                         },
+                        child: _buildWaterEntryCard(
+                          time: entry['time'],
+                          amount: entry['amount'],
+                        ),
                       );
                     },
                   ),
@@ -89,27 +295,21 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
             padding: const EdgeInsets.all(16),
             child: SizedBox(
               width: double.infinity,
-              height: 55,
-              child: ElevatedButton(
-                onPressed: () {
-                  final savedEntries = _waterEntries.where((e) => e['isChecked']).toList();
-                  print('Entri yang disimpan: $savedEntries');
-                  Navigator.pop(context);
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF3333FF),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  elevation: 0,
-                ),
-                child: const Text(
-                  'Save',
+              child: ElevatedButton.icon(
+                onPressed: _saveAndReturn,
+                label: const Text(
+                  "Save",
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
                     fontFamily: "PoppinsSemiBold",
+                    fontSize: 16,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF3742FA),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
                 ),
               ),
@@ -123,75 +323,74 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
   Widget _buildWaterEntryCard({
     required String time,
     required int amount,
-    required bool isChecked,
-    required ValueChanged<bool?> onChanged,
   }) {
-    return Card(
+    return Container(
       margin: const EdgeInsets.symmetric(vertical: 8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      elevation: 0,
-      color: Colors.white,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          border: Border.all(color: Colors.grey.shade300),
-        ),
-        child: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.blue.shade50,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Image.asset(
-                'assets/images/water_glass.png',
-                width: 40,
-                height: 40,
-                fit: BoxFit.contain,
-                errorBuilder: (context, error, stackTrace) =>
-                    const Icon(Icons.local_drink, color: Color(0xFF3333FF), size: 40),
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15),
+        border: Border.all(color: Colors.blueAccent),
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF1F4FF),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Image.asset(
+              'assets/images/water_glass.png', // Ensure this asset exists
+              width: 40,
+              height: 40,
+              fit: BoxFit.contain,
+              errorBuilder: (context, error, stackTrace) => const Icon(
+                Icons.local_drink,
+                color: Color(0xFF3742FA),
+                size: 40,
               ),
             ),
-            const SizedBox(width: 15),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    time,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: "PoppinsSemiBold",
-                      color: Colors.black,
+          ),
+          const SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                time,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontFamily: "Poppins",
+                  color: Colors.black,
+                ),
+              ),
+              const SizedBox(height: 4),
+              RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: '$amount',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "PoppinsSemiBold",
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 5),
-                  Text(
-                    '$amount ml',
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontFamily: "Poppins",
-                      color: Colors.grey,
+                    const TextSpan(
+                      text: ' ml',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: "Poppins",
+                        color: Colors.black,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Checkbox(
-              value: isChecked,
-              onChanged: onChanged,
-              activeColor: const Color(0xFF3333FF),
-              checkColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
-              side: BorderSide(color: Colors.grey.shade400, width: 1.5),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }

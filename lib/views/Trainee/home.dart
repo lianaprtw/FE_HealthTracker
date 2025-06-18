@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:health_tracker/views/Trainee/daily_activity_screen.dart'; // Asumsi file ini ada
+import 'package:health_tracker/views/Trainee/daily_activity_screen.dart';
 import 'package:health_tracker/views/Trainee/history.dart';
 import 'package:health_tracker/views/Trainee/notification.dart';
-import 'package:health_tracker/views/Trainee/profile.dart'; // Asumsi file ini ada
-import 'package:health_tracker/views/Trainee/water_tracker.dart'; // <--- IMPORT HALAMAN BARU INI
+import 'package:health_tracker/views/Trainee/profile.dart';
+import 'package:health_tracker/views/Trainee/water_tracker.dart'; // Make sure this is the correct path
 import 'package:health_tracker/views/Trainer/addTrainer.dart';
 
 // Placeholder untuk halaman chat
@@ -68,13 +68,11 @@ class _HomePageState extends State<HomePage> {
                   size: 30,
                 ),
                 onPressed: () {
-                  // Navigasi ke halaman notifikasi
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder:
-                          (context) =>
-                              const NotificationPage(), // Ganti dengan halaman notifikasi yang sesuai
+                      builder: (context) =>
+                          const NotificationPage(), // Ganti dengan halaman notifikasi yang sesuai
                     ),
                   );
                 },
@@ -152,8 +150,28 @@ class HomeContent extends StatefulWidget {
 
 class _HomeContentState extends State<HomeContent> {
   // Pindahkan state water tracker ke HomeContent agar bisa diperbarui di halaman ini
-  final double _waterDrank = 200; // Air yang sudah diminum
-  final double _waterTarget = 2000; // Target air harian
+  List<Map<String, dynamic>> _waterEntries = []; // Use a list to store entries
+  final double _waterTarget = 2000; // Daily water target
+
+  @override
+  void initState() {
+    super.initState();
+    _loadInitialWaterData(); // Load any previously saved water data if applicable
+  }
+
+  // A method to simulate loading initial water data (e.g., from local storage)
+  void _loadInitialWaterData() {
+    // In a real app, you would load this from SharedPreferences or a database.
+    // For now, let's start with an empty list.
+    setState(() {
+      _waterEntries = [];
+    });
+  }
+
+  // Function to calculate total water drank from _waterEntries
+  int _getTotalWaterDrank() {
+    return _waterEntries.fold<int>(0, (sum, entry) => sum + (entry['amount'] as int));
+  }
 
   // --- Helper Methods untuk membangun kartu individu ---
 
@@ -334,15 +352,14 @@ class _HomeContentState extends State<HomeContent> {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
-                // Navigasi ke halaman DailyActivityScreen untuk menambahkan aktivitas baru
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => const AddDailyActivityScreen(),
                   ),
                 ).then((_) {
-                  // Opsional: Jika Anda ingin memperbarui tampilan setelah kembali dari halaman DailyActivityScreen
-                  // Anda bisa menggunakan setState() untuk memperbarui data yang ditampilkan.
+                  // Optional: If you want to update the display after returning from DailyActivityScreen
+                  // You can use setState() to update the displayed data.
                 });
               },
               style: ElevatedButton.styleFrom(
@@ -396,6 +413,9 @@ class _HomeContentState extends State<HomeContent> {
   }
 
   Widget _buildWaterTrackerCard() {
+    // Calculate total water drank dynamically
+    final int totalWaterDrank = _getTotalWaterDrank();
+
     return Container(
       padding: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
@@ -425,8 +445,8 @@ class _HomeContentState extends State<HomeContent> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  // Gunakan state _waterDrank dari HomeContent
-                  '${_waterDrank.round()}/${_waterTarget.round()} ml',
+                  // Use totalWaterDrank from the calculated value
+                  '${totalWaterDrank}ml / ${_waterTarget.round()} ml',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
@@ -448,23 +468,23 @@ class _HomeContentState extends State<HomeContent> {
           const SizedBox(width: 10),
           // Drink Button
           ElevatedButton(
-            onPressed: () {
-              // Navigasi ke halaman WaterTrackerScreen yang baru
-              Navigator.push(
+            onPressed: () async {
+              // Navigate to WaterTrackerScreen and await the result
+              final updatedEntries = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const WaterTrackerScreen(),
+                  builder: (context) => WaterTrackerScreen(
+                    initialWaterEntries: _waterEntries, // Pass current entries
+                  ),
                 ),
-              ).then((_) {
-                // Opsional: Jika Anda ingin memperbarui _waterDrank setelah kembali dari halaman WaterTrackerScreen
-                // Anda perlu meneruskan data kembali dari WaterTrackerScreen atau menggunakan state management.
-                // Untuk kesederhanaan, saya akan asumsikan _waterDrank di halaman ini akan diperbarui
-                // ketika pengguna kembali dan halaman ini dibangun ulang, atau Anda bisa secara eksplisit
-                // mengambil data terbaru jika disimpan secara persisten.
-                // setState(() {
-                //   // Logika untuk mengambil data _waterDrank terbaru
-                // });
-              });
+              );
+
+              // If updatedEntries is not null, update the state
+              if (updatedEntries != null && updatedEntries is List<Map<String, dynamic>>) {
+                setState(() {
+                  _waterEntries = updatedEntries;
+                });
+              }
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
@@ -489,7 +509,7 @@ class _HomeContentState extends State<HomeContent> {
     );
   }
 
-  @override // <--- PASTIKAN ANNOTATION @override ADA DI SINI
+  @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0), // Padding di sekitar konten utama
@@ -497,29 +517,12 @@ class _HomeContentState extends State<HomeContent> {
         crossAxisAlignment:
             CrossAxisAlignment.start, // Sejajarkan children ke awal (kiri)
         children: [
-          // Removed "Holla, Enno!" greeting
-          // const Text(
-          //   'Holla, Enno!',
-          //   style: TextStyle(
-          //     fontFamily: "PoppinsSemiBold",
-          //     fontSize: 25,
-          //     fontWeight: FontWeight.w600,
-          //     color: Color.fromARGB(219, 21, 42, 120),
-          //   ),
-          // ),
-          // If you want a top space where the greeting used to be, you can uncomment this:
-          // const SizedBox(height: 20), // Spacer
-
-          // User Profile Card (dibuat ulang dari desain detail sebelumnya)
           _buildUserProfileCard(),
           const SizedBox(height: 20), // Spacer
-          // Your Trainer Card (dibuat ulang dari desain detail sebelumnya)
           _buildYourTrainerCard(context),
           const SizedBox(height: 20), // Spacer
-          // Daily Activity Card (dibuat ulang dari desain detail sebelumnya)
           _buildDailyActivityCard(context),
           const SizedBox(height: 20), // Spacer
-          // Water Tracker Card (dibuat ulang dari desain detail sebelumnya, diintegrasikan dengan state)
           _buildWaterTrackerCard(),
         ],
       ),
