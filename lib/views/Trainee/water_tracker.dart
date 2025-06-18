@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class WaterTrackerScreen extends StatefulWidget {
   // The onSave callback is still useful if you have other side effects,
@@ -37,9 +38,44 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
     super.dispose();
   }
 
+  // fungsi untuk menampilkan time picker
+  Future<void> _selectTime(BuildContext context) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+      // builder: (BuildContext context, Widget? child) {
+      //   return MediaQuery(
+      //     data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+      //     child: child ?? const SizedBox.shrink(),
+      //   );
+      // },
+    );
+
+    if (picked != null) {
+      // Format waktu menjadi HH:MM AM/PM
+      final now = DateTime.now();
+      final DateTime selectedTime = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        picked.hour,
+        picked.minute,
+      );
+      //update text dengan waktu yang diformat
+      _timeController.text = DateFormat('hh:mm a').format(selectedTime);
+    }
+  }
+
   void _showAddWaterDialog() {
     _timeController.clear();
     _amountController.clear();
+
+    // untuk mendapatkan waktu saat ini
+    final now = DateTime.now();
+    // Format waktu menjadi HH:MM AM/PM
+    final formattedTime = DateFormat('hh:mm s').format(now);
+    // set teks controller dengan waktu yang diformat
+    _timeController.text = formattedTime;
 
     showDialog(
       context: context,
@@ -73,13 +109,16 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
                   'Time Drank',
                   style: TextStyle(
                     color: Colors.white,
-                    fontFamily: 'Poppins',
+                    fontFamily: 'PoppinsSemiBold',
                     fontSize: 14,
                   ),
                 ),
                 const SizedBox(height: 5),
                 TextField(
                   controller: _timeController,
+                  // membuat text field hanya menerima input waktu
+                  readOnly: true,
+                  onTap: () => _selectTime(context),
                   decoration: InputDecoration(
                     hintText: 'e.g., 08:00 AM',
                     hintStyle: const TextStyle(color: Colors.grey),
@@ -218,23 +257,23 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
             fontFamily: "PoppinsSemiBold",
           ),
         ),
-        centerTitle: true,
+        centerTitle: false,
         actions: [
           IconButton(
             icon: const Icon(Icons.add, color: Color(0xFF3742FA)),
             onPressed: _showAddWaterDialog,
             ),
-            TextButton(
-              onPressed: () => Navigator.pop(context,_waterEntries),
-              child: const Text(
-                'Cancel',
-                style: TextStyle(
-                  color: Color(0xFF3742FA),
-                  fontSize: 16,
-                  fontFamily: "PoppinsSemiBold",
-              ),
-            ),
-          ),
+          //   TextButton(
+          //     onPressed: () => Navigator.pop(context,_waterEntries),
+          //     child: const Text(
+          //       'Cancel',
+          //       style: TextStyle(
+          //         color: Color(0xFF3742FA),
+          //         fontSize: 16,
+          //         fontFamily: "PoppinsSemiBold",
+          //     ),
+          //   ),
+          // ),
         ],
       ),
       body: Column(
@@ -259,7 +298,7 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
                       "No water records yet.",
                       style: TextStyle(
                         fontSize: 16,
-                        fontFamily: "Poppins",
+                        fontFamily: "PoppinsMedium",
                       ),
                     ),
                   )
@@ -301,7 +340,7 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
                   "Save",
                   style: TextStyle(
                     fontFamily: "PoppinsSemiBold",
-                    fontSize: 16,
+                    fontSize: 18,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
@@ -360,7 +399,7 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
                 time,
                 style: const TextStyle(
                   fontSize: 14,
-                  fontFamily: "Poppins",
+                  fontFamily: "PoppinsMedium",
                   color: Colors.black,
                 ),
               ),
@@ -381,7 +420,7 @@ class _WaterTrackerScreenState extends State<WaterTrackerScreen> {
                       text: ' ml',
                       style: TextStyle(
                         fontSize: 14,
-                        fontFamily: "Poppins",
+                        fontFamily: "PoppinsMedium",
                         color: Colors.black,
                       ),
                     ),
