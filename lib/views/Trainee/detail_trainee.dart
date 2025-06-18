@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TraineeDetailPage extends StatelessWidget {
-  final Map<String, String> trainee;
-
-  const TraineeDetailPage({super.key, required this.trainee});
+  const TraineeDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +17,14 @@ class TraineeDetailPage extends StatelessWidget {
           'Detail Trainee',
           style: TextStyle(color: Colors.black),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.send, color: primaryColor),
+            onPressed: () {
+              // Tambahkan logika kirim data jika diperlukan
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -32,34 +38,46 @@ class TraineeDetailPage extends StatelessWidget {
                   shape: BoxShape.circle,
                   border: Border.all(color: primaryColor, width: 4),
                 ),
-                child: CircleAvatar(
-                  backgroundImage: AssetImage(
-                    trainee['image'] ?? 'images/default_avatar.jpg',
-                  ), // Default image if not found
+                child: const CircleAvatar(
+                  backgroundImage: AssetImage('images/avatar.jpg'),
                   backgroundColor: Colors.white,
                 ),
               ),
             ),
             const SizedBox(height: 24),
             const FieldLabel(label: 'Name'),
-            FieldInput(value: trainee['name'] ?? 'Unknown'),
+            const FieldInput(value: 'Jaya Sanjaya'),
             const FieldLabel(label: 'Gender'),
-            FieldInput(value: trainee['gender'] ?? 'Unknown'),
+            const FieldInput(value: 'Male'),
             const FieldLabel(label: 'Age'),
-            FieldInput(value: '${trainee['age'] ?? 'N/A'} Years Old'),
+            const FieldInput(value: '21 Years Old'),
             const FieldLabel(label: 'Height'),
-            FieldInput(value: trainee['height'] ?? 'N/A'),
+            const FieldInput(value: '179 cm'),
             const FieldLabel(label: 'Weight'),
-            FieldInput(value: trainee['weight'] ?? 'N/A'),
+            const FieldInput(value: '75 kg'),
             const FieldLabel(label: 'Exercise choices'),
-            FieldInput(value: trainee['exercise'] ?? 'Aerobic'),
+            const FieldInput(value: 'Aerobic'),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 1,
+        selectedItemColor: primaryColor,
+        unselectedItemColor: Colors.grey,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.chat_bubble_outline),
+            label: '',
+          ),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
+        ],
       ),
     );
   }
 }
 
+// Widget untuk label
 class FieldLabel extends StatelessWidget {
   final String label;
   const FieldLabel({required this.label, super.key});
@@ -73,6 +91,7 @@ class FieldLabel extends StatelessWidget {
   }
 }
 
+// Widget untuk input readonly
 class FieldInput extends StatelessWidget {
   final String value;
   const FieldInput({required this.value, super.key});
@@ -83,15 +102,18 @@ class FieldInput extends StatelessWidget {
 
     return TextFormField(
       initialValue: value,
-      enabled: false, // Supaya tidak bisa diedit
-      style: const TextStyle(fontSize: 16, color: Colors.black),
+      readOnly: true,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(
           vertical: 10,
           horizontal: 12,
         ),
-        disabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: primaryColor),
+        border: OutlineInputBorder(
+          borderSide: const BorderSide(color: primaryColor),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: primaryColor),
           borderRadius: BorderRadius.circular(8),
         ),
       ),

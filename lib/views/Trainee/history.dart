@@ -1,21 +1,89 @@
 import 'package:flutter/material.dart';
 
-class HistoryScreen extends StatelessWidget {
+class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
+
+  @override
+  State<HistoryScreen> createState() => _HistoryScreenState();
+}
+
+class _HistoryScreenState extends State<HistoryScreen> {
+  bool isDeleting = false;
+
+  List<Map<String, dynamic>> activities = [
+    {
+      'icon': Icons.fitness_center,
+      'title': 'Jump Rope',
+      'time': '15.00',
+      'value': '00:30:00',
+      'kcal': 283.1,
+      'isDistance': false,
+      'selected': false,
+    },
+    {
+      'icon': Icons.directions_run,
+      'title': 'Running',
+      'time': '16.30',
+      'value': '9.00 km',
+      'kcal': 233.1,
+      'isDistance': true,
+      'selected': false,
+    },
+  ];
+
+  void toggleDeleteMode() {
+    setState(() {
+      isDeleting = !isDeleting;
+      if (!isDeleting) {
+        for (var a in activities) {
+          a['selected'] = false;
+        }
+      }
+    });
+  }
+
+  void deleteSelected() {
+    setState(() {
+      activities.removeWhere((a) => a['selected']);
+      isDeleting = false;
+    });
+  }
+
+  double get totalCalories =>
+      activities.fold(0.0, (sum, a) => sum + (a['kcal'] as double));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        leading: const Icon(Icons.arrow_back, color: Colors.black),
-        centerTitle: true,
-        title: const Text('History', style: TextStyle(color: Colors.black)),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () => Navigator.pop(context),
+        ),
+        centerTitle: false,
+        title: const Text(
+          'History', 
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            fontFamily: "PoppinsSemiBold",)),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        actions: const [
-          Icon(Icons.delete, color: Colors.black),
-          SizedBox(width: 12),
+        actions: [
+          IconButton(
+            icon: Icon(isDeleting ? Icons.check : Icons.delete,
+                color: Colors.black),
+            onPressed: () {
+              if (isDeleting) {
+                deleteSelected();
+              } else {
+                toggleDeleteMode();
+              }
+            },
+          ),
+          const SizedBox(width: 12),
         ],
       ),
       body: Padding(
@@ -24,14 +92,19 @@ class HistoryScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 8),
-            const Text(
-              '9.00',
-              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            Text(
+              totalCalories.toStringAsFixed(1),
+              style: const TextStyle(
+                  fontSize: 32, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             const Text(
-              'Distance Total (Km)',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
+              'Total Calorie',
+              style: TextStyle(
+                fontSize: 13, 
+                fontWeight: FontWeight.w500,
+                fontFamily: "PoppinsMedium",
+                color: Colors.grey),
             ),
             const SizedBox(height: 24),
             Align(
@@ -39,7 +112,8 @@ class HistoryScreen extends StatelessWidget {
               child: Text(
                 '10 June (Today)',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 12,
+                  fontFamily: "PoppinsSemiBold",
                   fontWeight: FontWeight.w500,
                   color: Colors.grey[800],
                 ),
@@ -49,28 +123,31 @@ class HistoryScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                border: Border.all(color: const Color(0xFF3742FA), width: 1),
+                border:
+                    Border.all(color: const Color(0xFF3742FA), width: 1),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Column(
                 children: [
-                  _buildActivityRow(
-                    icon: Icons.fitness_center,
-                    title: 'Jump Rope',
-                    time: '15.00',
-                    value: '00:30:00',
-                    kcal: '283.1 Kcal',
-                    isDistance: false,
-                  ),
-                  const SizedBox(height: 16),
-                  _buildActivityRow(
-                    icon: Icons.directions_run,
-                    title: 'Running',
-                    time: '16.30',
-                    value: '9.00 km',
-                    kcal: '233.1 Kcal',
-                    isDistance: true,
-                  ),
+                  for (int i = 0; i < activities.length; i++) ...[
+                    _buildActivityRow(
+                      icon: activities[i]['icon'],
+                      title: activities[i]['title'],
+                      time: activities[i]['time'],
+                      value: activities[i]['value'],
+                      kcal: '${activities[i]['kcal']} Kcal',
+                      isDistance: activities[i]['isDistance'],
+                      showCheckbox: isDeleting,
+                      checked: activities[i]['selected'],
+                      onChanged: (val) {
+                        setState(() {
+                          activities[i]['selected'] = val!;
+                        });
+                      },
+                    ),
+                    if (i != activities.length - 1)
+                      const SizedBox(height: 16),
+                  ],
                 ],
               ),
             ),
@@ -87,18 +164,24 @@ class HistoryScreen extends StatelessWidget {
     required String value,
     required String kcal,
     required bool isDistance,
+    required bool showCheckbox,
+    required bool checked,
+    required ValueChanged<bool?> onChanged,
   }) {
     return Row(
       children: [
-        Container(
-          padding: const EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            color: Colors.blue.shade50,
-            borderRadius: BorderRadius.circular(12),
+        if (showCheckbox)
+          Checkbox(value: checked, onChanged: onChanged),
+        if (!showCheckbox)
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.blue.shade50,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: Colors.blue, size: 28),
           ),
-          child: Icon(icon, color: Colors.blue, size: 28),
-        ),
-        const SizedBox(width: 12),
+        if (showCheckbox) const SizedBox(width: 4) else const SizedBox(width: 12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,15 +189,22 @@ class HistoryScreen extends StatelessWidget {
               Text(
                 title,
                 style: const TextStyle(
-                  fontSize: 16,
+                  fontSize: 14,
+                  fontFamily: 'PoppinsMedium',
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 4),
-              Text(value, style: const TextStyle(fontSize: 14)),
+              Text(value, 
+              style: const TextStyle(
+                fontSize: 14,
+                fontFamily: 'PoppinsMedium',)),
               Text(
                 kcal,
-                style: const TextStyle(fontSize: 12, color: Colors.grey),
+                style: const TextStyle(
+                  fontSize: 12, 
+                  fontFamily: 'PoppinsMedium',
+                  color: Colors.grey),
               ),
             ],
           ),

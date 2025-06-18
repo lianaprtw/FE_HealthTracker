@@ -71,29 +71,29 @@ class AboutPageTrainer extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: const Color(0xFFF6F6F6),
-        selectedItemColor: const Color(0xFF3750F0),
-        unselectedItemColor: Colors.grey,
-        currentIndex: 0, // Ganti sesuai kebutuhan
-        onTap: (index) {
-          // Navigasi antar halaman
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble, color: Color(0xFF3750F0)),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: '',
-          ),
-        ],
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   backgroundColor: const Color(0xFFF6F6F6),
+      //   selectedItemColor: const Color(0xFF3750F0),
+      //   unselectedItemColor: Colors.grey,
+      //   currentIndex: 0, // Ganti sesuai kebutuhan
+      //   onTap: (index) {
+      //     // Navigasi antar halaman
+      //   },
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.home),
+      //       label: '',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.chat_bubble, color: Color(0xFF3750F0)),
+      //       label: '',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.person),
+      //       label: '',
+      //     ),
+      //   ],
+      // ),
     );
   }
 }
