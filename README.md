@@ -12,3 +12,5 @@
 3. Lika : onboarding trainerrr, login trainerrr
 4. Nathan : which screen, home page traineerrre
 
+# ini untuk frontend saja
+klik link ini untuk melihat backendnya: https://github.com/Lerebulanenno/backend_health_tracker--1-
