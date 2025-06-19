@@ -49,17 +49,17 @@ class _NotificationPageState extends State<NotificationPage> {
           ),
         ),
         centerTitle: false,
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: IconButton(
-              icon: const Icon(Icons.notifications, color: Colors.black, size: 30),
-              onPressed: () {
-                // Sudah di halaman notifikasi
-              },
-            ),
-          ),
-        ],
+        // actions: [
+        //   Padding(
+        //     padding: const EdgeInsets.only(right: 20),
+        //     child: IconButton(
+        //       icon: const Icon(Icons.notifications, color: Colors.black, size: 30),
+        //       onPressed: () {
+        //         // Sudah di halaman notifikasi
+        //       },
+        //     ),
+        //   ),
+        // ],
       ),
       body: Column(
         children: [
