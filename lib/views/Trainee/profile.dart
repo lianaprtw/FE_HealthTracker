@@ -145,63 +145,63 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   // Dialog untuk Delete Account (menggantikan alert())
-  void _showDeleteAccountDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-          title: const Text(
-            'Delete Account',
-            style: TextStyle(
-              fontFamily: "PoppinsSemiBold",
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          content: const Text(
-            'Are you sure you want to delete your account? This action cannot be undone.',
-            style: TextStyle(fontFamily: "Poppins"),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(), // Tutup dialog
-              child: const Text(
-                'Cancel',
-                style: TextStyle(color: Colors.grey, fontFamily: "Poppins"),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Tutup dialog
-                // Tambahkan logika delete account Anda di sini
-                print('User Account Deleted!');
-                // Biasanya navigasi ke halaman login atau halaman onboarding:
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginView(),
-                  ), // Ganti dengan halaman login Anda
-                  (Route<dynamic> route) => false,
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFFF3333), // Warna merah
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: const Text(
-                'Delete',
-                style: TextStyle(color: Colors.white, fontFamily: "Poppins"),
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
+  // void _showDeleteAccountDialog(BuildContext context) {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       return AlertDialog(
+  //         shape: RoundedRectangleBorder(
+  //           borderRadius: BorderRadius.circular(15),
+  //         ),
+  //         title: const Text(
+  //           'Delete Account',
+  //           style: TextStyle(
+  //             fontFamily: "PoppinsSemiBold",
+  //             fontWeight: FontWeight.bold,
+  //           ),
+  //         ),
+  //         content: const Text(
+  //           'Are you sure you want to delete your account? This action cannot be undone.',
+  //           style: TextStyle(fontFamily: "Poppins"),
+  //         ),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () => Navigator.of(context).pop(), // Tutup dialog
+  //             child: const Text(
+  //               'Cancel',
+  //               style: TextStyle(color: Colors.grey, fontFamily: "Poppins"),
+  //             ),
+  //           ),
+  //           ElevatedButton(
+  //             onPressed: () {
+  //               Navigator.of(context).pop(); // Tutup dialog
+  //               // Tambahkan logika delete account Anda di sini
+  //               print('User Account Deleted!');
+  //               // Biasanya navigasi ke halaman login atau halaman onboarding:
+  //               Navigator.pushAndRemoveUntil(
+  //                 context,
+  //                 MaterialPageRoute(
+  //                   builder: (context) => const LoginView(),
+  //                 ), // Ganti dengan halaman login Anda
+  //                 (Route<dynamic> route) => false,
+  //               );
+  //             },
+  //             style: ElevatedButton.styleFrom(
+  //               backgroundColor: const Color(0xFFFF3333), // Warna merah
+  //               shape: RoundedRectangleBorder(
+  //                 borderRadius: BorderRadius.circular(10),
+  //               ),
+  //             ),
+  //             child: const Text(
+  //               'Delete',
+  //               style: TextStyle(color: Colors.white, fontFamily: "Poppins"),
+  //             ),
+  //           ),
+  //         ],
+  //       );
+  //     },
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -315,41 +315,41 @@ class _ProfilePageState extends State<ProfilePage> {
 
               const SizedBox(
                   height: 32), // Spacer sebelum tombol Delete Account
-              SizedBox(
-                width: double.infinity,
-                height: 55,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    _showDeleteAccountDialog(context);
-                  },
-                  icon: const Icon(
-                    Icons.delete_outline,
-                    color: redColor,
-                    size: 24,
-                  ),
-                  label: const Text(
-                    'Delete account',
-                    style: TextStyle(
-                      color: redColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: "PoppinsSemiBold",
-                    ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      side: const BorderSide(
-                        color: redColor,
-                        width: 1.5,
-                      ),
-                    ),
-                    elevation: 0,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                  ),
-                ),
-              ),
+              // SizedBox(
+              //   width: double.infinity,
+              //   height: 55,
+              //   child: ElevatedButton.icon(
+              //     onPressed: () {
+              //       _showDeleteAccountDialog(context);
+              //     },
+              //     icon: const Icon(
+              //       Icons.delete_outline,
+              //       color: redColor,
+              //       size: 24,
+              //     ),
+              //     label: const Text(
+              //       'Delete account',
+              //       style: TextStyle(
+              //         color: redColor,
+              //         fontSize: 16,
+              //         fontWeight: FontWeight.w500,
+              //         fontFamily: "PoppinsSemiBold",
+              //       ),
+              //     ),
+              //     style: ElevatedButton.styleFrom(
+              //       backgroundColor: Colors.white,
+              //       shape: RoundedRectangleBorder(
+              //         borderRadius: BorderRadius.circular(15),
+              //         side: const BorderSide(
+              //           color: redColor,
+              //           width: 1.5,
+              //         ),
+              //       ),
+              //       elevation: 0,
+              //       padding: const EdgeInsets.symmetric(vertical: 12),
+              //     ),
+              //   ),
+              // ),
               const SizedBox(height: 16), // Spacer antara tombol
               SizedBox(
                 width: double.infinity,
